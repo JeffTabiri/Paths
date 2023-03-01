@@ -1,5 +1,8 @@
 package edu.ntnu.idatt2001.paths;
 
+import edu.ntnu.idatt2001.paths.actions.Action;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
