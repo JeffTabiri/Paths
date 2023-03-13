@@ -79,27 +79,19 @@ public class Story {
     }
 
     public void removePassage(Link link) {
-        for (Passage passage : passages.values()) {
-            for (Link passageLink : passage.getLinks()) {
-                if (passageLink.equals(link)) {
-                    throw new IllegalArgumentException("Cannot remove passage with links to it.");
-                }
-            }
+        if (passages.values().stream().anyMatch(passage -> passage.getLinks().contains(link))) {
+            throw new IllegalArgumentException("Cannot remove passage with links to it.");
         }
         passages.remove(link);
-
     }
 
     public List<Link> getBrokenLinks() {
         List<Link> brokenLinks = new ArrayList<>();
 
-        for (Passage passage : passages.values()) {
-            for (Link link : passage.getLinks()) {
-                if (!passages.containsKey(link)) {
-                    brokenLinks.add(link);
-                }
-            }
-        }
+        passages.values().stream().flatMap(passage -> passage.getLinks().stream())
+                .filter(link -> !passages.containsKey(link))
+                .forEach(brokenLinks::add);
+
         return brokenLinks;
     }
 
