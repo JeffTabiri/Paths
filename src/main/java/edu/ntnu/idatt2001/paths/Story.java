@@ -78,6 +78,12 @@ public class Story {
         passages.put(new Link(passage.getTitle(), passage.getTitle()), passage);
     }
 
+    /**
+     * A method for removing a passage from the collection of passages
+     * The passage cannot be removed if it has links to it
+     *
+     * @param link identifies the passage in the collection of passages
+     */
     public void removePassage(Link link) {
         if (passages.values().stream().anyMatch(passage -> passage.getLinks().contains(link))) {
             throw new IllegalArgumentException("Cannot remove passage with links to it.");
@@ -85,6 +91,12 @@ public class Story {
         passages.remove(link);
     }
 
+    /**
+     * A method for getting a list of broken links
+     * A broken link is a link that does not exist in the collection of passages
+     *
+     * @return a list of broken links
+     */
     public List<Link> getBrokenLinks() {
         List<Link> brokenLinks = new ArrayList<>();
 
@@ -94,7 +106,6 @@ public class Story {
 
         return brokenLinks;
     }
-
 }
 
 
