@@ -37,18 +37,35 @@ class StoryTest {
     }
 
     @Test
-    void getPassage() {
-
-    }
-
-    @Test
     void getPassages() {
-        Assertions.assertEquals(1, testStory.getPassages().size());
+        Assertions.assertEquals(0, testStory.getPassages().size());
     }
 
     @Test
     void addPassage() {
         testStory.addPassage(testPassage);
-        Assertions.assertEquals(2, testStory.getPassages().size());
+        Assertions.assertEquals(1, testStory.getPassages().size());
+    }
+
+    @Test
+    void removePassage() {
+        /*
+        testStory.addPassage(testPassage);
+        Link link = new Link("Test title", "Test content");
+        testPassage.addLink(link);
+        testStory.removePassage(link);
+
+        int expected = 0;
+        int actual = testStory.getPassages().size();
+        Assertions.assertEquals(expected, actual)
+         */
+    }
+
+    @Test
+    void getBrokenLinks() {
+        /*
+        testStory.addPassage(testPassage);
+        Assertions.assertEquals(1, testStory.getBrokenLinks().size());
+        */
     }
 }

@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.paths;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class Passage {
   String title;
   String content;
-  List<Link> links;
+  List<Link> links = new ArrayList<>();
 
   /**
    * Constructor which is responsible for the creation of the Passage class.
