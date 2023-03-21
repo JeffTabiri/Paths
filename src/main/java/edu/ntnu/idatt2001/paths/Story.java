@@ -14,7 +14,7 @@ import java.util.*;
 public class Story {
 
     private final String title;
-    private Map<Link, Passage> passages;
+    private Map<Link, Passage> passages = new HashMap<>();
     private Passage openingPassage;
 
     /**
