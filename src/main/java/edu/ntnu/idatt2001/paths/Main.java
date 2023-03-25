@@ -7,11 +7,11 @@ public class Main {
 
         File file = new File("src/main/resources/filehandletest.paths");
 
-        Filehandler filehandler = new Filehandler();
+        FileReader fileReader = new FileReader();
 
-        filehandler.createStory(file);
+        fileReader.createStory(file);
 
-        System.out.println(filehandler.getStory().getTitle());
+        System.out.println(fileReader.getStory().getTitle());
 
     }
 

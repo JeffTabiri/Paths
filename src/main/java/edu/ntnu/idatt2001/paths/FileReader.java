@@ -3,11 +3,10 @@ package edu.ntnu.idatt2001.paths;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Filehandler {
+public class FileReader {
 
     Story story;
 
@@ -45,7 +44,7 @@ public class Filehandler {
 
 
 
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new java.io.FileReader(file))) {
 
             storyTitle = bufferedReader.readLine();
 
