@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.paths;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,7 +18,7 @@ public class Player {
   private int health;
   private int score;
   private int gold;
-  private List<String> inventory;
+  private List<String> inventory = new ArrayList<>();
 
   /**
    * Constructor which is responsible for the creation of the player class.
@@ -41,6 +42,9 @@ public class Player {
 
     if (gold < 0) {
       throw new IllegalArgumentException("Gold cannot be negative");
+    }
+    if (name.isEmpty()) {
+      throw new IllegalArgumentException("The name cannot be empty");
     }
 
     this.name = name;
