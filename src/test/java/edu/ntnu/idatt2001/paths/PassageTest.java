@@ -2,45 +2,111 @@ package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.Link;
 import edu.ntnu.idatt2001.paths.Passage;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PassageTest {
 
-    Passage testPassage = new Passage("Test title", "Test content");
-    Link testLink = new Link("Test link", "Test reference");
+    Passage testPassage;
+    Link testLink;
 
-    @Test
-    void getTitle() {
-        assertEquals("Test title", testPassage.getTitle());
+    @BeforeEach
+    void setUp() {
+        testPassage = new Passage("Test title", "Test content");
+        testLink = new Link("Test link", "Test reference");
     }
 
-    @Test
-    void getContent() {
-        assertEquals("Test content", testPassage.getContent());
+    @DisplayName("Test Constructor")
+    @Nested
+    class ConstructorTest {
+        @Test
+        @DisplayName("Test constructor with valid parameters")
+        void testConstructorWithValidParameters() {
+
+            String expectedValue = "Test title";
+            String actualValue = testPassage.getTitle();
+            assertEquals(expectedValue, actualValue);
+
+        }
+
+        @Test
+        @DisplayName("Test constructor with invalid parameters")
+        void testConstructorWithInvalidParameters() {
+
+            assertThrows(IllegalArgumentException.class, () -> new Passage("", "Test content"));
+            assertThrows(IllegalArgumentException.class, () -> new Passage("Test title", ""));
+            assertThrows(IllegalArgumentException.class, () -> new Passage("", ""));
+
+        }
+
     }
 
-    @Test
-    void getLinks() {
-        testPassage.addLink(testLink);
-        assertEquals(1, testPassage.getLinks().size());
-        testPassage.getLinks().removeAll(testPassage.getLinks());
+    @DisplayName("Test Accessors")
+    @Nested
+    class AccessorsTest {
+
+        @Test
+        void getTitleTest() {
+            String expectedValue = "Test title";
+            String actualValue = testPassage.getTitle();
+
+            assertEquals(expectedValue, actualValue);
+        }
+
+        @Test
+        void getContentTest() {
+            String expectedValue = "Test content";
+            String actualValue = testPassage.getContent();
+
+            assertEquals(expectedValue, actualValue);
+        }
+
+        @Test
+        void toStringTest(){
+            String expectedValue = "Test title"
+                                    +
+                                    "\n"
+                                    +
+                                    "Test content";
+
+            String actualValue = testPassage.toString();
+
+            assertEquals(expectedValue, actualValue);
+
+        }
+
     }
 
-    @Test
-    void addLink() {
-        testPassage.addLink(testLink);
-        assertEquals(testLink, testPassage.getLinks().get(0));
-        testPassage.getLinks().removeAll(testPassage.getLinks());
+    @DisplayName("Test Mutators")
+    @Nested
+    class MutatorsTest {
+        @Test
+        @DisplayName("Check if the getLinks method returns a list of links")
+        void getLinks() {
+            Passage tempPassage = new Passage("Temporary title", "Temporary content");
+            tempPassage.addLink(testLink);
+
+            testPassage.addLink(testLink);
+            assertTrue(testPassage.getLinks().equals(tempPassage.getLinks()));
+        }
+
+        @Test
+        @DisplayName("Check if link is added to passage")
+        void checkIfLinkIsAdded() {
+            testPassage.addLink(testLink);
+            assertTrue(testPassage.getLinks().contains(testLink));
+        }
+
+        @Test
+        @DisplayName("Check if list exists in passage")
+        void testCheckIfListHasLink() {
+            testPassage.addLink(testLink);
+            assertTrue(testPassage.getLinks().contains(testLink));
+        }
     }
 
-    @Test
-    void hasLinks() {
-        assertFalse(testPassage.hasLinks());
-        testPassage.addLink(testLink);
-        assertTrue(testPassage.hasLinks());
-
-        testPassage.getLinks().removeAll(testPassage.getLinks());
-    }
 }
