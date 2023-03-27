@@ -2,6 +2,7 @@ package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.actions.Action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class Link {
   private final String text;
   private final String reference;
-  private List<Action> actions;
+  private List<Action> actions = new ArrayList<>();
 
   /**
    * Constructor which is responsible for the creation of the link class.
@@ -105,13 +106,11 @@ public class Link {
    */
   @Override
   public String toString() {
-    return "edu.ntnu.idatt2001.Paths.Link{"
-        + "text='"
-        + text
-        + '\''
-        + ", reference='"
-        + reference
-        + '\''
-        + '}';
+    return text
+            +
+            "\n"
+            +
+            reference;
+
   }
 }
