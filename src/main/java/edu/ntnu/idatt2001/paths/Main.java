@@ -1,5 +1,7 @@
 package edu.ntnu.idatt2001.paths;
 
+import edu.ntnu.idatt2001.paths.filehandling.FileReader;
+
 import java.io.File;
 
 public class Main {

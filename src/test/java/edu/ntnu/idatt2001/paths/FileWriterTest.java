@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.paths;
 
+import edu.ntnu.idatt2001.paths.filehandling.FileWriter;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

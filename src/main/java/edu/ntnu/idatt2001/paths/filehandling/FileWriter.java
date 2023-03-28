@@ -1,4 +1,8 @@
-package edu.ntnu.idatt2001.paths;
+package edu.ntnu.idatt2001.paths.filehandling;
+
+import edu.ntnu.idatt2001.paths.Link;
+import edu.ntnu.idatt2001.paths.Passage;
+import edu.ntnu.idatt2001.paths.Story;
 
 import java.util.List;
 

@@ -1,4 +1,8 @@
-package edu.ntnu.idatt2001.paths;
+package edu.ntnu.idatt2001.paths.filehandling;
+
+import edu.ntnu.idatt2001.paths.Link;
+import edu.ntnu.idatt2001.paths.Passage;
+import edu.ntnu.idatt2001.paths.Story;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -6,12 +10,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
+/**
+ * The class {@code FileReader} reads a file and creates a story.
+ * It contains fields objects such as player and story.
+ * These fields are used to create a story.
+ */
 public class FileReader {
-
     Story story;
-
     List<Passage> passages = new ArrayList<>();
-
     public Story getStory() {
         return story;
     }
@@ -161,4 +168,5 @@ public class FileReader {
 
         return matcher.find() ? matcher.group(1) : "";
     }
+
 }
