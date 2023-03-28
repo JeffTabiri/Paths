@@ -26,8 +26,18 @@ public class Passage {
    *
    * @param content describes a string which contains the content of
    *                a passage in form of a paragraph or dialogue.
+   *
+   * @throws IllegalArgumentException if the title or content is empty.
    */
   public Passage(String title, String content) {
+
+    if (title.isEmpty()) {
+      throw new IllegalArgumentException("The title can't be empty.");
+    }
+    else if (content.isEmpty()) {
+      throw new IllegalArgumentException("The content can't be empty.");
+    }
+
     this.title = title;
     this.content = content;
   }
@@ -102,16 +112,11 @@ public class Passage {
    */
   @Override
   public String toString() {
-    return "edu.ntnu.idatt2001.Paths.Passage{"
-        + "title='"
-        + title
-        + '\''
-        + ", content='"
-        + content
-        + '\''
-        + ", links="
-        + links
-        + '}';
+    return title
+            +
+        "\n"
+            +
+        content;
   }
 }
 
