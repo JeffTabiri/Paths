@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.paths.actions;
+package edu.ntnu.idatt2001.paths.goals;
 
 import edu.ntnu.idatt2001.paths.Player;
 import edu.ntnu.idatt2001.paths.actions.ScoreAction;
@@ -8,21 +8,26 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("ScoreActionTest")
-class ScoreActionTest {
+@DisplayName("ScoreGoalTest")
+class ScoreGoalTest {
+
+    ScoreAction scoreAction;
+    ScoreGoal scoreGoal;
 
     Player testPlayer;
 
+
+
     @BeforeEach
     void setUp() {
+        scoreAction = new ScoreAction(100);
+        scoreGoal = new ScoreGoal(100);
         testPlayer = new Player("Test", 100, 100, 100);
     }
 
     @Test
-    void execute() {
-        new ScoreAction(100).execute(testPlayer);
-        int expectedValue = 200;
-        int actualValue = testPlayer.getScore();
-        assertEquals(expectedValue, actualValue);
+    void isFulfilled() {
+        scoreAction.execute(testPlayer);
+        assertTrue(scoreGoal.isFulfilled(testPlayer));
     }
 }

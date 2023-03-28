@@ -2,17 +2,24 @@ package edu.ntnu.idatt2001.paths.actions;
 
 import edu.ntnu.idatt2001.paths.Player;
 import edu.ntnu.idatt2001.paths.actions.InventoryAction;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("InventoryActionTest")
 class InventoryActionTest {
+    Player testPlayer;
 
-    Player player1 = new Player("Player", 100,  54, 1234);
+    @BeforeEach
+    void setUp() {
+        testPlayer = new Player("Test", 100, 100, 100);
+    }
 
     @Test
     void execute() {
-        new InventoryAction("Sword").execute(player1);
-        assertEquals("Sword", player1.getInventory().get(0));
+        new InventoryAction("Sword").execute(testPlayer);
+        assertTrue(testPlayer.getInventory().contains("Sword"));
     }
 }
