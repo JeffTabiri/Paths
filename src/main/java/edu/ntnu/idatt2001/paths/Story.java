@@ -96,15 +96,18 @@ public class Story {
             throw new IllegalArgumentException("The passage does not exist.");
         }
 
-        for (Passage value : passages.values()) {
-            for (Link link1 : value.getLinks()) {
-                if (passages.containsKey(link1) && !link1.equals(link)) {
-                    passages.remove(link);
+        Passage tempPassage = passages.get(link);
 
-                }
-            }
+        boolean hasLinks = passages.values()
+                                    .stream()
+                                    .flatMap(p -> p.getLinks().stream())
+                                    .anyMatch(l -> passages.get(l).equals(tempPassage));
+
+        if (hasLinks) {
+            throw new IllegalArgumentException("The passage has links to it.");
+        } else {
+            passages.remove(link);
         }
-
     }
 
 
@@ -120,7 +123,6 @@ public class Story {
 
         passages.remove(link);
         */
-    }
 
     /**
      * A method for getting a list of broken links

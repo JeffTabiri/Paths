@@ -46,18 +46,23 @@ class StoryTest {
     @Nested
     class AccessorsTest {
 
+        @DisplayName("Access title of story (getTitle()")
         @Test
         void getTitleTest() {
             String expectedValue = "The Story";
             String actualValue = testStory.getTitle();
             assertEquals(expectedValue, actualValue);
         }
+
+        @DisplayName("Access opening passage of story (getOpeningPassage()")
         @Test
         void getOpeningPassageTest() {
             Passage expectedValue = testPassage;
             Passage actualValue = testStory.getOpeningPassage();
             assertEquals(expectedValue, actualValue);
         }
+
+        @DisplayName("Access passages of story (getPassages()")
         @Test
         void getPassagesTest() {
             List<Passage> expectedValue = List.of(testPassage);
@@ -72,11 +77,13 @@ class StoryTest {
     @Nested
     class MutatorsTest {
 
+
         @BeforeEach
         void setUp() {
             testStory.addPassage(testPassage);
         }
 
+        @DisplayName("Add passage to story (addPassage()")
         @Test
         void addPassage() {
             Passage temporaryPassage = new Passage("Temporary title", "Temporary content");
@@ -84,15 +91,15 @@ class StoryTest {
             assertTrue(testStory.getPassages().contains(temporaryPassage));
         }
 
+        @DisplayName("Remove passage from story (removePassage()")
         @Test
         void removePassage() {
-            testPassage.addLink(testLink);
             testStory.addPassage(testPassage);
-            testStory.removePassage(testLink);
-
+            testStory.removePassage(new Link("Test title", "Test title"));
             assertFalse(testStory.getPassages().contains(testPassage));
         }
 
+        @DisplayName("Remove passage from story with links attached (removePassage()")
         @Test
         void removePassageWithLinksAttached() {
             testPassage.addLink(testLink);
@@ -106,6 +113,7 @@ class StoryTest {
             assertThrows(IllegalArgumentException.class, () -> testStory.removePassage(testLink));
         }
 
+        @DisplayName("Get broken links (getBrokenLinks()")
         @Test
         void getBrokenLinks() {
             testStory.addPassage(testPassage);
@@ -113,10 +121,7 @@ class StoryTest {
 
             assertTrue(testStory.getBrokenLinks().contains(testLink));
 
-
         }
-
-
 
     }
 }
