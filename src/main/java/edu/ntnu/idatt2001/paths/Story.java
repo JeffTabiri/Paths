@@ -22,10 +22,16 @@ public class Story {
      *
      * @param title          the title of the story. It is a string.
      * @param openingPassage the opening passage of the story. It is a object of the class Passage.
+     * @throws IllegalArgumentException if the title is empty.
      */
     public Story(String title, Passage openingPassage) {
+        if (title.isEmpty()) {
+            throw new IllegalArgumentException("The title can't be empty.");
+        }
+
         this.title = title;
         this.openingPassage = openingPassage;
+
     }
 
     /**
@@ -85,10 +91,35 @@ public class Story {
      * @param link identifies the passage in the collection of passages
      */
     public void removePassage(Link link) {
-        if (passages.values().stream().anyMatch(passage -> passage.getLinks().contains(link))) {
-            throw new IllegalArgumentException("Cannot remove passage with links to it.");
+
+        if (!passages.containsKey(link)) {
+            throw new IllegalArgumentException("The passage does not exist.");
         }
+
+        for (Passage value : passages.values()) {
+            for (Link link1 : value.getLinks()) {
+                if (passages.containsKey(link1) && !link1.equals(link)) {
+                    passages.remove(link);
+
+                }
+            }
+        }
+
+    }
+
+
+        /*
+        Passage foundPassage = passages.get(link);
+
+        for (int i = 0; i < foundPassage.getLinks().size(); i++) {
+            if (passages.containsKey(foundPassage.getLinks().get(i))) {
+                throw new IllegalArgumentException("The passage has links to it.");
+            }
+
+        }
+
         passages.remove(link);
+        */
     }
 
     /**
@@ -100,9 +131,13 @@ public class Story {
     public List<Link> getBrokenLinks() {
         List<Link> brokenLinks = new ArrayList<>();
 
-        passages.values().stream().flatMap(passage -> passage.getLinks().stream())
-                .filter(link -> !passages.containsKey(link))
-                .forEach(brokenLinks::add);
+        for (Passage value : passages.values()) {
+            for (Link link : value.getLinks()) {
+                if (!passages.containsKey(link)) {
+                    brokenLinks.add(link);
+                }
+            }
+        }
 
         return brokenLinks;
     }
