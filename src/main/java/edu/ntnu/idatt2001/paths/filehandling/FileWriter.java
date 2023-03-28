@@ -4,27 +4,34 @@ import edu.ntnu.idatt2001.paths.Link;
 import edu.ntnu.idatt2001.paths.Passage;
 import edu.ntnu.idatt2001.paths.Story;
 
-import java.util.List;
-
 public class FileWriter {
 
 
-    public String printPassage(Passage passage) {
+    private String convertPassageToString(Passage passage) {
+
         StringBuilder passageToBeWritten = new StringBuilder();
-        passageToBeWritten.append("::" + passage.getTitle()).append("\n");
-        passageToBeWritten.append(passage.getContent()).append("\n");
+
+        passageToBeWritten.append("::").append(passage.getTitle());
+        passageToBeWritten.append("\n").append(passage.getContent());
+
         for (Link link : passage.getLinks()) {
-            passageToBeWritten.append("[" + link.getText() + "](" + link.getReference() + ")").append("\n");
+            passageToBeWritten.append("\n").append("[" + link.getText() + "](" + link.getReference() + ")");
         }
+
         return passageToBeWritten.toString();
     }
 
-    public String  createWholeStory(Story story) {
+    public String convertStoryIntoString(Story story) {
 
-        story.getOpeningPassage().getLinks().get(0);
+        StringBuilder storyToBeWritten = new StringBuilder();
 
-        return null;
+        storyToBeWritten.append(story.getTitle());
+
+        for (Passage passage : story.getPassages()) {
+            storyToBeWritten.append("\n").append("\n").append(convertPassageToString(passage));
+        }
+
+        return storyToBeWritten.toString();
     }
-
 
 }

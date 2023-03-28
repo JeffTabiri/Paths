@@ -26,6 +26,7 @@ public class Story {
     public Story(String title, Passage openingPassage) {
         this.title = title;
         this.openingPassage = openingPassage;
+        addPassage(openingPassage);
     }
 
     /**

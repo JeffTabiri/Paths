@@ -156,7 +156,7 @@ public class FileReader {
 
 
     /**
-     * Takes in a line from thefile and returns the text between the square brackets []
+     * Takes in a line from the file and returns the text between the square brackets []
      *
      * @param line a line from the file to analyze
      * @return the text between the square brackets

@@ -11,6 +11,8 @@ public class Main {
 
         FileReader fileReader = new FileReader();
 
+
+
         fileReader.createStory(file);
 
         System.out.println(fileReader.getStory().getTitle());
