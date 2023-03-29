@@ -29,7 +29,7 @@ public class Link {
    * @param reference a string that uniquely identifies a passage (part of a story).
    *                  In practice this will be the title of the passage you wish to refer to.
    */
-  Link(String text, String reference) {
+  public Link(String text, String reference) {
 
     if (text.isEmpty()) {
       throw new IllegalArgumentException("The text can't be empty.");
