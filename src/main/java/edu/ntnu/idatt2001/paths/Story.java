@@ -31,7 +31,7 @@ public class Story {
 
         this.title = title;
         this.openingPassage = openingPassage;
-
+        addPassage(openingPassage);
     }
 
     /**
@@ -59,7 +59,12 @@ public class Story {
      * @return a passage object.
      */
     public Passage getPassage(Link link) {
-        return passages.get(link);
+        return passages.keySet()
+                .stream()
+                .filter(l -> l.equals(link))
+                .map(l -> passages.get(l))
+                .findFirst()
+                .orElse(null);
     }
 
 

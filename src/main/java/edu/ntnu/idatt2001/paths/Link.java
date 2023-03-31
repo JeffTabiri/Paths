@@ -79,14 +79,12 @@ public class Link {
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
     Link link = (Link) o;
-    return Objects.equals(text, link.text) && Objects.equals(reference, link.reference);
+
+    return reference.equals(link.reference);
   }
 
   /**
@@ -96,7 +94,7 @@ public class Link {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(text, reference);
+    return Objects.hash(reference);
   }
 
   /**
