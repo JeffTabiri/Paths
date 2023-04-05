@@ -1,8 +1,9 @@
 package edu.ntnu.idatt2001.paths;
 
-import edu.ntnu.idatt2001.paths.filehandling.FileReader;
+import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -13,13 +14,16 @@ public class Main {
 
     static  Scanner scanner = new Scanner(System.in);
 
-    static FileReader fileReader = new FileReader();
-    public static void newGame() {
-        fileReader.createStory(new File("src/main/resources/filehandletest.paths"));
+    static StoryLoader fileReader;
+
+
+    public static void newGame() throws IOException {
+        File file = new File("src/main/resources/storyExample.paths");
+        fileReader = new StoryLoader(file);
         game = new Game(new Player("Zac", 100, 0, 0), fileReader.getStory(), new ArrayList<>());
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         newGame();
 
         Passage currentPassage = game.begin();
