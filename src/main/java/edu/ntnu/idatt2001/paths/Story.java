@@ -31,7 +31,7 @@ public class Story {
 
         this.title = title;
         this.openingPassage = openingPassage;
-
+        addPassage(openingPassage);
     }
 
     /**
