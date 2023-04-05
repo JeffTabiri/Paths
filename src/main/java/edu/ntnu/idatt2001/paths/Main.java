@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main {
 
@@ -15,6 +17,8 @@ public class Main {
     static  Scanner scanner = new Scanner(System.in);
 
     static StoryLoader fileReader;
+
+    static Logger logger = Logger.getLogger(Main.class.getName());
 
 
     public static void newGame() throws IOException {
@@ -25,6 +29,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         newGame();
+        logger.log(Level.INFO, "New game started");
 
         Passage currentPassage = game.begin();
 

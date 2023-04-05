@@ -52,12 +52,33 @@ public class Link {
   }
 
   /**
-   * A method for adding an action to the list of actions.
+   * A method for adding an action to the list of actions
    *
-   * @param action is an action object that is added to the list of actions.
+   * @param action is an action object that is added to the list of actions
+   * @throws IllegalArgumentException if the action is null
    */
   public void addAction(Action action) {
+
+    if (action == null) {
+      throw new IllegalArgumentException("The action can't be null.");
+    }
+
     actions.add(action);
+  }
+
+  /**
+   * A method for removing an action from the list of actions
+   *
+   * @param action is an action object that is removed from the list of actions
+   * @throws IllegalArgumentException if the action does not exist
+   */
+  public void removeAction(Action action) {
+
+    if (!actions.contains(action)) {
+      throw new IllegalArgumentException("The action does not exist.");
+    }
+
+    actions.remove(action);
   }
 
   /**
