@@ -31,4 +31,8 @@ public class InventoryAction implements Action {
     player.addInventory(item);
   }
 
+  @Override
+  public String toString() {
+    return "{Inventory}(" + item + ")";
+  }
 }

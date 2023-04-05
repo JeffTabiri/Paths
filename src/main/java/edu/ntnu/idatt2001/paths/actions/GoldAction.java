@@ -33,4 +33,9 @@ public class GoldAction implements Action {
     player.addGold(gold);
   }
 
+  @Override
+  public String toString() {
+    return "{Gold}(" + gold + ")";
+  }
+
 }
