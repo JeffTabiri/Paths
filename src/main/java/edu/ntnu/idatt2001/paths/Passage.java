@@ -42,6 +42,33 @@ public class Passage {
     this.content = content;
   }
 
+  /**
+   * Constructor which is responsible for the creation of the Passage class.
+   *
+   * @param title describes a text which acts as a form of identification for a passage.
+   *              This text comes as a string.
+   *
+   * @param content describes a string which contains the content of
+   *                a passage in form of a paragraph or dialogue.
+   *
+   * @param links is a list of links that are added to the list of links in the passage object.
+   *
+   * @throws IllegalArgumentException if the title or content is empty.
+   */
+  public Passage(String title, String content, List<Link> links) {
+
+        if (title.isEmpty()) {
+        throw new IllegalArgumentException("The title can't be empty.");
+        }
+        else if (content.isEmpty()) {
+        throw new IllegalArgumentException("The content can't be empty.");
+        }
+
+        this.title = title;
+        this.content = content;
+        this.links.addAll(links);
+  }
+
   public String getTitle() {
     return title;
   }
@@ -69,7 +96,7 @@ public class Passage {
    * @return a boolean value which is true if the list of links is empty, otherwise false.
    */
   public boolean hasLinks() {
-    return links.size() > 0;
+    return !links.isEmpty();
   }
 
   /**
