@@ -14,40 +14,39 @@ import java.util.*;
 public class Story {
 
     private final String title;
-    private Map<Link, Passage> passages = new HashMap<>();
-    private Passage openingPassage;
+    private final Map<Link, Passage> passages;
+    private final Passage openingPassage;
 
     /**
      * The constructor for the class Story.
      *
-     * @param title          the title of the story. It is a string.
+     * @param title the title of the story. It is a string.
      * @param openingPassage the opening passage of the story. It is a object of the class Passage.
      * @throws IllegalArgumentException if the title is empty.
      */
     public Story(String title, Passage openingPassage) {
+
         if (title.isEmpty()) {
             throw new IllegalArgumentException("The title can't be empty.");
         }
 
+        if (openingPassage == null) {
+            throw new IllegalArgumentException("The opening passage can't be null.");
+        }
+
         this.title = title;
         this.openingPassage = openingPassage;
+        this.passages = new HashMap<>();
+
         addPassage(openingPassage);
     }
 
-    /**
-     * A method for getting the title of the story.
-     *
-     * @return the title of the story. It is a string.
-     */
+
     public String getTitle() {
         return title;
     }
 
-    /**
-     * A method for getting the opening passage of the story.
-     *
-     * @return the opening passage of the story. It is a object of the class Passage.
-     */
+
     public Passage getOpeningPassage() {
         return openingPassage;
     }
@@ -115,20 +114,6 @@ public class Story {
         }
     }
 
-
-        /*
-        Passage foundPassage = passages.get(link);
-
-        for (int i = 0; i < foundPassage.getLinks().size(); i++) {
-            if (passages.containsKey(foundPassage.getLinks().get(i))) {
-                throw new IllegalArgumentException("The passage has links to it.");
-            }
-
-        }
-
-        passages.remove(link);
-        */
-
     /**
      * A method for getting a list of broken links
      * A broken link is a link that does not exist in the collection of passages
@@ -148,6 +133,7 @@ public class Story {
 
         return brokenLinks;
     }
+
 }
 
 
