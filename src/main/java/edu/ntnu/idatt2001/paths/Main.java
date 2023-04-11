@@ -21,7 +21,7 @@ public class Main {
 
 
     public static void newGame() throws IOException {
-        File file = new File("src/main/resources/storyExample.paths");
+        File file = new File("src/main/resources/HauntedHouse.paths");
         fileReader = new StoryLoader(file);
         game = new Game(new Player("Zac", 100, 1, 0), fileReader.getStory(), new ArrayList<>());
     }
