@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.gameTitle {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 50px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.root {
+    -fx-font-size: 20px;
+    -fx-background-image: url("/images/background/example.png");
+    -fx-background-size: 100% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+    .button {
+        -fx-font-family: "Press Start 2P";
+        -fx-font-size: 20px;;
+        -fx-font-weight: bold;
+
+        -fx-background-image: url("/images/buttonBackground/UI_Flat_Button_Unlocked.png");
+        -fx-background-size: 100% 100%;
+
+    }
+
+    .button:hover {
+        fx-text-fill: #ffffff;
+        -fx-scale-x: 1.1;
+        -fx-scale-y: 1.1;
+        -fx-scale-z: 1.1;
+    }
+
+
