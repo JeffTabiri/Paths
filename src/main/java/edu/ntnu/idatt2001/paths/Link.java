@@ -2,6 +2,7 @@ package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.actions.Action;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class Link {
   private final String text;
   private final String reference;
-  private List<Action> actions;
+  private List<Action> actions = new ArrayList<>();
 
   /**
    * Constructor which is responsible for the creation of the link class.
@@ -28,7 +29,7 @@ public class Link {
    * @param reference a string that uniquely identifies a passage (part of a story).
    *                  In practice this will be the title of the passage you wish to refer to.
    */
-  Link(String text, String reference) {
+  public Link(String text, String reference) {
 
     if (text.isEmpty()) {
       throw new IllegalArgumentException("The text can't be empty.");
@@ -51,12 +52,33 @@ public class Link {
   }
 
   /**
-   * A method for adding an action to the list of actions.
+   * A method for adding an action to the list of actions
    *
-   * @param action is an action object that is added to the list of actions.
+   * @param action is an action object that is added to the list of actions
+   * @throws IllegalArgumentException if the action is null
    */
   public void addAction(Action action) {
+
+    if (action == null) {
+      throw new IllegalArgumentException("The action can't be null.");
+    }
+
     actions.add(action);
+  }
+
+  /**
+   * A method for removing an action from the list of actions
+   *
+   * @param action is an action object that is removed from the list of actions
+   * @throws IllegalArgumentException if the action does not exist
+   */
+  public void removeAction(Action action) {
+
+    if (!actions.contains(action)) {
+      throw new IllegalArgumentException("The action does not exist.");
+    }
+
+    actions.remove(action);
   }
 
   /**
@@ -78,14 +100,12 @@ public class Link {
    */
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
     Link link = (Link) o;
-    return Objects.equals(text, link.text) && Objects.equals(reference, link.reference);
+
+    return reference.equals(link.reference);
   }
 
   /**
@@ -95,7 +115,7 @@ public class Link {
    */
   @Override
   public int hashCode() {
-    return Objects.hash(text, reference);
+    return Objects.hash(reference);
   }
 
   /**
@@ -105,13 +125,11 @@ public class Link {
    */
   @Override
   public String toString() {
-    return "edu.ntnu.idatt2001.Paths.Link{"
-        + "text='"
-        + text
-        + '\''
-        + ", reference='"
-        + reference
-        + '\''
-        + '}';
+    return text
+            +
+            "\n"
+            +
+            reference;
+
   }
 }

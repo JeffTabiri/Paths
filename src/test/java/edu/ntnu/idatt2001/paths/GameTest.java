@@ -1,9 +1,10 @@
 package edu.ntnu.idatt2001.paths;
 
-import edu.ntnu.idatt2001.paths.*;
-import edu.ntnu.idatt2001.paths.actions.InventoryAction;
 import edu.ntnu.idatt2001.paths.goals.Goal;
 import edu.ntnu.idatt2001.paths.goals.GoldGoal;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,50 +12,89 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("Test Class Game")
 class GameTest {
 
-    Player testPlayer = new Player("Test player", 100, 100, 1234);
-    InventoryAction testAction = new InventoryAction("Sword");
+    Game testGame;
+    Player testPlayer;
+    List<Goal> testGoals;
+    Goal testGoal;
+    Story testStory;
+    Passage testPassage;
 
-    Passage testPassage = new Passage( "Test passage title", "test passage content");
-    Story testStory = new Story("Test Story Title", testPassage);
+    @BeforeEach
+    void setUp() {
+        testPlayer = new Player("Test player", 100, 100, 1234);
+        testPassage = new Passage("Test passage", "Test content");
+        testGoal = new GoldGoal(100);
+        testGoals = new ArrayList<>();
+        testGoals.add(testGoal);
+        testStory = new Story("Test story", testPassage);
+        testStory.addPassage(testPassage);
+        testGame = new Game(testPlayer, testStory, testGoals);
 
-    GoldGoal testGoldGoal = new GoldGoal(100);
-
-    List<Goal> testGoal = new ArrayList<>();
-
-    @Test
-    void getPlayer() {
-        assertEquals(testPlayer, new Game(testPlayer, testStory, testGoal).getPlayer());
     }
 
-    @Test
-    void getGoldGoal(){
-        List<Goal> testGoal = new ArrayList<>();
-        GoldGoal testGoldGoal = new GoldGoal(100);
-        testGoal.add(testGoldGoal);
-
-        assertEquals(testGoldGoal, testGoal.get(0));}
-
-    @Test
-    void getStory() {
-        assertEquals(testStory, new Game(testPlayer, testStory, testGoal).getStory());
+    @DisplayName("Test Constructor")
+    @Nested
+    class ConstructorTest {
+            @DisplayName("Test constructor with valid parameters")
+            @Test
+            void testConstructorWithValidParameters() {
+                Game testGame = new Game(testPlayer, testStory, testGoals);
+                assertEquals(testPlayer, testGame.getPlayer());
+                assertEquals(testStory, testGame.getStory());
+                assertEquals(testGoals, testGame.getGoals());
+            }
     }
 
-    @Test
-    void getGoals() {
-        assertEquals(testGoal, new Game(testPlayer, testStory, testGoal).getGoals());
+
+    @DisplayName("Test Accessors")
+    @Nested
+    class AccessorsTest {
+        @Test
+        void getPlayer() {
+            String expectedValue = "Test player";
+            String actualValue = testGame.getPlayer().getName();
+            assertEquals(expectedValue, actualValue);
+        }
+
+        @Test
+        void getStory() {
+            String expectedValue = "Test story";
+            String actualValue = testGame.getStory().getTitle();
+            assertEquals(expectedValue, actualValue);
+        }
+
+        @Test
+        void getGoals() {
+            List<Goal> expectedValue = testGoals;
+            List<Goal> actualValue = testGame.getGoals();
+
+            assertEquals(expectedValue, actualValue);
+        }
     }
 
-    @Test
-    void begin() {
-        assertEquals(testStory.getOpeningPassage(), new Game(testPlayer, testStory, testGoal).begin());
+    @DisplayName("Test Mutators")
+    @Nested
+    class MutatorsTest {
+        @DisplayName("Test the begin returns the opening passage of the story")
+        @Test
+        void beginTest() {
+            Passage expectedValue = testPassage;
+            Passage actualValue = testGame.begin();
+
+            assertEquals(expectedValue, actualValue);
+        }
+
+        @DisplayName("Test that the go method returns the passage that the link points to")
+        @Test
+        void goTest() {
+            Link testLink = new Link("Test passage", "Test passage");
+            Passage expectedValue = testPassage;
+            Passage actualValue = testGame.go(testLink);
+            assertEquals(expectedValue, actualValue);
+        }
     }
 
-    @Test
-    void go() {
-        Link testLink = new Link("This is the test text", "This is the test reference");
-        testPassage.addLink(testLink);
-        assertEquals(testPassage, new Game(testPlayer, testStory, testGoal).go(testLink));
-    }
 }
