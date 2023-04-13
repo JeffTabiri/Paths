@@ -1,14 +1,16 @@
 package edu.ntnu.idatt2001.paths.actions;
 
 import edu.ntnu.idatt2001.paths.Player;
-import edu.ntnu.idatt2001.paths.actions.InventoryAction;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions.*;
 
-class InventoryActionTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class ActionTest {
 
     Player player1 = new Player("Player", 100,  54, 1234);
+    InventoryAction testAction = new InventoryAction("Shield");
 
     @Test
     void execute() {
