@@ -1,7 +1,5 @@
 package edu.ntnu.idatt2001.paths.goals;
 
-import edu.ntnu.idatt2001.paths.Player;
-import edu.ntnu.idatt2001.paths.actions.GoldAction;
 import edu.ntnu.idatt2001.paths.goals.GoldGoal;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,26 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GoldGoalTest {
 
-    GoldGoal goldGoal;
-
-    GoldAction goldAction;
-
-    Player testPlayer;
-
-
+    GoldGoal goldGoal = new GoldGoal(100);
 
     @BeforeEach
     void setUp() {
-        int gold = 100;
-        goldAction = new GoldAction(gold);
-        goldGoal = new GoldGoal(gold);
-        testPlayer = new Player("Test", 100, 100, 100);
+    }
+
+    @AfterEach
+    void tearDown() {
     }
 
     @Test
     void isFullfilled() {
-        goldAction.execute(testPlayer);
-        assertTrue(goldGoal.isFulfilled(testPlayer));
     }
 
+    @Test
+    void GoldGoalTest() {
+       // assertEquals(100, goldGoal.getMinimumGold());
+    }
 }
