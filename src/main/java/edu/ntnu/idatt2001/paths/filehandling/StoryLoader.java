@@ -113,7 +113,7 @@ public class StoryLoader {
 
     private String getActionValue(String line) {
 
-        Pattern pattern = Pattern.compile("\\((\\d+)\\)");
+        Pattern pattern = Pattern.compile("\\(([^)]+)\\)");
         Matcher matcher = pattern.matcher(line);
 
         return matcher.find() ? matcher.group(1) : "";
@@ -241,9 +241,17 @@ public class StoryLoader {
      * @return a new action object of the type specified in the line
      */
     private Action createAction(String actionDescription, String actionValue) {
+        
+        if (actionDescription.isEmpty()) {
+            throw new IllegalArgumentException("Action description cannot be null");
+        }
+        if (actionValue.isEmpty()) {
+            throw new IllegalArgumentException("Action value cannot be null");
+        }
+
         return switch (actionDescription) {
             case "Score" -> new ScoreAction(Integer.parseInt(actionValue));
-            case "Health" -> new HealthAction(Integer.parseInt(getActionValue(actionValue)));
+            case "Health" -> new HealthAction(Integer.parseInt(actionValue));
             case "Inventory" -> new InventoryAction(actionValue);
             case "Gold" -> new GoldAction(Integer.parseInt(actionValue));
             default -> null;
