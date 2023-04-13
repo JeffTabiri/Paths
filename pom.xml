@@ -18,7 +18,7 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>19</version>
+            <version>20-ea+9</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -53,5 +53,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>
