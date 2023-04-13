@@ -1,0 +1,40 @@
+.button {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-background-image: url("/images/buttonBackground/UI_Flat_Button_Unlocked.png");
+    -fx-background-size: 100% 100%;
+}
+
+.button:hover {
+    -fx-background-color: #000000;
+    -fx-text-fill: #ffffff;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+    -fx-scale-z: 1.1;
+}
+
+.root {
+
+
+}
+
+.gameTitle {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 25px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}

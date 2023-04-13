@@ -18,7 +18,7 @@ class StoryLoaderTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        file = new File("src/main/resources/storyExample.paths");
+        file = new File("src/main/resources/stories/HauntedHouse.paths");
         storyLoader = new StoryLoader(file);
     }
 
