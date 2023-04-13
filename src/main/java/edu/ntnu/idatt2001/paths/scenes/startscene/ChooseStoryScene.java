@@ -1,8 +1,7 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
-import edu.ntnu.idatt2001.paths.scenes.GameEngine.GameLoopScene;
+import edu.ntnu.idatt2001.paths.scenes.gameEngine.GameLoopScene;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
