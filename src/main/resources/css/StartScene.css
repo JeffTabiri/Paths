@@ -9,7 +9,7 @@
 
 .root {
     -fx-font-size: 20px;
-    -fx-background-image: url("/images/background/example.png");
+    -fx-background-image: url("/images/background/startMenuBackground.png");
     -fx-background-size: 100% 100%;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
