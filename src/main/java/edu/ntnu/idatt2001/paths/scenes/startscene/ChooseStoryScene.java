@@ -2,22 +2,43 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 
 import edu.ntnu.idatt2001.paths.scenes.gameEngine.GameLoopScene;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents the scene where the user can choose a story to play. Also creates a new character
+ *
+ */
 public class ChooseStoryScene {
+
+    /**
+     * Returns a scene with the GUI elements for the choose story scene
+     *
+     * @param stage the window the scene is displayed in
+     * @param prevWidth the width of the previous scene
+     * @param prevHeight the height of the previous scene
+     * @return the scene with the GUI elements
+     */
     public Scene getScene(Stage stage, double prevWidth, double prevHeight) {
 
         /*#######################
@@ -31,17 +52,16 @@ public class ChooseStoryScene {
         # GUI element creation #
          #######################*/
 
-        //Root container
         BorderPane root = new BorderPane();
 
-        //Scene container
         Scene scene = new Scene(root);
 
-        //Button containers
         Button goBackButton = new Button("Return");
         Button startGameButton = new Button("Start Game");
 
-        //HBox containers
+
+
+        //Bottom menubar container
         HBox leftBox = new HBox();
         HBox rightBox = new HBox();
         HBox bottom = new HBox();
@@ -53,7 +73,7 @@ public class ChooseStoryScene {
         //Title container
         Text gameTitle = new Text("Choose Story");
 
-        //ListView container
+        //Lists over stories
         ListView<String> storyListView = new ListView<String>();
         storyListView.setItems(FXCollections.observableArrayList(getStoryList()));
 
@@ -61,7 +81,6 @@ public class ChooseStoryScene {
         ¤ Button actions       ¤
         #######################*/
 
-        //Button actions
         goBackButton.setOnAction(e -> {
 
             double currentWidth = stage.getWidth();
@@ -72,9 +91,12 @@ public class ChooseStoryScene {
 
         startGameButton.setOnAction(e -> {
 
+
+            /*
+            String storyAddress = "src/main/resources/stories/";
+
             double currentWidth = stage.getWidth();
             double currentHeight = stage.getHeight();
-            String storyAddress = "src/main/resources/stories/";
 
             File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
 
@@ -83,8 +105,61 @@ public class ChooseStoryScene {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
+            */
 
         });
+
+
+        startGameButton.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        final Stage dialog = new Stage();
+                        dialog.initModality(Modality.APPLICATION_MODAL);
+                        dialog.initOwner(stage);
+                        VBox popupBox = new VBox(20);
+                        HBox inputBox = new HBox(20);
+                        Text popupTitle = new Text("Choose a name");
+                        TextField nameField = new TextField();
+                        Button confirmButton = new Button("Confirm");
+                        popupBox.getChildren().addAll(popupTitle);
+                        inputBox.getChildren().addAll(nameField);
+                        popupBox.getChildren().addAll(inputBox, confirmButton);
+                        popupBox.setAlignment(Pos.CENTER);
+                        inputBox.setAlignment(Pos.CENTER);
+
+
+                        confirmButton.setOnAction(
+                                new EventHandler<ActionEvent>() {
+                                    @Override
+                                    public void handle(ActionEvent event) {
+                                        String storyAddress = "src/main/resources/stories/";
+
+                                        dialog.close();
+
+                                        double currentWidth = stage.getWidth();
+                                        double currentHeight = stage.getHeight();
+
+                                        File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
+                                        String name = nameField.getText();
+
+                                        try {
+                                            stage.setScene(new GameLoopScene(storyFile, name).getScene(stage, currentWidth, currentHeight));
+                                        } catch (IOException ex) {
+                                            throw new RuntimeException(ex);
+                                        }
+                                    }
+                                });
+
+
+                        Scene popupScene = new Scene(popupBox, 300, 200);
+                        dialog.setScene(popupScene);
+                        dialog.show();
+                    }
+                });
+
+
+
 
         /*#######################
         # Cursor handling       #
@@ -135,6 +210,7 @@ public class ChooseStoryScene {
         root.getStylesheets().add("css/ChooseStoryScene.css");
         gameTitle.getStyleClass().add("gameTitle");
         scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+
 
         return scene;
     }
