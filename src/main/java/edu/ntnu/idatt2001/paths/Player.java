@@ -1,6 +1,5 @@
 package edu.ntnu.idatt2001.paths;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class Player {
   private int health;
   private int score;
   private int gold;
-  private List<String> inventory = new ArrayList<>();
+  private List<String> inventory;
 
   /**
    * Constructor which is responsible for the creation of the player class.
@@ -43,9 +42,6 @@ public class Player {
     if (gold < 0) {
       throw new IllegalArgumentException("Gold cannot be negative");
     }
-    if (name.isEmpty()) {
-      throw new IllegalArgumentException("The name cannot be empty");
-    }
 
     this.name = name;
     this.health = health;
@@ -61,6 +57,7 @@ public class Player {
     return health;
   }
 
+
   public int getScore() {
     return score;
   }
@@ -72,7 +69,6 @@ public class Player {
   public List<String> getInventory() {
     return inventory;
   }
-
 
   /**
    * A method for adding health to the player.
@@ -106,111 +102,41 @@ public class Player {
 
 
   /**
-   * A method for adding score to the player
+   * A method for adding score to the player.
    *
    * @param score is the amount of score to be added. It is a positive integer.
    *
-   * @throws IllegalArgumentException if score is negative
+   * @throws IllegalArgumentException if score is negative.
    */
   public void addScore(int score) {
-
     if (score < 0) {
       throw new IllegalArgumentException("The additional score cannot be negative");
     }
-
     this.score += score;
   }
 
-    /**
-     * A method for removing score from the player
-     *
-     * @param score is the amount of score to be removed. It is a positive integer
-     *
-     * @throws IllegalArgumentException if score is negative
-     */
-  public void removeScore(int score) {
-
-    if (score < 0) {
-      throw new IllegalArgumentException("The additional score cannot be negative");
-    }
-
-    if (score > this.score) {
-      score = this.score;
-    }
-
-    this.score -= score;
-  }
-
 
   /**
-   * A method for adding gold to the player
+   * A method for adding gold to the player.
    *
-   * @param gold is the amount of gold to be added. It is a positive integer
+   * @param gold is the amount of gold to be added. It is a positive integer.
    *
-   * @throws IllegalArgumentException if gold is negative
+   * @throws IllegalArgumentException if gold is negative.
    */
   public void addGold(int gold) {
-
-    if (gold < 0) {
-      throw new IllegalArgumentException("The additional gold cannot be negative");
-    }
-
     this.gold += gold;
   }
 
-  /**
-   * A method for removing gold from the player
-   *
-   * @param gold is the amount of gold to be removed. It is a positive integer
-   * @throws IllegalArgumentException if gold is negative or the player does not have enough gold
-   */
-  public void removeGold(int gold) {
-
-    if (gold < 0) {
-      throw new IllegalArgumentException("The additional gold cannot be negative");
-    }
-
-    if (gold > this.gold) {
-      throw new IllegalArgumentException("The player does not have enough gold");
-    }
-
-    this.gold -= gold;
-  }
-
 
   /**
-   * A method for adding an item to the inventory
+   * A method for adding an item to the inventory.
    *
-   * @param item is the instance to be added to the inventory
-   * @throws IllegalArgumentException if the item is empty
-   */
-  public void addInventory(String item) {
-
-    if (item.isEmpty()) {
-      throw new IllegalArgumentException("The inventory cannot be empty");
-    }
-
-    this.inventory.add(item);
-  }
-
-
-  /**
-   * A method for removing an item from the players inventory
+   * @param inventory is the item to be added to the inventory. It is a string.
    *
-   * @param item is the instance to be removed from the players inventory
-   * @throws IllegalArgumentException if the item is empty or not in the inventory
+   * @throws IllegalArgumentException if inventory is null.
    */
-  public void removeInventory(String item) {
-
-    if (item.isEmpty()) {
-      throw new IllegalArgumentException("The item cannot be empty");
-    }
-
-    if (!inventory.contains(item)) {
-      throw new IllegalArgumentException("The item is not in the inventory");
-    }
-
-    inventory.remove(item);
+  public void addInventory(String inventory) {
+    this.inventory.add(inventory);
   }
 
   /**
