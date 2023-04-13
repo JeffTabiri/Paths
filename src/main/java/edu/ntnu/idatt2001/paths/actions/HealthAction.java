@@ -28,7 +28,15 @@ public class HealthAction implements Action {
    * The method execute adds the health to the player's health.
    */
   public void execute(Player player) {
-    player.addHealth(health);
+
+    if (health < 0) {
+      player.removeHealth(health);
+    }
+
+    else if (health > 0) {
+      player.addHealth(health);
+    }
+
   }
 
   @Override

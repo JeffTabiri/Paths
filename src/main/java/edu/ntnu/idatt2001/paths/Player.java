@@ -96,12 +96,7 @@ public class Player {
    * @throws IllegalArgumentException if health is negative.
    */
   public void removeHealth(int health) {
-
-    if (health < 0) {
-      throw new IllegalArgumentException("The additional health cannot be negative");
-    }
-
-    this.health -= health;
+    this.health += health;
   }
 
 

@@ -30,9 +30,9 @@ public class GameLoopScene {
     Story story;
     Passage currentPassage;
 
-    public GameLoopScene(File chosenStory) throws IOException {
+    public GameLoopScene(File chosenStory, String name) throws IOException {
         story = new StoryLoader(chosenStory).getStory();
-        player = new Player("Player", 100, 100, 100);
+        player = new Player(name, 100, 0, 0);
         currentGame = new Game(player, story, new ArrayList<>());
         currentPassage = story.getOpeningPassage();
     }
