@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.goals.Goal;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 
 import java.util.List;
 

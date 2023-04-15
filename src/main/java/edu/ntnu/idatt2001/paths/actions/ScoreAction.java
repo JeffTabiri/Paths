@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.actions;
 
-import edu.ntnu.idatt2001.paths.Player;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 
 /**
  * The class {@code ScoreAction} represents an action that adds score points to the player.

@@ -1,9 +1,7 @@
 package edu.ntnu.idatt2001.paths.goals;
 
-import edu.ntnu.idatt2001.paths.Player;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.actions.GoldAction;
-import edu.ntnu.idatt2001.paths.goals.GoldGoal;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

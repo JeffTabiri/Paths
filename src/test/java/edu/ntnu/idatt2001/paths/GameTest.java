@@ -2,6 +2,7 @@ package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.goals.Goal;
 import edu.ntnu.idatt2001.paths.goals.GoldGoal;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

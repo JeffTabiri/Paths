@@ -1,5 +1,5 @@
 package edu.ntnu.idatt2001.paths.actions;
-import edu.ntnu.idatt2001.paths.Player;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 
 /**
  * The class {@code GoldAction} represents an action that adds gold to the player.
