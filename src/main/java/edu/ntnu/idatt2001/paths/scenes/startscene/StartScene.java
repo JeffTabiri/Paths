@@ -32,13 +32,14 @@ public class StartScene {
         Button newGameButton = new Button("New Game");
         Button loadGameButton = new Button("Load");
         Button optionButton = new Button("Options");
+        Button achievementButton = new Button("Achievements");
 
         //Title node
         Text gameTitle = new Text("PATHS");
 
         //Menu box container
         VBox menu = new VBox();
-        menu.getChildren().addAll(newGameButton, loadGameButton, optionButton);
+        menu.getChildren().addAll(newGameButton, loadGameButton, optionButton, achievementButton);
         menu.setSpacing(20);
 
         /*#######################
@@ -62,6 +63,10 @@ public class StartScene {
             scene.setCursor(new ImageCursor(new javafx.scene.image.Image(cursorGrabbing)));
         });
 
+        achievementButton.setOnMouseEntered(e -> {
+            scene.setCursor(new ImageCursor(new javafx.scene.image.Image(cursorGrabbing)));
+        });
+
         //Cursor change on exit
         optionButton.setOnMouseExited(e -> {
             scene.setCursor(new ImageCursor(new javafx.scene.image.Image(cursorGrab)));
@@ -72,6 +77,10 @@ public class StartScene {
         });
 
         loadGameButton.setOnMouseExited(e -> {
+            scene.setCursor(new ImageCursor(new javafx.scene.image.Image(cursorGrab)));
+        });
+
+        achievementButton.setOnMouseExited(e -> {
             scene.setCursor(new ImageCursor(new javafx.scene.image.Image(cursorGrab)));
         });
 
@@ -92,6 +101,12 @@ public class StartScene {
             double currentWidth = stage.getWidth();
             double currentHeight = stage.getHeight();
             stage.setScene(new OptionScene().getScene(stage, currentWidth, currentHeight));
+        });
+
+        achievementButton.setOnAction(e -> {
+            double currentWidth = stage.getWidth();
+            double currentHeight = stage.getHeight();
+            stage.setScene(new AchievementScene().getScene(stage, currentWidth, currentHeight));
         });
 
         /*#######################

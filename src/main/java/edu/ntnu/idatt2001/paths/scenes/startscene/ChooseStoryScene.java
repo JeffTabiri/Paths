@@ -61,6 +61,7 @@ public class ChooseStoryScene {
 
 
 
+
         //Bottom menubar container
         HBox leftBox = new HBox();
         HBox rightBox = new HBox();
