@@ -160,6 +160,10 @@ public class GameLoopScene {
         VBox ground = new VBox();
         ground.getChildren().addAll(playerStatsBox, passageChoice);
 
+        //StackPane textAndImage = new StackPane();
+        //ImageView image = new ImageView("images/Backgrounds/Cave.png");
+        //textAndImage.getChildren().addAll(image, passageContent);
+
 
         //Content placement
         root.setCenter(passageContent);
@@ -167,8 +171,12 @@ public class GameLoopScene {
         BorderPane.setAlignment(passageTitle, Pos.CENTER);
         passageContent.setTextAlignment(TextAlignment.CENTER);
 
+        //.setCenter(textAndImage);
+
         //Choices placement
         root.setBottom(ground);
+
+        root.getStyleClass().add("background");
 
         return scene;
     }
