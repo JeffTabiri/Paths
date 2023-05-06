@@ -16,8 +16,11 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * Represent the main
@@ -133,6 +136,13 @@ public class GameLoopScene {
         playerScore.getStyleClass().add(playerStatsStyle);
         playerName.getStyleClass().add(playerStatsStyle);
 
+        Image image = new Image("images/background/Cave.jpg");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(prevWidth);
+        imageView.setFitHeight(1000);
+        StackPane textAndImage = new StackPane();
+        textAndImage.getChildren().addAll(imageView, passageContent);
+
         /*#######################
          # Actions              #
          #######################*/
@@ -143,12 +153,17 @@ public class GameLoopScene {
             currentPassage.getLinks().get(passageChoice.getSelectionModel().getSelectedIndex()).getActions().forEach(action -> action.execute(player));
             currentPassage.getLinks().get(passageChoice.getSelectionModel().getSelectedIndex()).getActions().clear();
 
+
+
             playerGold.setText(player.getGold() + "G");
             playerHealth.setText(player.getHealth() + "HP");
             playerScore.setText(player.getScore() + "PTS");
             currentPassage = currentGame.go(currentPassage.getLinks().get(passageChoice.getSelectionModel().getSelectedIndex()));
 
-            updateGameLoop(passageContent, passageTitle, passageChoice);
+
+            updateGameLoop(passageContent, passageTitle, passageChoice, imageView);
+
+
         });
 
 
@@ -166,7 +181,7 @@ public class GameLoopScene {
 
 
         //Content placement
-        root.setCenter(passageContent);
+        root.setCenter(textAndImage);
         root.setTop(passageTitle);
         BorderPane.setAlignment(passageTitle, Pos.CENTER);
         passageContent.setTextAlignment(TextAlignment.CENTER);
@@ -176,7 +191,7 @@ public class GameLoopScene {
         //Choices placement
         root.setBottom(ground);
 
-        root.getStyleClass().add("background");
+        //root.getStyleClass().add("background");
 
         return scene;
     }
@@ -218,11 +233,18 @@ public class GameLoopScene {
     /**
      * Updates the content of the game loop scene
      */
-    private void updateGameLoop(Text content, Text title, ListView<String> choices) {
+    private void updateGameLoop(Text content, Text title, ListView<String> choices, ImageView image) {
         content.setText(currentPassage.getContent());
         title.setText(currentPassage.getTitle());
         choices.getItems().clear();
         choices.getItems().addAll(getPassageChoices(currentPassage));
+        if (currentPassage.getFileName() != "" || currentPassage.getFileName() != null){
+            try {
+                image.setImage(new Image(new FileInputStream(currentPassage.getUrl())));
+            } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+            }
+        }
     }
 
 
