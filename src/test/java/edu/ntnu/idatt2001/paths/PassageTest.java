@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class PassageTest {
@@ -81,6 +83,16 @@ class PassageTest {
 
     }
 
+    @Test
+    @DisplayName("Test the url")
+    void
+    testUrl() {Passage testPassage = new Passage("Test title", "Test content", new ArrayList<>(), "test");
+        String expectedValue = "src/main/resources/images/background/test.jpg";
+        String actualValue = testPassage.getUrl();
+
+        assertEquals(expectedValue, actualValue);
+    }
+
     @DisplayName("Test Mutators")
     @Nested
     class MutatorsTest {
@@ -108,5 +120,6 @@ class PassageTest {
             assertTrue(testPassage.getLinks().contains(testLink));
         }
     }
+
 
 }
