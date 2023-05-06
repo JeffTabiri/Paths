@@ -1,22 +1,17 @@
-
-.gameTitle {
+.title {
     -fx-font-family: "Press Start 2P";
-    -fx-font-size: 10vw;
+    -fx-font-size: 20px;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/UI.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
 }
 
-
-.root {
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;
-    -fx-background-image: url("/images/background/startMenuBackground.png");
-    -fx-background-size: 100% 100%;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
 }
 
 
@@ -31,12 +26,11 @@
 
 
 .button:hover {
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
-    -fx-scale-z: 1.1;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-scale-z: 1.05;
 
     -fx-background-image: url("/images/buttonBackground/UnactiveButton.png");
     -fx-background-size: 100% 100%;
 }
-
 

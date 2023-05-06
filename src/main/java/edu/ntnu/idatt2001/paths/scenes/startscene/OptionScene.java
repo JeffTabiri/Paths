@@ -9,6 +9,11 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class OptionScene {
+
+    Stage stage;
+    double prevWidth;
+    double prevHeight;
+
     public Scene getScene(Stage stage, double prevWidth, double prevHeight) {
 
         /*#######################
@@ -27,7 +32,7 @@ public class OptionScene {
             double currentWidth = stage.getWidth();
             double currentHeight = stage.getHeight();
 
-            stage.setScene(new StartScene().getScene(stage, currentWidth, currentHeight));
+            //stage.setScene(new StartScene().getScene(stage, currentWidth, currentHeight));
         });
 
         BorderPane root = new BorderPane();

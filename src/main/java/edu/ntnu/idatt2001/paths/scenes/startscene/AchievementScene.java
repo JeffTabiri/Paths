@@ -81,7 +81,7 @@ public class AchievementScene {
         goBackButton.setOnAction(e -> {
             double currentWidth = stage.getWidth();
             double currentHeight = stage.getHeight();
-            stage.setScene(new StartScene().getScene(stage, currentWidth, currentHeight));
+            //stage.setScene(new StartScene().getScene(stage, currentWidth, currentHeight));
         });
 
 
