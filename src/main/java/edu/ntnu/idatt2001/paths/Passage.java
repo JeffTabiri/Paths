@@ -105,6 +105,18 @@ public class Passage {
         return links;
     }
 
+    public String getUrl() {
+        if(fileName == "" || fileName == null) {
+            return "";
+        }else {
+            return url;
+        }
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
 
 
 
