@@ -200,8 +200,8 @@ public class StoryLoader {
             bufferedReader.close();
         }
 
-        if(image.equals("")) {
-            passage = new Passage(passageTitle, content.toString(), links);
+        if(!image.equals("")||!image.equals(null)) {
+            passage = new Passage(passageTitle, content.toString(), links, image);
         } else {
             passage = new Passage(passageTitle, content.toString(), links);
         }
@@ -224,7 +224,7 @@ public class StoryLoader {
         if (line.startsWith("::")) {
             return "TITLE";
 
-        } else if (!line.startsWith("::") && !line.startsWith("[") && !line.startsWith("{")) {
+        } else if (!line.startsWith("::") && !line.startsWith("[") && !line.startsWith("{") && !line.startsWith("++")) {
             return "CONTENT";
 
         } else if (line.startsWith("[")) {
