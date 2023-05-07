@@ -72,6 +72,7 @@ You open the chest, the chest was a trap, you fall into a pitfall and die, you h
 You go right, and you find a slime blocking your way, you must defeat it.
 [Strike the slime](StrikeSlime)
 {Health}(-20)
+{Gold}(1000)
 [Stun the slime with your shield](StunSlime)
 
 ::StrikeSlime

@@ -1,0 +1,59 @@
+.title {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.list-view {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+
+.button {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;;
+    -fx-font-weight: bold;
+
+    -fx-background-image: url("/images/buttonBackground/ActiveButton.png");
+    -fx-background-size: 100% 100%;
+}
+
+
+.button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-scale-z: 1.05;
+
+    -fx-background-image: url("/images/buttonBackground/UnactiveButton.png");
+    -fx-background-size: 100% 100%;
+}
+
+.hotbar {
+    -fx-background-image: url("/images/UI/hotbar/HotbarBackground.png");
+    -fx-background-size: 100% 100%;
+}
+
+.content {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+
+}
+
+.UI-text {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+
+}
+
