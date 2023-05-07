@@ -1,11 +1,14 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
 import edu.ntnu.idatt2001.paths.scenes.gameEngine.GameLoopScene;
+import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -28,18 +31,24 @@ public class ChooseStoryScene {
     Stage stage;
     double prevWidth;
     double prevHeight;
+    ListView<String> storyListView = new ListView<>();
 
-    ListView<String> storyListView = new ListView<String>();
 
-
+  /**
+   * A constructor for the choose story scene class
+   * Assigns the stage, previous width and previous height
+   * Sets the items in the listview to the story list
+   *
+   * @param stage the window to be displayed
+   * @param prevWidth the width of the window before the scene was changed
+   * @param prevHeight the height of the window before the scene was changed
+   */
     public ChooseStoryScene(Stage stage, double prevWidth, double prevHeight) {
         storyListView.setItems(FXCollections.observableArrayList(getStoryList()));
         this.stage = stage;
         this.prevWidth = prevWidth;
         this.prevHeight = prevHeight;
     }
-
-
 
 
     /**
@@ -81,7 +90,13 @@ public class ChooseStoryScene {
         return scene;
     }
 
-    private HBox buildBottomMenu(Scene scene) {
+  /**
+   * Builds the bottom menu bar for the choose story scene.
+   *
+   * @param scene is the scene for the menu bar to be built on
+   * @return the bottom menu bar in a HBox
+   */
+  private HBox buildBottomMenu(Scene scene) {
 
         //Bottom menubar container
         HBox leftBox = new HBox();
@@ -98,6 +113,10 @@ public class ChooseStoryScene {
         ButtonEffects.addAudioChange(startGameButton);
         ButtonEffects.addAudioChange(returnButton);
 
+        //Padding
+        leftBox.setPadding(new Insets(20, 0, 20, 20));
+        rightBox.setPadding(new Insets(20, 20, 20, 0));
+
         //Button actions
         returnButton.setOnAction(event ->
                 stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
@@ -108,49 +127,17 @@ public class ChooseStoryScene {
             //stage.setScene(new GameLoopScene().getScene(stage, stage.getWidth(), stage.getHeight()));
         });
 
-        startGameButton.setOnAction (
+        startGameButton.setOnAction ( event -> {
 
-                event -> {
+          if (storyListView.getSelectionModel().getSelectedItem() == null) {
+            AlertUtility.showErrorAlert("Error", "No story selected. Please select a story");
+            return;
+          }
 
-                    final Stage dialog = new Stage();
-                    dialog.initModality(Modality.APPLICATION_MODAL);
-                    VBox popupBox = new VBox(20);
-                    HBox inputBox = new HBox(20);
-                    Text popupTitle = new Text("Choose a name");
-                    TextField nameField = new TextField();
-                    Button confirmButton = new Button("Confirm");
-                    popupBox.getChildren().addAll(popupTitle);
-                    inputBox.getChildren().addAll(nameField);
-                    popupBox.getChildren().addAll(inputBox, confirmButton);
-                    popupBox.setAlignment(Pos.CENTER);
-                    inputBox.setAlignment(Pos.CENTER);
+          popupBox().show();
 
 
-                    confirmButton.setOnAction(
-                            event1 -> {
-                                String storyAddress = "src/main/resources/stories/";
-
-                                dialog.close();
-
-                                double currentWidth = stage.getWidth();
-                                double currentHeight = stage.getHeight();
-
-                                File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
-                                String name = nameField.getText();
-
-                                try {
-                                    stage.setScene(new GameLoopScene(storyFile, name).getScene(stage, currentWidth, currentHeight));
-                                } catch (IOException ex) {
-                                    throw new RuntimeException(ex);
-                                }
-                            });
-
-
-                    Scene popupScene = new Scene(popupBox, 300, 200);
-                    dialog.setScene(popupScene);
-                    dialog.show();
-
-                });
+        });
 
 
         //Button placement
@@ -235,39 +222,58 @@ public class ChooseStoryScene {
     }
 
 
-    private void popupBox(Scene scene) {
+    private Stage popupBox() {
+      System.out.println("popupBox() called");
 
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
+      final Stage dialog = new Stage();
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      dialog.initOwner(stage);
 
-        BorderPane background = new BorderPane();
+      VBox popupBox = new VBox(20);
+      HBox inputBox = new HBox(20);
 
-        //Title container
-        HBox title = new HBox();
+      Text popupTitle = new Text("Choose a name");
 
-        //Popup title
-        Text popupTitle = new Text("Choose a name");
-        title.getChildren().add(popupTitle);
-        title.setAlignment(Pos.CENTER);
-        background.setTop(title);
+      TextField nameField = new TextField("");
+      nameField.setPromptText("Please enter a name");
 
+      Button confirmButton = new Button("Confirm");
 
-        //Bottom menubar container
-        HBox bottomBox = new HBox();
+      popupBox.getChildren().addAll(popupTitle);
+      inputBox.getChildren().addAll(nameField);
 
-        //Buttons
-        Button confirmButton = new Button("Confirm");
+      popupBox.getChildren().addAll(inputBox, confirmButton);
 
-        //Button Effects
-        ButtonEffects.addCursorImageChange(confirmButton, scene);
-        ButtonEffects.addAudioChange(confirmButton);
-
-        //Button actions
-        confirmButton.setOnAction(event -> {
-
-        });
+      popupBox.setAlignment(Pos.CENTER);
+      inputBox.setAlignment(Pos.CENTER);
 
 
+      confirmButton.setOnAction(
+              event1 -> {
+                String storyAddress = "src/main/resources/stories/";
 
+                dialog.close();
+
+                File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
+                String name = nameField.getText();
+
+                try {
+
+                  stage.setScene(new GameLoopScene(storyFile, name, stage, stage.getWidth(), stage.getHeight()).getScene());
+
+                } catch (IOException e) {
+
+                  throw new IllegalArgumentException(e.getMessage());
+
+                }
+
+              });
+
+
+      Scene popupScene = new Scene(popupBox, 300, 200);
+
+      dialog.setScene(popupScene);
+
+      return dialog;
     }
 }

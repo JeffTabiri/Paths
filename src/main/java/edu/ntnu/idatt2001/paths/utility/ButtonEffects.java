@@ -27,15 +27,21 @@ public class ButtonEffects {
 
     public static void addAudioChange(Button button) {
 
-        Media sound = new Media(ButtonEffects.class.getResource("/audio/buttoneffects/Menu Selection Click.wav").toString());
+        Media clickSound = new Media(ButtonEffects.class.getResource("/audio/specialEffects/buttonHover.wav").toString());
+        Media hoverSound = new Media(ButtonEffects.class.getResource("/audio/specialEffects/buttonClick.mp3").toString());
 
         button.setOnMouseEntered(event -> {
 
-            MediaPlayer mediaPlayer = new MediaPlayer(sound);
+            MediaPlayer mediaPlayer = new MediaPlayer(hoverSound);
             mediaPlayer.play();
 
         });
 
+        button.setOnAction(event -> {
+            MediaPlayer mediaPlayer = new MediaPlayer(clickSound);
+            mediaPlayer.play();
+        });
 
     }
+
 }

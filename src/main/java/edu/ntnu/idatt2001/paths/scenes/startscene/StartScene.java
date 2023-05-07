@@ -5,11 +5,11 @@ import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -52,6 +52,7 @@ public class StartScene {
         //Root container
         BorderPane root = new BorderPane();
 
+
         //Scene container
         Scene scene = new Scene(root);
 
@@ -65,7 +66,6 @@ public class StartScene {
         root.setCenter(buildMenu(scene));
 
         root.setBottom(buildCredits());
-
 
         /*#######################
         # Styling           #
@@ -94,7 +94,7 @@ public class StartScene {
         //Button creation
         Button newGameButton = new Button("New Game");
         Button loadGameButton = new Button("Load");
-        Button optionButton = new Button("Options");
+        Button optionButton = new Button("Help");
         Button achievementButton = new Button("Achievements");
 
 
@@ -111,31 +111,21 @@ public class StartScene {
 
 
         //Button actions
-        optionButton.setOnAction(event -> {
-            double currentWidth = stage.getWidth();
-            double currentHeight = stage.getHeight();
-            stage.setScene(new OptionScene().getScene(stage, currentWidth, currentHeight));
-        });
+        optionButton.setOnAction(event ->
+                stage.setScene(new OptionScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
 
 
-        newGameButton.setOnAction(event -> {
-            double currentWidth = stage.getWidth();
-            double currentHeight = stage.getHeight();
-            stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene());
-        });
+        newGameButton.setOnAction(event ->
+                stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
 
 
-        loadGameButton.setOnAction(event -> {
-            double currentWidth = stage.getWidth();
-            double currentHeight = stage.getHeight();
-            stage.setScene(new OptionScene().getScene(stage, currentWidth, currentHeight));
-        });
-
+        /*
+        loadGameButton.setOnAction(event ->
+                stage.setScene(new OptionScene().getScene(stage, stage.getWidth(), stage.getHeight())));
+        */
 
         achievementButton.setOnAction(event -> {
-            double currentWidth = stage.getWidth();
-            double currentHeight = stage.getHeight();
-            stage.setScene(new AchievementScene().getScene(stage, currentWidth, currentHeight));
+            stage.setScene(new AchievementScene(stage, stage.getWidth(), stage.getHeight()).getScene());
         });
 
 
@@ -147,6 +137,8 @@ public class StartScene {
         //Menu styling
         menu.setSpacing(20);
         menu.setAlignment(javafx.geometry.Pos.CENTER);
+
+
 
         return menu;
     }
@@ -217,8 +209,13 @@ public class StartScene {
         //Styling
         creditsText.getStyleClass().add("title");
 
-
         return credits;
+    }
+
+    private void playMusic() {
+        Media backgroundMusic = new Media(StartScene.class.getResource("/audio/backgroundMusic/mainMenu.mp3").toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(backgroundMusic);
+        mediaPlayer.play();
     }
 
 }

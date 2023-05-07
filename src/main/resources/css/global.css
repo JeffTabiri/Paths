@@ -34,3 +34,26 @@
     -fx-background-size: 100% 100%;
 }
 
+.hotbar {
+    -fx-background-image: url("/images/UI/hotbar/HotbarBackground.png");
+    -fx-background-size: 100% 100%;
+}
+
+.content {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+
+}
+
+.UI-text {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+
+}
+
