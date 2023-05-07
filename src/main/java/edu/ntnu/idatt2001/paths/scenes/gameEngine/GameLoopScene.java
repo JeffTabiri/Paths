@@ -2,6 +2,8 @@ package edu.ntnu.idatt2001.paths.scenes.gameEngine;
 
 import edu.ntnu.idatt2001.paths.*;
 import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
@@ -39,7 +41,11 @@ public class GameLoopScene {
     public GameLoopScene(File chosenStory, String name, Stage stage, double currentWidth, double currentHeight) throws IOException {
 
         story = new StoryLoader(chosenStory).getStory();
-        player = new Player(name, 100, 0, 0);
+        player = new PlayerBuilder(name)
+                .health(100)
+                .score(0)
+                .build();
+
         game = new Game(player, story, new ArrayList<>());
         currentPassage = story.getOpeningPassage();
 
