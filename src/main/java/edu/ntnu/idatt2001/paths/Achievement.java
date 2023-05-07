@@ -2,6 +2,7 @@ package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.Game;
 import edu.ntnu.idatt2001.paths.goals.Goal;
+import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 
 /**
  * Represents an achievement. An achievement has a goal, a title, a description and a boolean that
