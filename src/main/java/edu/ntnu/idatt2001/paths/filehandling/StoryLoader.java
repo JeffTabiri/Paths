@@ -165,6 +165,7 @@ public class StoryLoader {
         StringBuilder content = new StringBuilder();
         Link currentLink = null;
         List<Link> links = new ArrayList<>();
+        String image = "";
 
 
         try {
@@ -187,6 +188,8 @@ public class StoryLoader {
                         }
                     }
 
+                    case "IMAGE" -> image = getTitle(currentLine);
+
                     default -> throw new IllegalStateException("Unexpected value type.");
                 }
 
@@ -197,7 +200,11 @@ public class StoryLoader {
             bufferedReader.close();
         }
 
-        passage = new Passage(passageTitle, content.toString(), links);
+        if(!image.equals("")||!image.equals(null)) {
+            passage = new Passage(passageTitle, content.toString(), links, image);
+        } else {
+            passage = new Passage(passageTitle, content.toString(), links);
+        }
 
 
         return passage;
@@ -213,10 +220,11 @@ public class StoryLoader {
      */
     private String getLineType(String line) {
 
+
         if (line.startsWith("::")) {
             return "TITLE";
 
-        } else if (!line.startsWith("::") && !line.startsWith("[") && !line.startsWith("{")) {
+        } else if (!line.startsWith("::") && !line.startsWith("[") && !line.startsWith("{") && !line.startsWith("++")) {
             return "CONTENT";
 
         } else if (line.startsWith("[")) {
@@ -225,7 +233,9 @@ public class StoryLoader {
         } else if (line.startsWith("{")) {
             return "ACTION";
 
-        } else {
+        } else if (line.startsWith("++")){
+            return "IMAGE";
+        }else {
             return "";
         }
 

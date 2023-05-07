@@ -18,6 +18,10 @@ public class Passage {
     String content;
     List<Link> links = new ArrayList<>();
 
+    private String fileName;
+
+    private String url;
+
     /**
      * Constructor which is responsible for the creation of the Passage class.
      *
@@ -41,6 +45,7 @@ public class Passage {
         this.title = title;
         this.content = content;
     }
+
 
     /**
      * Constructor which is responsible for the creation of the Passage class
@@ -70,6 +75,23 @@ public class Passage {
     }
 
 
+    public Passage(String title, String content, List<Link> links, String fileName) {
+
+        if (title.isEmpty()) {
+            throw new IllegalArgumentException("The title can't be empty.");
+        }
+        else if (content.isEmpty()) {
+            throw new IllegalArgumentException("The content can't be empty.");
+        }
+
+        this.title = title;
+        this.content = content;
+        this.links.addAll(links);
+        this.fileName = fileName;
+        url = "src/main/resources/images/background/" + fileName + ".jpg";
+    }
+
+
 
     public String getTitle() {
         return title;
@@ -81,6 +103,18 @@ public class Passage {
 
     public List<Link> getLinks() {
         return links;
+    }
+
+    public String getUrl() {
+        if(fileName == "" || fileName == null) {
+            return "";
+        }else {
+            return url;
+        }
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
 

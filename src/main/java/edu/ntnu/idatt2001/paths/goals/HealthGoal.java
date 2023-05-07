@@ -21,7 +21,7 @@ public class HealthGoal implements Goal {
    *                      Gets assigned in the constructor. Is an integer.
    *
    */
-  HealthGoal(int minimumHealth) {
+  public HealthGoal(int minimumHealth) {
     this.minimumHealth = minimumHealth;
   }
 
