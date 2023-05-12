@@ -1,7 +1,8 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
-import edu.ntnu.idatt2001.paths.scenes.startscene.StartScene;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,6 +17,8 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 public class OptionScene {
+
+    AudioEngine audioEngine = AudioEngine.getInstance();
 
     Stage stage;
     double prevWidth;
@@ -35,6 +38,8 @@ public class OptionScene {
     }
 
     public Scene getScene() {
+
+        audioEngine.playMusic(GameStates.HELP_MENU);
 
         /*#######################
         # Stage size declaration #

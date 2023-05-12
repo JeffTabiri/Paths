@@ -1,22 +1,29 @@
 package edu.ntnu.idatt2001.paths.scenes.gameEngine;
 
-import edu.ntnu.idatt2001.paths.*;
+import edu.ntnu.idatt2001.paths.Game;
+import edu.ntnu.idatt2001.paths.Passage;
+import edu.ntnu.idatt2001.paths.Story;
 import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.Flow;
 
 /**
  * Represent the main
@@ -119,6 +126,10 @@ public class GameLoopScene {
 
             currentPassage = game.go(currentPassage.getLinks().get(passageChoice.getSelectionModel().getSelectedIndex()));
 
+            if(currentPassage.getGameState() != null) {
+                AudioEngine.getInstance().playMusic(currentPassage.getGameState());
+            }
+
             passageChoice.getItems().clear();
 
             passageChoice.getItems().addAll(getPassageChoices(currentPassage));
@@ -143,7 +154,7 @@ public class GameLoopScene {
      *
      * @return a container for the content of the current passage
      */
-    private FlowPane buildPassageContent() {
+    private HBox buildPassageContent() {
 
         //Build passage content
         TextFlow passageContent = new TextFlow(
@@ -151,13 +162,14 @@ public class GameLoopScene {
         );
 
         //Build passage content container
-        FlowPane passageContentBox = new FlowPane(passageContent);
+        HBox passageContentBox = new HBox(passageContent);
 
         //Set passage content alignment
         passageContentBox.setAlignment(Pos.CENTER);
 
         //Styling
         passageContentBox.getStyleClass().add("content");
+
 
         return passageContentBox;
     }
@@ -226,34 +238,41 @@ public class GameLoopScene {
     private HBox createOptionsTab() {
 
         HBox optionsBox = new HBox(10);
+        Button saveButton = new Button();
+        ImageView saveImage = new ImageView("/images/icons/Save.png");
 
-        ImageView saveImage = new ImageView("/images/icons/note.png");
         saveImage.setPreserveRatio(true);
-        saveImage.setFitHeight(25);
-        saveImage.setFitWidth(25);
+        saveImage.setFitHeight(32);
+        saveImage.setFitWidth(32);
+        saveButton.setGraphic(saveImage);
 
-        ImageView optionsImage = new ImageView("/images/icons/settings.png");
+
+        Button optionsButton = new Button();
+        ImageView optionsImage = new ImageView("/images/icons/Gear.png");
         optionsImage.setPreserveRatio(true);
-        optionsImage.setFitHeight(25);
-        optionsImage.setFitWidth(25);
+        optionsImage.setFitHeight(32);
+        optionsImage.setFitWidth(32);
+        optionsButton.setGraphic(optionsImage);
 
-        ImageView exitImage = new ImageView("/images/icons/close.png");
-        exitImage.setPreserveRatio(true);
-        exitImage.setFitHeight(25);
-        exitImage.setFitWidth(25);
 
-        ImageView helpImage = new ImageView("/images/icons/help.png");
+
+        Button helpButton = new Button();
+        ImageView helpImage = new ImageView("/images/icons/Info.png");
         helpImage.setPreserveRatio(true);
-        helpImage.setFitHeight(25);
-        helpImage.setFitWidth(25);
+        helpImage.setFitHeight(32);
+        helpImage.setFitWidth(32);
+        helpButton.setGraphic(helpImage);
+        optionsBox.getChildren().addAll(saveButton, optionsButton, helpButton);
 
-        optionsBox.getChildren().addAll(saveImage, optionsImage, helpImage, exitImage);
 
         optionsBox.setSpacing(10);
         optionsBox.setAlignment(Pos.CENTER_RIGHT);
         optionsBox.setMaxWidth(25);
         optionsBox.setMaxHeight(25);
         optionsBox.setAlignment(Pos.CENTER_RIGHT);
+
+        optionsBox.getStylesheets().add("css/global.css");
+        optionsBox.getStyleClass().add("optionButton");
 
         return optionsBox;
 
@@ -274,10 +293,6 @@ public class GameLoopScene {
         ImageView hotbarImageView = new ImageView("/images/UI/hotbar/HotbarBackground.png");
         hotbarImageView.setPreserveRatio(true);
         hotbarImageView.setFitWidth(512);
-
-
-
-
 
         //Player stats
         Text playerGold = new Text();

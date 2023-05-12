@@ -1,15 +1,17 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -18,6 +20,8 @@ public class StartScene {
     Stage stage;
     double prevWidth;
     double prevHeight;
+
+    AudioEngine audioEngine = AudioEngine.getInstance();
 
 
     /**
@@ -86,6 +90,14 @@ public class StartScene {
      * @return a VBox containing the menu
      */
     private VBox buildMenu(Scene scene) {
+
+
+        /*#######################
+         # Audio elements       #
+         #######################*/
+
+        audioEngine.playMusic(GameStates.MAIN_MENU);
+
 
         /*#######################
          # Button elements      #
@@ -210,12 +222,6 @@ public class StartScene {
         creditsText.getStyleClass().add("title");
 
         return credits;
-    }
-
-    private void playMusic() {
-        Media backgroundMusic = new Media(StartScene.class.getResource("/audio/backgroundMusic/mainMenu.mp3").toString());
-        MediaPlayer mediaPlayer = new MediaPlayer(backgroundMusic);
-        mediaPlayer.play();
     }
 
 }

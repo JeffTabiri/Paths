@@ -1,5 +1,7 @@
 package edu.ntnu.idatt2001.paths;
 
+import edu.ntnu.idatt2001.paths.utility.GameStates;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -21,6 +23,8 @@ public class Passage {
     private String fileName;
 
     private String url;
+
+    GameStates gameState;
 
     /**
      * Constructor which is responsible for the creation of the Passage class.
@@ -117,8 +121,13 @@ public class Passage {
         return fileName;
     }
 
+    public GameStates getGameState() {
+        return gameState;
+    }
 
-
+    public void setGameState(GameStates gameState) {
+        this.gameState = gameState;
+    }
 
     /**
      * A method for adding a link to the list of links.
