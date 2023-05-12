@@ -55,11 +55,22 @@ public class AudioEngine {
           return;
         }
 
-        Media media = new Media(AudioEngine.class.getResource(state.getValue()).toString());
+        Media media = new Media(AudioEngine.class.getResource(state.getValue()).toString() + "FULL.wav");
+
         mediaPlayer = new MediaPlayer(media);
+
         mediaPlayer.play();
+
+        mediaPlayer.setOnEndOfMedia(() -> {
+          mediaPlayer.stop();
+          mediaPlayer = new MediaPlayer(new Media(AudioEngine.class.getResource(state.getValue()).toString() + "LOOP.wav"));
+          mediaPlayer.play();
+          mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        });
+
+
+
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        System.out.println("Playing music for " + state.getValue());
 
       }
 

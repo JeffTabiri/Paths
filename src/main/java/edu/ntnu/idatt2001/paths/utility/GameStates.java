@@ -1,7 +1,7 @@
 package edu.ntnu.idatt2001.paths.utility;
 
 public enum GameStates {
-  MAIN_MENU("/audio/backgroundMusic/mainMenu.mp3"),
+  MAIN_MENU("/audio/backgroundMusic/Title Theme/"),
   OPTION_MENU(null);
 
   private String value;
