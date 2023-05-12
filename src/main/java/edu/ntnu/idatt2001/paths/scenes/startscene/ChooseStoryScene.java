@@ -2,7 +2,9 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 
 import edu.ntnu.idatt2001.paths.scenes.gameEngine.GameLoopScene;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -33,6 +35,8 @@ public class ChooseStoryScene {
     double prevHeight;
     ListView<String> storyListView = new ListView<>();
 
+    AudioEngine audioEngine = AudioEngine.getInstance();
+
 
   /**
    * A constructor for the choose story scene class
@@ -57,6 +61,8 @@ public class ChooseStoryScene {
      * @return the scene with the GUI elements
      */
     public Scene getScene() {
+
+
 
         /*#######################
         # Stage size declaration #

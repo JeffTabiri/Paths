@@ -1,6 +1,8 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
@@ -18,6 +20,8 @@ public class StartScene {
     Stage stage;
     double prevWidth;
     double prevHeight;
+
+    AudioEngine audioEngine = AudioEngine.getInstance();
 
 
     /**
@@ -86,6 +90,14 @@ public class StartScene {
      * @return a VBox containing the menu
      */
     private VBox buildMenu(Scene scene) {
+
+
+        /*#######################
+         # Audio elements       #
+         #######################*/
+
+        audioEngine.playMusic(GameStates.MAIN_MENU);
+
 
         /*#######################
          # Button elements      #
