@@ -12,12 +12,14 @@ You encounter a skeleton, to proceed you must defeat it.
 
 ::Strike the skeleton
 ++Cave
+--Boss
 The skeleton strikes, you manage to dodge, but not without taking some damage. You strike back, and the skeleton falls to the ground.
 [Take a rest and heal](Rest)
 {Health}(10)
 [Continue](Continue)
 
 ::Rest
+--Rest
 You take a rest and heal your wounds.
 [Continue](Continue)
 

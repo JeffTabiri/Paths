@@ -4,8 +4,12 @@ import edu.ntnu.idatt2001.paths.Link;
 import edu.ntnu.idatt2001.paths.Passage;
 import edu.ntnu.idatt2001.paths.Story;
 import edu.ntnu.idatt2001.paths.actions.*;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -166,6 +170,7 @@ public class StoryLoader {
         Link currentLink = null;
         List<Link> links = new ArrayList<>();
         String image = "";
+        String music = "";
 
 
         try {
@@ -190,6 +195,8 @@ public class StoryLoader {
 
                     case "IMAGE" -> image = getTitle(currentLine);
 
+                    case "MUSIC" -> music = getTitle(currentLine);
+
                     default -> throw new IllegalStateException("Unexpected value type.");
                 }
 
@@ -202,6 +209,7 @@ public class StoryLoader {
 
         if(!image.equals("")||!image.equals(null)) {
             passage = new Passage(passageTitle, content.toString(), links, image);
+            passage.setGameState(getStateType(music));
         } else {
             passage = new Passage(passageTitle, content.toString(), links);
         }
@@ -220,9 +228,14 @@ public class StoryLoader {
      */
     private String getLineType(String line) {
 
-
         if (line.startsWith("::")) {
             return "TITLE";
+
+        } else if (line.startsWith("++")) {
+            return "IMAGE";
+
+        } else if (line.startsWith("--")) {
+            return "MUSIC";
 
         } else if (!line.startsWith("::") && !line.startsWith("[") && !line.startsWith("{") && !line.startsWith("++")) {
             return "CONTENT";
@@ -233,11 +246,36 @@ public class StoryLoader {
         } else if (line.startsWith("{")) {
             return "ACTION";
 
-        } else if (line.startsWith("++")){
-            return "IMAGE";
-        }else {
+
+        } else {
             return "";
+
         }
+
+    }
+
+
+    private GameStates getStateType(String line) {
+
+        if (line.equalsIgnoreCase("Cave")) {
+            return GameStates.EXPLORE;
+        } else if (line.equalsIgnoreCase("Forest")) {
+            return GameStates.EXPLORE;
+        } else if (line.equalsIgnoreCase("Castle")) {
+            return GameStates.EXPLORE;
+        } else if (line.equalsIgnoreCase("Town")) {
+            return GameStates.EXPLORE;
+        } else if (line.equalsIgnoreCase("Dungeon")) {
+            return GameStates.ENEMY;
+        } else if (line.equalsIgnoreCase("Boss")) {
+            return GameStates.BOSS;
+        } else if (line.equalsIgnoreCase("Rest")) {
+            return GameStates.REST;
+        } else if (line.equalsIgnoreCase("Shop")) {
+            return GameStates.SHOP;
+        } else {
+            return GameStates.HELP_MENU;
+    }
 
     }
 

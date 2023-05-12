@@ -39,7 +39,7 @@ public class OptionScene {
 
     public Scene getScene() {
 
-        audioEngine.playMusic(GameStates.OPTION_MENU);
+        audioEngine.playMusic(GameStates.HELP_MENU);
 
         /*#######################
         # Stage size declaration #

@@ -61,7 +61,7 @@ public class Story {
         return passages.keySet()
                 .stream()
                 .filter(l -> l.equals(link))
-                .map(l -> passages.get(l))
+                .map(passages::get)
                 .findFirst()
                 .orElse(null);
     }

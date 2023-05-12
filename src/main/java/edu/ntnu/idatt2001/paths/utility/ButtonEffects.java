@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
+import javax.swing.text.html.ImageView;
 
 public class ButtonEffects {
 
@@ -41,6 +42,10 @@ public class ButtonEffects {
             MediaPlayer mediaPlayer = new MediaPlayer(clickSound);
             mediaPlayer.play();
         });
+
+    }
+
+    public void iconChange(ImageView image) {
 
     }
 
