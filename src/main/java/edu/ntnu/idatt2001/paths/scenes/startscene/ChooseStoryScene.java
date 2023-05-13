@@ -77,8 +77,15 @@ public class ChooseStoryScene {
          #######################*/
 
         BorderPane root = new BorderPane();
-        Scene scene = new Scene(root);
 
+      //Menu container
+      StackPane menuContainer = new StackPane();
+
+      //Scene container
+      Scene scene = new Scene(menuContainer);
+
+
+      menuContainer.getChildren().addAll(buildPane(), root);
 
         /*#######################
         # Node positioning      #
@@ -162,6 +169,17 @@ public class ChooseStoryScene {
         return bottom;
     }
 
+  private Pane buildPane() {
+    Pane pane = new Pane();
+
+    ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+    imageView.fitWidthProperty().bind(pane.widthProperty());
+    imageView.setPreserveRatio(true);
+
+    pane.getChildren().add(imageView);
+
+    return pane;
+  }
 
 
     private HBox buildTitle() {
