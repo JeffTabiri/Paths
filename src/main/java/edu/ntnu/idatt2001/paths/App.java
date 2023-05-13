@@ -17,6 +17,8 @@ public class    App extends Application {
     public void start(Stage primaryStage) {
 
         Font font = Font.loadFont(getClass().getResourceAsStream("/fonts/PressStart2P-Regular.ttf"), 20);
+        primaryStage.setMinHeight(600);
+        primaryStage.setMinWidth(800);
 
         double currentHeight = primaryStage.getHeight();
         double currentWidth = primaryStage.getWidth();

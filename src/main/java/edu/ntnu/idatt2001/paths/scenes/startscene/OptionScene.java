@@ -7,10 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
@@ -57,7 +54,14 @@ public class OptionScene {
         BorderPane root = new BorderPane();
 
         //Scene container
-        Scene scene = new Scene(root);
+        //Menu container
+        StackPane menuContainer = new StackPane();
+
+        //Scene container
+        Scene scene = new Scene(menuContainer);
+
+
+        menuContainer.getChildren().addAll(buildPane(), root);
 
 
         root.setTop(buildTitle());
@@ -161,6 +165,18 @@ public class OptionScene {
         });
 
         return bottomMenu;
+    }
+
+    private Pane buildPane() {
+        Pane pane = new Pane();
+
+        ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+        imageView.fitWidthProperty().bind(pane.widthProperty());
+        imageView.setPreserveRatio(true);
+
+        pane.getChildren().add(imageView);
+
+        return pane;
     }
 
 }
