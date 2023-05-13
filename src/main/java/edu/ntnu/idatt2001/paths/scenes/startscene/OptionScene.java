@@ -3,6 +3,9 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import edu.ntnu.idatt2001.paths.utility.GameStates;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +15,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class OptionScene {
 
@@ -35,8 +39,6 @@ public class OptionScene {
     }
 
     public Scene getScene() {
-
-        audioEngine.playMusic(GameStates.HELP_MENU);
 
         /*#######################
         # Stage size declaration #
@@ -71,8 +73,12 @@ public class OptionScene {
         root.getStylesheets().add("css/global.css");
 
 
-
-
+        //Animation
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
+        fadeTransition.setNode(menuContainer);
+        fadeTransition.setFromValue(0.75);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
 
         return scene;
     }
@@ -110,6 +116,18 @@ public class OptionScene {
         //Styling
         gameTitle.getStyleClass().add("title");
 
+        //Animation
+
+            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
+            translateTransition2.setNode(title);
+            translateTransition2.setFromY(0);
+            translateTransition2.setToY(-20);
+            translateTransition2.autoReverseProperty().setValue(true);
+            translateTransition2.setCycleCount(Animation.INDEFINITE);
+            translateTransition2.play();
+
+
+
         return title;
     }
 
@@ -130,6 +148,7 @@ public class OptionScene {
         helpBox.setAlignment(Pos.CENTER);
         textBox.setTextAlignment(TextAlignment.CENTER);
 
+        //
         return helpBox;
     }
 
@@ -156,12 +175,20 @@ public class OptionScene {
 
         //Button effects
         ButtonEffects.addCursorImageChange(back, scene);
-        ButtonEffects.addAudioChange(back);
 
         //Button actions
         back.setOnAction(e -> {
             StartScene startScene = new StartScene(stage, stage.getWidth(), stage.getHeight());
+            ButtonEffects.buttonPressed(back);
             stage.setScene(startScene.getScene());
+        });
+
+        back.setOnMouseEntered(e -> {
+            ButtonEffects.buttonHover(back);
+        });
+
+        back.setOnMouseExited(e -> {
+            ButtonEffects.buttonExit(back);
         });
 
         return bottomMenu;
