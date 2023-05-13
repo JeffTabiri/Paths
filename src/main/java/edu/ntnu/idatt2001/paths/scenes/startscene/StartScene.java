@@ -75,7 +75,7 @@ public class StartScene {
 
         root.setTop(buildTitle());
 
-        root.setCenter(buildMenu(scene));
+        root.setCenter(buildMenu());
 
         root.setBottom(buildCredits());
 
@@ -122,7 +122,7 @@ public class StartScene {
      * @param scene the scene which the menu is to be added to
      * @return a VBox containing the menu
      */
-    private VBox buildMenu(Scene scene) {
+    private VBox buildMenu() {
 
 
         /*#######################
@@ -142,13 +142,10 @@ public class StartScene {
         Button optionButton = new Button("Help");
         Button achievementButton = new Button("Achievements");
 
-
-
-        //Cursor change on hover
-        ButtonEffects.buttonPressed(loadGameButton);
-        ButtonEffects.buttonPressed(achievementButton);
-
-
+        newGameButton.getStyleClass().add("menu-button");
+        loadGameButton.getStyleClass().add("menu-button");
+        optionButton.getStyleClass().add("menu-button");
+        achievementButton.getStyleClass().add("menu-button");
 
 
         newGameButton.setOnAction(event -> {
@@ -157,7 +154,6 @@ public class StartScene {
         });
 
         loadGameButton.setOnAction(event -> {
-            //stage.setScene(new LoadGameScene(stage, stage.getWidth(), stage.getHeight()).getScene());
             ButtonEffects.buttonPressed(loadGameButton);
         });
 

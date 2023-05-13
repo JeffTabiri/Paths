@@ -2,7 +2,6 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
-import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -171,7 +170,7 @@ public class OptionScene {
         bottomMenu.setAlignment(Pos.CENTER_LEFT);
 
         //Styling
-        back.getStyleClass().add("button");
+        back.getStyleClass().add("menu-button");
 
         //Button effects
         ButtonEffects.addCursorImageChange(back, scene);

@@ -14,13 +14,13 @@
 }
 
 
-.button {
+.menu-button {
+    -fx-padding: 10 20 10 20;
     -fx-font-family: "Press Start 2P";
-    -fx-font-size: 30px;;
+    -fx-font-size: 25px;;
     -fx-font-weight: bold;
     -fx-background-image: url("/images/buttonBackground/ActiveButton.png");
     -fx-background-size: 100% 100%;
-
 }
 
 .secondary-button {
@@ -37,13 +37,12 @@
     -fx-font-weight: bold;
 }
 
-.optionButton {
+.option-button {
 
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;;
     -fx-font-weight: bold;
     -fx-background-color: transparent;
-    -fx-background-size: 100% 100%;
 
 }
 
@@ -56,8 +55,10 @@
 
 
 .hotbar {
-    -fx-background-image: url("/images/UI/hotbar/HotbarBackground.png");
-    -fx-background-size: 100% 100%;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
 .content {
@@ -66,6 +67,16 @@
     -fx-font-size: 15px;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
+
+}
+
+.game-content {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-background-color: #ffffff;
 
 }
 

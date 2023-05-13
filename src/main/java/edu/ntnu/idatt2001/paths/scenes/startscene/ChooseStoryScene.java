@@ -182,6 +182,11 @@ public class ChooseStoryScene {
         HBox.setHgrow(leftBox, Priority.ALWAYS);
         HBox.setHgrow(rightBox, Priority.ALWAYS);
 
+        //Styling
+        returnButton.getStyleClass().add("menu-button");
+        startGameButton.getStyleClass().add("menu-button");
+
+
         return bottom;
     }
 

@@ -2,9 +2,7 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 
 import edu.ntnu.idatt2001.paths.Achievement;
 import edu.ntnu.idatt2001.paths.AchievementList;
-import edu.ntnu.idatt2001.paths.goals.GoldGoal;
-import edu.ntnu.idatt2001.paths.goals.HealthGoal;
-import edu.ntnu.idatt2001.paths.goals.InventoryGoal;
+import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
@@ -16,9 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AchievementScene {
 
@@ -105,6 +100,12 @@ public class AchievementScene {
         goBackButton.setOnAction(e ->
                 stage.setScene(new StartScene(stage, prevWidth, prevHeight).getScene()));
 
+        goBackButton.setOnMouseEntered(e -> ButtonEffects.buttonHover(goBackButton));
+
+        goBackButton.setOnMouseExited(e -> ButtonEffects.buttonExit(goBackButton));
+
+        addAchievements.setOnMouseEntered(e -> ButtonEffects.buttonHover(addAchievements));
+        addAchievements.setOnMouseExited(e -> ButtonEffects.buttonExit(addAchievements));
 
         /*#######################
         # Node alignment        #
@@ -121,6 +122,10 @@ public class AchievementScene {
         HBox.setHgrow(leftBox, Priority.ALWAYS);
         HBox.setHgrow(rightBox, Priority.ALWAYS);
         bottom.setPadding(new Insets(10));
+
+        //Styling
+        goBackButton.getStyleClass().add("menu-button");
+        addAchievements.getStyleClass().add("menu-button");
 
         return bottom;
     }

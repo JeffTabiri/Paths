@@ -7,6 +7,8 @@ import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
+import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -33,10 +35,10 @@ public class GameLoopScene {
     //Stage variables
 
     Stage stage;
-
     double prevWidth;
-
     double prevHeight;
+
+    ImageView imageView;
 
     //Game variables
 
@@ -82,11 +84,16 @@ public class GameLoopScene {
 
         //Background image
         if (!currentPassage.getFileName().isEmpty()) {
-            background.getChildren().add(buildImage(currentPassage.getUrl()));
+            imageView = buildImage(currentPassage.getUrl());
+            imageView.fitWidthProperty().bind(stage.widthProperty());
+            imageView.fitHeightProperty().bind(stage.heightProperty());
+            background.getChildren().add(imageView);
         }
 
         //Root
         BorderPane root = new BorderPane();
+
+        root.setPadding(new Insets(20,20,20,20));
 
         background.getChildren().add(root);
 
@@ -109,10 +116,7 @@ public class GameLoopScene {
         root.setBottom(ground);
 
         //Styling
-
-
-        root.getStylesheets().add("css/global.css");
-
+        background.getStylesheets().add("css/global.css");
         return scene;
     }
 
@@ -124,6 +128,12 @@ public class GameLoopScene {
         return imageView;
     }
 
+
+    private StackPane buildBook() {
+        StackPane book = new StackPane();
+        book.getStyleClass().add("book");
+        return book;
+    }
     /**
      * Creates a list of choices for the player to choose from.
      *
@@ -153,6 +163,7 @@ public class GameLoopScene {
             passageChoice.getItems().addAll(getPassageChoices(currentPassage));
 
             //Content placement
+            imageView.setImage(buildImage(currentPassage.getUrl()).getImage());
             VBox topBox = new VBox();
             topBox.getChildren().addAll(createOptionsTab(), buildTitle());
 
@@ -179,6 +190,8 @@ public class GameLoopScene {
                 new Text(currentPassage.getContent())
         );
 
+
+
         passageContent.setLineSpacing(5);
 
         //Build passage content container
@@ -191,7 +204,8 @@ public class GameLoopScene {
         VBox.setMargin(passageContent, new javafx.geometry.Insets(20, 20, 20, 20));
 
         //Styling
-        passageContentBox.getStyleClass().add("content");
+        passageContentBox.getStyleClass().add("game-content");
+
 
 
         return passageContentBox;
@@ -217,7 +231,7 @@ public class GameLoopScene {
         ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
-        image.setFitWidth(storyTitle.getLayoutBounds().getWidth() + 400);
+        image.setFitWidth(storyTitle.getLayoutBounds().getWidth() + 300);
         image.setPreserveRatio(true);
 
         //Add elements to StackPane
@@ -225,10 +239,6 @@ public class GameLoopScene {
 
         //Add elements to titleBox
         titleBox.getChildren().add(topStackPane);
-
-        //Set StackPane alignment
-        //StackPane.setAlignment(storyTitle, javafx.geometry.Pos.CENTER);
-        //StackPane.setAlignment(image, javafx.geometry.Pos.CENTER);
 
         //Set title box alignment
         titleBox.setAlignment(javafx.geometry.Pos.CENTER);
@@ -261,14 +271,14 @@ public class GameLoopScene {
     private HBox createOptionsTab() {
 
         HBox optionsBox = new HBox(10);
+
         Button saveButton = new Button();
         ImageView saveImage = new ImageView("/images/icons/Save.png");
-
         saveImage.setPreserveRatio(true);
         saveImage.setFitHeight(32);
         saveImage.setFitWidth(32);
         saveButton.setGraphic(saveImage);
-
+        saveButton.getStyleClass().add("option-button");
 
         Button optionsButton = new Button();
         ImageView optionsImage = new ImageView("/images/icons/Gear.png");
@@ -276,6 +286,7 @@ public class GameLoopScene {
         optionsImage.setFitHeight(32);
         optionsImage.setFitWidth(32);
         optionsButton.setGraphic(optionsImage);
+        optionsButton.getStyleClass().add("option-button");
 
 
 
@@ -286,16 +297,27 @@ public class GameLoopScene {
         helpImage.setFitWidth(32);
         helpButton.setGraphic(helpImage);
         optionsBox.getChildren().addAll(saveButton, optionsButton, helpButton);
-
+        helpButton.getStyleClass().add("option-button");
 
         optionsBox.setSpacing(10);
         optionsBox.setAlignment(Pos.CENTER_RIGHT);
         optionsBox.setMaxWidth(25);
         optionsBox.setMaxHeight(25);
+        optionsBox.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
         optionsBox.setAlignment(Pos.CENTER_RIGHT);
 
-        optionsBox.getStylesheets().add("css/global.css");
-        optionsBox.getStyleClass().add("optionButton");
+
+        saveButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(saveButton));
+        saveButton.setOnMouseExited(event -> ButtonEffects.buttonExit(saveButton));
+
+        helpButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(helpButton));
+        helpButton.setOnMouseExited(event -> ButtonEffects.buttonExit(helpButton));
+
+        optionsButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(optionsButton));
+        optionsButton.setOnMouseExited(event -> ButtonEffects.buttonExit(optionsButton));
+
+
+        optionsBox.getStyleClass().add("option-button");
 
         return optionsBox;
 
@@ -337,7 +359,6 @@ public class GameLoopScene {
 
         playerNameBox.getChildren().add(playerName);
 
-
         Image healthImage = new Image("images/UI/hotbar/Heart.png", 32, 32, false, false);
         ImageView healthImageView = new ImageView(healthImage);
         healthImageView.setFitWidth(32);
@@ -371,7 +392,7 @@ public class GameLoopScene {
 
 
         //Styling
-        hotbarStackPane.getStyleClass().add("UI-text");
+        hotbarStackPane.getStyleClass().add("hotbar");
 
         return hotbarStackPane;
 
