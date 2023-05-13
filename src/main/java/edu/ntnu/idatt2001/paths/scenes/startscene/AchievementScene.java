@@ -54,7 +54,14 @@ public class AchievementScene {
         BorderPane root = new BorderPane();
 
         //Scene
-        Scene scene = new Scene(root);
+        //Menu container
+        StackPane menuContainer = new StackPane();
+
+        //Scene container
+        Scene scene = new Scene(menuContainer);
+
+
+        menuContainer.getChildren().addAll(buildPane(), root);
 
 
         /*#######################
@@ -185,6 +192,18 @@ public class AchievementScene {
         return achievementBox;
 
 
+    }
+
+    private Pane buildPane() {
+        Pane pane = new Pane();
+
+        ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+        imageView.fitWidthProperty().bind(pane.widthProperty());
+        imageView.setPreserveRatio(true);
+
+        pane.getChildren().add(imageView);
+
+        return pane;
     }
 
 }
