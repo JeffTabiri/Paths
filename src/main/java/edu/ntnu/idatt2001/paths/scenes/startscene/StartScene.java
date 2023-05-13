@@ -3,15 +3,13 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import edu.ntnu.idatt2001.paths.utility.GameStates;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -40,14 +38,12 @@ public class StartScene {
 
     public Scene getScene() {
 
-
         /*#######################
         # Stage size declaration #
         #######################*/
 
         stage.setWidth(prevWidth);
         stage.setHeight(prevHeight);
-
 
         /*#######################
         # GUI element creation #
@@ -56,13 +52,22 @@ public class StartScene {
         //Root container
         BorderPane root = new BorderPane();
 
+        //Menu container
+        StackPane menuContainer = new StackPane();
 
         //Scene container
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(menuContainer);
 
 
         /*#######################
-        # Node positioning      #
+        # Background elements   #
+        #######################*/
+
+
+        menuContainer.getChildren().addAll(buildPane(), root);
+
+        /*#######################
+        # Root Node positioning #
         #######################*/
 
         root.setTop(buildTitle());
@@ -80,6 +85,18 @@ public class StartScene {
         scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
 
         return scene;
+    }
+
+    private Pane buildPane() {
+        Pane pane = new Pane();
+
+        ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+        imageView.fitWidthProperty().bind(pane.widthProperty());
+        imageView.setPreserveRatio(true);
+
+        pane.getChildren().add(imageView);
+
+        return pane;
     }
 
 
