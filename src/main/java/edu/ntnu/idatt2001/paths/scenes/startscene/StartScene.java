@@ -3,6 +3,8 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import edu.ntnu.idatt2001.paths.utility.GameStates;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
@@ -12,6 +14,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class StartScene {
@@ -93,8 +96,21 @@ public class StartScene {
         ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
         imageView.fitWidthProperty().bind(pane.widthProperty());
         imageView.setPreserveRatio(true);
-
         pane.getChildren().add(imageView);
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(3), imageView);
+        translateTransition.setFromY(-imageView.getImage().getHeight());
+        translateTransition.setToY(0);
+        translateTransition.play();
+
+        translateTransition.setOnFinished(event -> {
+            TranslateTransition fadeTransition = new TranslateTransition(Duration.seconds(4), imageView);
+            fadeTransition.setFromY(0);
+            fadeTransition.setToY(-40);
+            fadeTransition.setCycleCount(Animation.INDEFINITE);
+            fadeTransition.setAutoReverse(true);
+            fadeTransition.play();
+        });
 
         return pane;
     }
@@ -127,35 +143,44 @@ public class StartScene {
         Button achievementButton = new Button("Achievements");
 
 
+
         //Cursor change on hover
-        ButtonEffects.addCursorImageChange(newGameButton, scene);
-        ButtonEffects.addCursorImageChange(loadGameButton, scene);
-        ButtonEffects.addCursorImageChange(optionButton, scene);
-        ButtonEffects.addCursorImageChange(achievementButton, scene);
-
-        ButtonEffects.addAudioChange(newGameButton);
-        ButtonEffects.addAudioChange(loadGameButton);
-        ButtonEffects.addAudioChange(optionButton);
-        ButtonEffects.addAudioChange(achievementButton);
+        ButtonEffects.buttonPressed(loadGameButton);
+        ButtonEffects.buttonPressed(achievementButton);
 
 
-        //Button actions
-        optionButton.setOnAction(event ->
-                stage.setScene(new OptionScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
 
 
-        newGameButton.setOnAction(event ->
-                stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
+        newGameButton.setOnAction(event -> {
+                    stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+                    ButtonEffects.buttonPressed(newGameButton);
+        });
 
+        loadGameButton.setOnAction(event -> {
+            //stage.setScene(new LoadGameScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+            ButtonEffects.buttonPressed(loadGameButton);
+        });
 
-        /*
-        loadGameButton.setOnAction(event ->
-                stage.setScene(new OptionScene().getScene(stage, stage.getWidth(), stage.getHeight())));
-        */
+        optionButton.setOnAction(event -> {
+            stage.setScene(new OptionScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+            ButtonEffects.buttonPressed(optionButton);
+        });
 
         achievementButton.setOnAction(event -> {
             stage.setScene(new AchievementScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+            ButtonEffects.buttonPressed(achievementButton);
         });
+
+
+        newGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(newGameButton));
+        loadGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(loadGameButton));
+        optionButton.setOnMouseExited(event -> ButtonEffects.buttonExit(optionButton));
+        achievementButton.setOnMouseExited(event -> ButtonEffects.buttonExit(achievementButton));
+
+        newGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(newGameButton));
+        loadGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(loadGameButton));
+        optionButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(optionButton));
+        achievementButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(achievementButton));
 
 
         //Menu container
@@ -164,10 +189,14 @@ public class StartScene {
 
 
         //Menu styling
-        menu.setSpacing(20);
+        menu.setSpacing(40);
         menu.setAlignment(javafx.geometry.Pos.CENTER);
 
-
+        //Animation
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), menu);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
 
         return menu;
     }
@@ -212,6 +241,25 @@ public class StartScene {
         //Styling
         gameTitle.getStyleClass().add("title");
 
+        //Animation
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(javafx.util.Duration.seconds(1.5));
+        translateTransition.setNode(title);
+        translateTransition.setFromY(-200);
+        translateTransition.setToY(0);
+        translateTransition.play();
+
+        translateTransition.setOnFinished(event -> {
+            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
+            translateTransition2.setNode(title);
+            translateTransition2.setFromY(0);
+            translateTransition2.setToY(-20);
+            translateTransition2.autoReverseProperty().setValue(true);
+            translateTransition2.setCycleCount(Animation.INDEFINITE);
+            translateTransition2.play();
+        });
+
+
         return title;
     }
 
@@ -237,6 +285,14 @@ public class StartScene {
 
         //Styling
         creditsText.getStyleClass().add("title");
+
+        //Animation
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(javafx.util.Duration.seconds(1.5));
+        translateTransition.setNode(credits);
+        translateTransition.setFromY(40);
+        translateTransition.setToY(0);
+        translateTransition.play();
 
         return credits;
     }

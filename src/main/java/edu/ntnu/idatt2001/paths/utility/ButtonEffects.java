@@ -1,12 +1,12 @@
 package edu.ntnu.idatt2001.paths.utility;
 
+import javafx.animation.ScaleTransition;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-
-import javax.swing.text.html.ImageView;
+import javafx.util.Duration;
 
 public class ButtonEffects {
 
@@ -26,27 +26,73 @@ public class ButtonEffects {
         });
     }
 
-    public static void addAudioChange(Button button) {
+    public static void audioOnEnter() {
+        Media clickSound = new Media(ButtonEffects.class.getResource("/audio/buttoneffects/MenuHover.wav").toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(clickSound);
+        mediaPlayer.play();
+    }
 
-        Media clickSound = new Media(ButtonEffects.class.getResource("/audio/specialEffects/buttonHover.wav").toString());
-        Media hoverSound = new Media(ButtonEffects.class.getResource("/audio/specialEffects/buttonClick.mp3").toString());
 
-        button.setOnMouseEntered(event -> {
+    private static void audioOnPressed() {
+        Media clickSound = new Media(ButtonEffects.class.getResource("/audio/buttoneffects/MenuSelect.mp3").toString());
+        MediaPlayer mediaPlayer = new MediaPlayer(clickSound);
+        mediaPlayer.play();
+    }
 
-            MediaPlayer mediaPlayer = new MediaPlayer(hoverSound);
-            mediaPlayer.play();
-
-        });
-
-        button.setOnAction(event -> {
-            MediaPlayer mediaPlayer = new MediaPlayer(clickSound);
-            mediaPlayer.play();
-        });
+    public static void animationChange(Button button) {
 
     }
 
-    public void iconChange(ImageView image) {
+    public static void animationChangeEntered(Button button) {
+        scaleOnHover(button);
+        audioOnEnter();
+    }
 
+    public static void animationChangeExited(Button button) {
+
+    }
+
+    public static void animationChangePressed(Button button) {
+        audioOnPressed();
+
+
+    }
+
+    private static void scaleOnHover(Button button) {
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setDuration(Duration.millis(100));
+        scaleTransition.setNode(button);
+        scaleTransition.setFromX(1);
+        scaleTransition.setFromY(1);
+        scaleTransition.setToX(1.25);
+        scaleTransition.setToY(1.25);
+        scaleTransition.autoReverseProperty().setValue(true);
+        scaleTransition.play();
+    }
+
+    private static void scaleOnExit(Button button) {
+        ScaleTransition scaleTransition = new ScaleTransition();
+        scaleTransition.setDuration(Duration.millis(100));
+        scaleTransition.setNode(button);
+        scaleTransition.setFromX(1.25);
+        scaleTransition.setFromY(1.25);
+        scaleTransition.setToX(1);
+        scaleTransition.setToY(1);
+        scaleTransition.autoReverseProperty().setValue(true);
+        scaleTransition.play();
+    }
+
+    public static void buttonPressed(Button button) {
+        audioOnPressed();
+    }
+
+    public static void buttonHover(Button button) {
+        audioOnEnter();
+        scaleOnHover(button);
+    }
+
+    public static void buttonExit(Button button) {
+        scaleOnExit(button);
     }
 
 }
