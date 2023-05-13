@@ -77,11 +77,21 @@ public class GameLoopScene {
          # GUI element creation #
          #######################*/
 
+        //StackPane
+        StackPane background = new StackPane();
+
+        //Background image
+        if (!currentPassage.getFileName().isEmpty()) {
+            background.getChildren().add(buildImage(currentPassage.getUrl()));
+        }
+
         //Root
         BorderPane root = new BorderPane();
 
+        background.getChildren().add(root);
+
         //Scene creation
-        Scene scene = new Scene(root, prevWidth, prevHeight);
+        Scene scene = new Scene(background, prevWidth, prevHeight);
 
 
         //Content placement
@@ -104,6 +114,14 @@ public class GameLoopScene {
         root.getStylesheets().add("css/global.css");
 
         return scene;
+    }
+
+    private ImageView buildImage(String path) {
+        Image image = new Image(path);
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        return imageView;
     }
 
     /**
@@ -154,18 +172,23 @@ public class GameLoopScene {
      *
      * @return a container for the content of the current passage
      */
-    private HBox buildPassageContent() {
+    private VBox buildPassageContent() {
 
         //Build passage content
         TextFlow passageContent = new TextFlow(
                 new Text(currentPassage.getContent())
         );
 
+        passageContent.setLineSpacing(5);
+
         //Build passage content container
-        HBox passageContentBox = new HBox(passageContent);
+        VBox passageContentBox = new VBox(passageContent);
+
+        passageContent.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
         //Set passage content alignment
         passageContentBox.setAlignment(Pos.CENTER);
+        VBox.setMargin(passageContent, new javafx.geometry.Insets(20, 20, 20, 20));
 
         //Styling
         passageContentBox.getStyleClass().add("content");
@@ -305,7 +328,6 @@ public class GameLoopScene {
         playerHealth.setText(player.getHealth() + "HP");
         playerScore.setText("SCORE:" + player.getScore());
         playerName.setText(player.getName());
-
 
         //HBox for player stats
         HBox playerGoldBox = new HBox(5);

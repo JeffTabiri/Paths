@@ -4,13 +4,14 @@ import edu.ntnu.idatt2001.paths.scenes.gameEngine.GameLoopScene;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
-import edu.ntnu.idatt2001.paths.utility.GameStates;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
@@ -19,6 +20,8 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,7 +37,6 @@ public class ChooseStoryScene {
     double prevWidth;
     double prevHeight;
     ListView<String> storyListView = new ListView<>();
-
     AudioEngine audioEngine = AudioEngine.getInstance();
 
 
@@ -85,6 +87,8 @@ public class ChooseStoryScene {
       Scene scene = new Scene(menuContainer);
 
 
+
+
       menuContainer.getChildren().addAll(buildPane(), root);
 
         /*#######################
@@ -95,10 +99,17 @@ public class ChooseStoryScene {
         root.setBottom(buildBottomMenu(scene));
         root.setTop(buildTitle());
         root.setCenter(storyListView);
-
+        root.setPadding(new Insets(10, 20, 10, 20));
         //CSS styling
         root.getStylesheets().add("css/global.css");
         scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+
+      //Animation
+      FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
+      fadeTransition.setNode(root);
+      fadeTransition.setFromValue(0.75);
+      fadeTransition.setToValue(1);
+      fadeTransition.play();
 
         return scene;
     }
@@ -120,11 +131,6 @@ public class ChooseStoryScene {
         Button returnButton = new Button("Return");
         Button startGameButton = new Button("Start Game");
 
-        //Button Effects
-        ButtonEffects.addCursorImageChange(startGameButton, scene);
-        ButtonEffects.addCursorImageChange(returnButton, scene);
-        ButtonEffects.addAudioChange(startGameButton);
-        ButtonEffects.addAudioChange(returnButton);
 
         //Padding
         leftBox.setPadding(new Insets(20, 0, 20, 20));
@@ -135,9 +141,14 @@ public class ChooseStoryScene {
                 stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
 
 
-
-        startGameButton.setOnAction(e -> {
-            //stage.setScene(new GameLoopScene().getScene(stage, stage.getWidth(), stage.getHeight()));
+        storyListView.setOnMouseClicked(event -> {
+          if (event.getClickCount() == 2) {
+            if (storyListView.getSelectionModel().getSelectedItem() == null) {
+              AlertUtility.showErrorAlert("Error", "No story selected. Please select a story");
+              return;
+            }
+            popupBox().show();
+          }
         });
 
         startGameButton.setOnAction ( event -> {
@@ -149,8 +160,13 @@ public class ChooseStoryScene {
 
           popupBox().show();
 
-
         });
+
+        returnButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(returnButton));
+        startGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(startGameButton));
+
+        returnButton.setOnMouseExited(event -> ButtonEffects.buttonExit(returnButton));
+        startGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(startGameButton));
 
 
         //Button placement
@@ -216,6 +232,15 @@ public class ChooseStoryScene {
         //Styling
         gameTitle.getStyleClass().add("title");
 
+        //Animation
+      TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
+      translateTransition2.setNode(titleBox);
+      translateTransition2.setFromY(0);
+      translateTransition2.setToY(-20);
+      translateTransition2.autoReverseProperty().setValue(true);
+      translateTransition2.setCycleCount(Animation.INDEFINITE);
+      translateTransition2.play();
+
         return titleBox;
     }
 
@@ -247,16 +272,16 @@ public class ChooseStoryScene {
 
 
     private Stage popupBox() {
-      System.out.println("popupBox() called");
-
       final Stage dialog = new Stage();
       dialog.initModality(Modality.APPLICATION_MODAL);
       dialog.initOwner(stage);
+      dialog.resizableProperty().setValue(false);
+
 
       VBox popupBox = new VBox(20);
       HBox inputBox = new HBox(20);
 
-      Text popupTitle = new Text("Choose a name");
+      Text popupTitle = new Text("Choose a name: ");
 
       TextField nameField = new TextField("");
       nameField.setPromptText("Please enter a name");
@@ -274,29 +299,46 @@ public class ChooseStoryScene {
 
       confirmButton.setOnAction(
               event1 -> {
-                String storyAddress = "src/main/resources/stories/";
 
-                dialog.close();
+                ButtonEffects.buttonPressed(confirmButton);
 
-                File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
-                String name = nameField.getText();
 
                 try {
 
+                  if (nameField.getText().isEmpty()) {
+                    throw new IllegalArgumentException("Please enter a name");
+                  }
+
+                  String storyAddress = "src/main/resources/stories/";
+                  dialog.close();
+                  File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
+                  String name = nameField.getText();
                   stage.setScene(new GameLoopScene(storyFile, name, stage, stage.getWidth(), stage.getHeight()).getScene());
 
                 } catch (IOException e) {
 
                   throw new IllegalArgumentException(e.getMessage());
 
+                } catch (IllegalArgumentException e) {
+
+                  AlertUtility.showErrorAlert("Error", e.getMessage());
+
                 }
 
               });
 
+      confirmButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(confirmButton));
+        confirmButton.setOnMouseExited(event -> ButtonEffects.buttonExit(confirmButton));
 
+      //Styling
+      popupBox.getStylesheets().add("css/global.css");
+      confirmButton.getStyleClass().add("secondary-button");
+      popupTitle.getStyleClass().add("secondary-text");
       Scene popupScene = new Scene(popupBox, 300, 200);
 
       dialog.setScene(popupScene);
+
+
 
       return dialog;
     }

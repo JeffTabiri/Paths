@@ -92,7 +92,7 @@ public class Passage {
         this.content = content;
         this.links.addAll(links);
         this.fileName = fileName;
-        url = "src/main/resources/images/background/" + fileName + ".jpg";
+        url = "/images/background/" + fileName + ".jpg";
     }
 
 
