@@ -1,6 +1,7 @@
 Catacombs of Agniritha
 
 ::Beginnings
+++Cave
 You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.
 [Procceed further](Enter the catacombs)
 
@@ -11,7 +12,6 @@ You encounter a skeleton, to proceed you must defeat it.
 [Return](Beginnings)
 
 ::Strike the skeleton
-++Cave
 --Boss
 The skeleton strikes, you manage to dodge, but not without taking some damage. You strike back, and the skeleton falls to the ground.
 [Take a rest and heal](Rest)
@@ -24,7 +24,6 @@ You take a rest and heal your wounds.
 [Continue](Continue)
 
 ::Continue
-++cavern
 You continue on your way, and find a 4 way intersection. You must choose one of 3 paths.
 [Go left](Left)
 [Go right](Right)
