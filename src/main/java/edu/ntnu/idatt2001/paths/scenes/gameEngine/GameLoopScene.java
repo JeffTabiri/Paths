@@ -15,11 +15,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
@@ -33,15 +31,14 @@ import java.util.ArrayList;
 public class GameLoopScene {
 
     //Stage variables
-
     Stage stage;
     double prevWidth;
     double prevHeight;
 
+    //GUI variables
     ImageView imageView;
 
     //Game variables
-
     Game game;
     Player player;
     Story story;
@@ -82,13 +79,6 @@ public class GameLoopScene {
         //StackPane
         StackPane background = new StackPane();
 
-        //Background image
-        if (!currentPassage.getFileName().isEmpty()) {
-            imageView = buildImage(currentPassage.getUrl());
-            imageView.fitWidthProperty().bind(stage.widthProperty());
-            imageView.fitHeightProperty().bind(stage.heightProperty());
-            background.getChildren().add(imageView);
-        }
 
         //Root
         BorderPane root = new BorderPane();
@@ -129,11 +119,6 @@ public class GameLoopScene {
     }
 
 
-    private StackPane buildBook() {
-        StackPane book = new StackPane();
-        book.getStyleClass().add("book");
-        return book;
-    }
     /**
      * Creates a list of choices for the player to choose from.
      *
@@ -163,7 +148,6 @@ public class GameLoopScene {
             passageChoice.getItems().addAll(getPassageChoices(currentPassage));
 
             //Content placement
-            imageView.setImage(buildImage(currentPassage.getUrl()).getImage());
             VBox topBox = new VBox();
             topBox.getChildren().addAll(createOptionsTab(), buildTitle());
 
@@ -178,12 +162,13 @@ public class GameLoopScene {
         return passageChoice;
     }
 
+
     /**
      * Creates a container for the content of the passage.
      *
      * @return a container for the content of the current passage
      */
-    private VBox buildPassageContent() {
+    private HBox buildPassageContent() {
 
         //Build passage content
         TextFlow passageContent = new TextFlow(
@@ -195,7 +180,15 @@ public class GameLoopScene {
         passageContent.setLineSpacing(5);
 
         //Build passage content container
-        VBox passageContentBox = new VBox(passageContent);
+        HBox passageContentBox = new HBox(passageContent);
+        ImageView imageView = buildImage(currentPassage.getUrl());
+
+        passageContentBox.getChildren().add(imageView);
+        imageView.setPreserveRatio(true);
+        imageView.setFitHeight(passageContentBox.getHeight());
+
+
+
 
         passageContent.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
 
@@ -228,7 +221,7 @@ public class GameLoopScene {
         StackPane topStackPane = new StackPane();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(storyTitle.getLayoutBounds().getWidth() + 300);
@@ -273,7 +266,7 @@ public class GameLoopScene {
         HBox optionsBox = new HBox(10);
 
         Button saveButton = new Button();
-        ImageView saveImage = new ImageView("/images/icons/Save.png");
+        ImageView saveImage = new ImageView("/images/icon/Save.png");
         saveImage.setPreserveRatio(true);
         saveImage.setFitHeight(32);
         saveImage.setFitWidth(32);
@@ -281,7 +274,7 @@ public class GameLoopScene {
         saveButton.getStyleClass().add("option-button");
 
         Button optionsButton = new Button();
-        ImageView optionsImage = new ImageView("/images/icons/Gear.png");
+        ImageView optionsImage = new ImageView("/images/icon/Gear.png");
         optionsImage.setPreserveRatio(true);
         optionsImage.setFitHeight(32);
         optionsImage.setFitWidth(32);
@@ -291,7 +284,7 @@ public class GameLoopScene {
 
 
         Button helpButton = new Button();
-        ImageView helpImage = new ImageView("/images/icons/Info.png");
+        ImageView helpImage = new ImageView("/images/icon/Info.png");
         helpImage.setPreserveRatio(true);
         helpImage.setFitHeight(32);
         helpImage.setFitWidth(32);
@@ -396,7 +389,7 @@ public class GameLoopScene {
 
         return hotbarStackPane;
 
-    }
+}
 
 
 

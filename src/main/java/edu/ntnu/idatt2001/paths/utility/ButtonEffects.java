@@ -11,8 +11,8 @@ import javafx.util.Duration;
 public class ButtonEffects {
 
     //Cursor images
-    static String cursorGrab = "images/cursors/cursor_grab.png";
-    static String cursorGrabbing = "images/cursors/cursor_grabbing.png";
+    static String cursorGrab = "images/cursor/cursor_grab.png";
+    static String cursorGrabbing = "images/cursor/cursor_grabbing.png";
 
 
     public static void addCursorImageChange(Button button, Scene scene) {

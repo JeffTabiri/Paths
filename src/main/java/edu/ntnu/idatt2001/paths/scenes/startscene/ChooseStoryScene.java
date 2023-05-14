@@ -102,7 +102,7 @@ public class ChooseStoryScene {
         root.setPadding(new Insets(10, 20, 10, 20));
         //CSS styling
         root.getStylesheets().add("css/global.css");
-        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
 
       //Animation
       FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
@@ -212,7 +212,7 @@ public class ChooseStoryScene {
         HBox titleBox = new HBox();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(400);

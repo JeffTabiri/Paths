@@ -73,7 +73,7 @@ public class AchievementScene {
         #######################*/
 
         root.getStylesheets().add("css/global.css");
-        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
         return scene;
     }
 
@@ -140,7 +140,7 @@ public class AchievementScene {
         HBox titleBox = new HBox();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(400);
@@ -189,7 +189,7 @@ public class AchievementScene {
         achievementTextContainer.getChildren().addAll(achievementTitle, achievementDescription, achievementProgress);
         achievementTextContainer.setSpacing(10);
 
-        Image achievementImage = new Image("images/cursors/cursor_grab.png", 64, 64, true, true);
+        Image achievementImage = new Image("images/cursor/cursor_grab.png", 64, 64, true, true);
         ImageView achievementImageView = new ImageView(achievementImage);
         achievementBox.getChildren().addAll(achievementImageView, achievementTextContainer);
         achievementBox.setSpacing(20);

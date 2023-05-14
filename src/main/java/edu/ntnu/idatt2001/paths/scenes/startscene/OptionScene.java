@@ -90,7 +90,7 @@ public class OptionScene {
         HBox title = new HBox();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(400);

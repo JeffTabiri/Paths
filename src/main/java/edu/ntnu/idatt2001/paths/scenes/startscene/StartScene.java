@@ -85,7 +85,7 @@ public class StartScene {
 
         //CSS styling
         root.getStylesheets().add("css/global.css");
-        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
 
         return scene;
     }
@@ -212,7 +212,7 @@ public class StartScene {
         HBox title = new HBox();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(400);

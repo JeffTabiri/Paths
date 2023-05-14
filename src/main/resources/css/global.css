@@ -19,7 +19,7 @@
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 25px;;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/buttonBackground/ActiveButton.png");
+    -fx-background-image: url("/images/button/ActiveButton.png");
     -fx-background-size: 100% 100%;
 }
 
@@ -27,7 +27,7 @@
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/buttonBackground/ActiveButton.png");
+    -fx-background-image: url("/images/button/ActiveButton.png");
     -fx-background-size: 100% 100%;
 }
 
@@ -76,8 +76,6 @@
     -fx-font-size: 15px;
     -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-    -fx-background-color: #ffffff;
-
 }
 
 .UI-text {
