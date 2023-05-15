@@ -67,7 +67,7 @@ public class AudioEngine {
           mediaPlayer.stop();
           mediaPlayer = new MediaPlayer(new Media(AudioEngine.class.getResource(state.getValue()).toString() + "LOOP.wav"));
           mediaPlayer.play();
-          mediaPlayer.setVolume(0);
+          mediaPlayer.setVolume(0.5);
           mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         });
 

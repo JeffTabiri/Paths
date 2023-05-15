@@ -6,6 +6,8 @@ import edu.ntnu.idatt2001.paths.Story;
 import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.scenes.startscene.StartScene;
+import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import javafx.geometry.Insets;
@@ -76,45 +78,31 @@ public class GameLoopScene {
          # GUI element creation #
          #######################*/
 
-        //StackPane
-        StackPane background = new StackPane();
-
-
         //Root
         BorderPane root = new BorderPane();
 
-        root.setPadding(new Insets(20,20,20,20));
-
-        background.getChildren().add(root);
-
         //Scene creation
-        Scene scene = new Scene(background, prevWidth, prevHeight);
-
-
-        //Content placement
-        VBox topBox = new VBox();
-        topBox.getChildren().addAll(createOptionsTab(), buildTitle());
+        Scene scene = new Scene(root, prevWidth, prevHeight);
 
 
         VBox ground = new VBox();
-        ground.getChildren().addAll(buildHotbarBox(), buildPassageChoices(root));
+        ground.getChildren().addAll(buildPassageChoices(root));
 
 
         //Choices placement
-        root.setTop(topBox);
-        root.setCenter(buildPassageContent());
+        root.setTop(buildTopMenu());
         root.setBottom(ground);
+        root.setCenter(buildPassageContent());
 
         //Styling
-        background.getStylesheets().add("css/global.css");
+        root.getStylesheets().add("css/global.css");
         return scene;
     }
 
     private ImageView buildImage(String path) {
         Image image = new Image(path);
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
+        ImageView imageView;
+        imageView = new ImageView(image);
         return imageView;
     }
 
@@ -149,7 +137,9 @@ public class GameLoopScene {
 
             //Content placement
             VBox topBox = new VBox();
+            topBox.setAlignment(Pos.CENTER_LEFT);
             topBox.getChildren().addAll(createOptionsTab(), buildTitle());
+
 
             VBox ground = new VBox();
             ground.getChildren().addAll(buildHotbarBox(), buildPassageChoices(root));
@@ -168,40 +158,34 @@ public class GameLoopScene {
      *
      * @return a container for the content of the current passage
      */
-    private HBox buildPassageContent() {
+    private VBox buildPassageContent() {
+
 
         //Build passage content
-        TextFlow passageContent = new TextFlow(
-                new Text(currentPassage.getContent())
-        );
+        TextFlow passageContent = new TextFlow(new Text(currentPassage.getContent()));
+
+        passageContent.setPadding(new Insets(20,20,20,20));
+
+        //Image container
+        ImageView image = new ImageView(buildImage(currentPassage.getUrl()).getImage());
+
+        image.setFitWidth(800);
+        image.setPreserveRatio(true);
 
 
+        //Container for text and image
+        VBox verticalBox = new VBox();
 
-        passageContent.setLineSpacing(5);
-
-        //Build passage content container
-        HBox passageContentBox = new HBox(passageContent);
-        ImageView imageView = buildImage(currentPassage.getUrl());
-
-        passageContentBox.getChildren().add(imageView);
-        imageView.setPreserveRatio(true);
-        imageView.setFitHeight(passageContentBox.getHeight());
+        verticalBox.getChildren().addAll(passageContent, image);
 
 
-
-
-        passageContent.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
-
-        //Set passage content alignment
-        passageContentBox.setAlignment(Pos.CENTER);
-        VBox.setMargin(passageContent, new javafx.geometry.Insets(20, 20, 20, 20));
+        verticalBox.setAlignment(Pos.CENTER);
+        passageContent.setTextAlignment(TextAlignment.CENTER);
 
         //Styling
-        passageContentBox.getStyleClass().add("game-content");
+        verticalBox.getStyleClass().add("game-content");
 
-
-
-        return passageContentBox;
+        return verticalBox;
     }
 
     /**
@@ -263,43 +247,60 @@ public class GameLoopScene {
 
     private HBox createOptionsTab() {
 
+        //Options container
         HBox optionsBox = new HBox(10);
 
+        //Styling
+        String optionBoxStyle = "option-button";
+
+        //Save button
         Button saveButton = new Button();
         ImageView saveImage = new ImageView("/images/icon/Save.png");
         saveImage.setPreserveRatio(true);
         saveImage.setFitHeight(32);
         saveImage.setFitWidth(32);
         saveButton.setGraphic(saveImage);
-        saveButton.getStyleClass().add("option-button");
+        saveButton.backgroundProperty().set(Background.EMPTY);
 
+
+        //Options button
         Button optionsButton = new Button();
         ImageView optionsImage = new ImageView("/images/icon/Gear.png");
         optionsImage.setPreserveRatio(true);
         optionsImage.setFitHeight(32);
         optionsImage.setFitWidth(32);
         optionsButton.setGraphic(optionsImage);
-        optionsButton.getStyleClass().add("option-button");
+        optionsButton.backgroundProperty().set(Background.EMPTY);
 
 
-
+        //Help button
         Button helpButton = new Button();
         ImageView helpImage = new ImageView("/images/icon/Info.png");
         helpImage.setPreserveRatio(true);
         helpImage.setFitHeight(32);
         helpImage.setFitWidth(32);
         helpButton.setGraphic(helpImage);
-        optionsBox.getChildren().addAll(saveButton, optionsButton, helpButton);
-        helpButton.getStyleClass().add("option-button");
+        helpButton.backgroundProperty().set(Background.EMPTY);
 
+
+
+        //Exit button
+        Button exitButton = new Button();
+        ImageView exitImage = new ImageView("/images/icon/Exit.png");
+        exitImage.setPreserveRatio(true);
+        exitImage.setFitHeight(32);
+        exitImage.setFitWidth(32);
+        exitButton.setGraphic(exitImage);
+        exitButton.backgroundProperty().set(Background.EMPTY);
+
+
+
+        optionsBox.getChildren().addAll(saveButton, optionsButton, helpButton, exitButton);
         optionsBox.setSpacing(10);
-        optionsBox.setAlignment(Pos.CENTER_RIGHT);
-        optionsBox.setMaxWidth(25);
-        optionsBox.setMaxHeight(25);
         optionsBox.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
-        optionsBox.setAlignment(Pos.CENTER_RIGHT);
 
 
+        //Button effects
         saveButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(saveButton));
         saveButton.setOnMouseExited(event -> ButtonEffects.buttonExit(saveButton));
 
@@ -309,23 +310,51 @@ public class GameLoopScene {
         optionsButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(optionsButton));
         optionsButton.setOnMouseExited(event -> ButtonEffects.buttonExit(optionsButton));
 
+        exitButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(exitButton));
+        exitButton.setOnMouseExited(event -> ButtonEffects.buttonExit(exitButton));
 
-        optionsBox.getStyleClass().add("option-button");
+        //Styling
+        optionsBox.getStyleClass().add(optionBoxStyle);
 
         return optionsBox;
-
     }
 
-    private StackPane buildHotbarBox() {
+    private VBox buildTopMenu() {
+
+        //Bottom menubar container
+        HBox leftBox = new HBox();
+        HBox rightBox = new HBox();
+        HBox bottom = new HBox();
+        VBox topBox = new VBox();
+
+        //Padding
+        leftBox.setPadding(new Insets(20, 0, 20, 20));
+        rightBox.setPadding(new Insets(20, 20, 20, 0));
+
+        //Button placement
+        leftBox.getChildren().add(createOptionsTab());
+        rightBox.getChildren().add(buildHotbarBox());
+        bottom.getChildren().addAll(leftBox, rightBox);
+        topBox.getChildren().addAll(bottom, buildTitle());
+
+        //Node alignment
+        leftBox.setAlignment(Pos.CENTER_LEFT);
+        rightBox.setAlignment(Pos.CENTER_RIGHT);
+
+        //Node padding
+        HBox.setHgrow(leftBox, Priority.ALWAYS);
+        HBox.setHgrow(rightBox, Priority.ALWAYS);
+
+        return topBox;
+    }
+
+    private VBox buildHotbarBox() {
 
         //Outer hotbar box
         VBox outerHotbarBox = new VBox(20);
 
         //Hotbar
         HBox innerHotbarBox = new HBox(20);
-
-        //StackPane
-        StackPane hotbarStackPane = new StackPane();
 
         //ImageView
         ImageView hotbarImageView = new ImageView("/images/UI/hotbar/HotbarBackground.png");
@@ -341,8 +370,8 @@ public class GameLoopScene {
         //Player stats values
         playerGold.setText(player.getGold() + "G");
         playerHealth.setText(player.getHealth() + "HP");
-        playerScore.setText("SCORE:" + player.getScore());
-        playerName.setText(player.getName());
+        playerScore.setText("SCORE: " + player.getScore());
+        playerName.setText("Name: " + player.getName());
 
         //HBox for player stats
         HBox playerGoldBox = new HBox(5);
@@ -377,17 +406,17 @@ public class GameLoopScene {
 
         innerHotbarBox.getChildren().addAll(playerHealthBox, playerGoldBox, playerScoreBox);
         outerHotbarBox.getChildren().addAll(playerNameBox, innerHotbarBox);
-        hotbarStackPane.getChildren().addAll(hotbarImageView, outerHotbarBox);
 
         innerHotbarBox.setAlignment(Pos.CENTER);
         outerHotbarBox.setAlignment(Pos.CENTER);
         playerNameBox.setAlignment(Pos.CENTER);
 
 
-        //Styling
-        hotbarStackPane.getStyleClass().add("hotbar");
+        outerHotbarBox.getStyleClass().add("hotbar");
 
-        return hotbarStackPane;
+        BorderPane.setAlignment(outerHotbarBox, Pos.CENTER_RIGHT);
+
+        return outerHotbarBox;
 
 }
 
