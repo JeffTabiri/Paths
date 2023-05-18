@@ -141,12 +141,13 @@ public class StartScene {
         Button loadGameButton = new Button("Load");
         Button optionButton = new Button("Help");
         Button achievementButton = new Button("Achievements");
+        Button exitButton = new Button("Exit");
 
         newGameButton.getStyleClass().add("menu-button");
         loadGameButton.getStyleClass().add("menu-button");
         optionButton.getStyleClass().add("menu-button");
         achievementButton.getStyleClass().add("menu-button");
-
+        exitButton.getStyleClass().add("menu-button");
 
         newGameButton.setOnAction(event -> {
                     stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene());
@@ -158,7 +159,7 @@ public class StartScene {
         });
 
         optionButton.setOnAction(event -> {
-            stage.setScene(new OptionScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+            stage.setScene(new HelpScene(stage, stage.getWidth(), stage.getHeight()).getScene());
             ButtonEffects.buttonPressed(optionButton);
         });
 
@@ -167,21 +168,28 @@ public class StartScene {
             ButtonEffects.buttonPressed(achievementButton);
         });
 
+        exitButton.setOnAction(event -> {
+            ButtonEffects.buttonPressed(exitButton);
+            stage.close();
+        });
+
 
         newGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(newGameButton));
         loadGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(loadGameButton));
         optionButton.setOnMouseExited(event -> ButtonEffects.buttonExit(optionButton));
         achievementButton.setOnMouseExited(event -> ButtonEffects.buttonExit(achievementButton));
+        exitButton.setOnMouseExited(event -> ButtonEffects.buttonExit(exitButton));
 
         newGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(newGameButton));
         loadGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(loadGameButton));
         optionButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(optionButton));
         achievementButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(achievementButton));
+        exitButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(exitButton));
 
 
         //Menu container
         VBox menu = new VBox();
-        menu.getChildren().addAll(newGameButton, loadGameButton, optionButton, achievementButton);
+        menu.getChildren().addAll(newGameButton, loadGameButton, optionButton, achievementButton, exitButton);
 
 
         //Menu styling

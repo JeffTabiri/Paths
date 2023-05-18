@@ -1,36 +1,28 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
-import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
-import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
-import javafx.animation.TranslateTransition;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 public class OptionScene {
-
-    AudioEngine audioEngine = AudioEngine.getInstance();
 
     Stage stage;
     double prevWidth;
     double prevHeight;
 
-    /**
-     * Constructor for the option scene. Assigns the stage, previous width and previous height.
-     *
-     * @param stage the window to be displayed
-     * @param prevWidth the width of the window before the scene was changed
-     * @param prevHeight the height of the window before the scene was changed
-     */
+
     public OptionScene(Stage stage, double prevWidth, double prevHeight) {
         this.stage = stage;
         this.prevWidth = prevWidth;
@@ -46,7 +38,6 @@ public class OptionScene {
         stage.setWidth(prevWidth);
         stage.setHeight(prevHeight);
 
-
         /*#######################
         # GUI element creation #
         #######################*/
@@ -55,154 +46,163 @@ public class OptionScene {
         BorderPane root = new BorderPane();
 
         //Scene container
-        //Menu container
-        StackPane menuContainer = new StackPane();
+        Scene scene = new Scene(root);
 
-        //Scene container
-        Scene scene = new Scene(menuContainer);
-
-
-        menuContainer.getChildren().addAll(buildPane(), root);
-
+        /*#######################
+        # Root Node positioning #
+        #######################*/
 
         root.setTop(buildTitle());
-        root.setCenter(buildHelp());
-        root.setBottom(buildBottomMenu(scene));
 
+        root.setCenter(buildMenu());
+
+        root.setBottom(buildBottomMenu());
+
+        /*#######################
+        # Styling           #
+        #######################*/
+
+        //CSS styling
         root.getStylesheets().add("css/global.css");
-
-
-        //Animation
-        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
-        fadeTransition.setNode(menuContainer);
-        fadeTransition.setFromValue(0.75);
-        fadeTransition.setToValue(1);
-        fadeTransition.play();
+        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
 
         return scene;
     }
 
     private HBox buildTitle() {
-        //Title text
-        Text gameTitle = new Text("HELP");
 
         //Title container
-        HBox title = new HBox();
+        HBox titleContainer = new HBox();
 
-        //Image
-        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
+        //Title
+        Label title = new Label("Options");
 
-        //Set image size
-        image.setFitWidth(400);
-        image.setPreserveRatio(true);
+        titleContainer.getChildren().add(title);
 
-        //StackPane
-        StackPane topBorderPane = new StackPane();
+        HBox.setHgrow(title, Priority.ALWAYS);
 
-        //Add elements to StackPane
-        topBorderPane.getChildren().addAll(image, gameTitle);
+        titleContainer.setAlignment(Pos.CENTER);
 
-        //Add elements to HBox
-        title.getChildren().add(topBorderPane);
+        //Title styling
+        title.getStyleClass().add("title");
 
-        //Set StackPane alignment
-        StackPane.setAlignment(gameTitle, javafx.geometry.Pos.CENTER);
-        StackPane.setAlignment(image, javafx.geometry.Pos.CENTER);
-
-        //Set title box alignment
-        title.setAlignment(javafx.geometry.Pos.CENTER);
-
-        //Styling
-        gameTitle.getStyleClass().add("title");
-
-        //Animation
-
-            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
-            translateTransition2.setNode(title);
-            translateTransition2.setFromY(0);
-            translateTransition2.setToY(-20);
-            translateTransition2.autoReverseProperty().setValue(true);
-            translateTransition2.setCycleCount(Animation.INDEFINITE);
-            translateTransition2.play();
-
-
-
-        return title;
+        return titleContainer;
     }
 
-    private VBox buildHelp() {
-        //Options container
-        VBox helpBox = new VBox();
+    private VBox buildMenu() {
 
-        TextFlow textBox = new TextFlow();
+        VBox menuContainer = new VBox();
 
-        Text helpText = new Text("This game is a story based game where one navigates through the act of choosing paths");
+        /*#######################
+        # Menu elements         #
+        ###################### */
 
-        helpText.getStyleClass().add("title");
+        //Dark mode container
+        HBox rightDarkModeContainer = new HBox();
+        HBox leftDarkModeContainer = new HBox();
+        HBox darkModeContainer = new HBox();
+        ToggleButton darkModeButton = new ToggleButton();
+        TextFlow darkModeText = new TextFlow(new Text("Dark Mode "));
+        rightDarkModeContainer.getChildren().add(darkModeButton);
+        leftDarkModeContainer.getChildren().add(darkModeText);
+        darkModeContainer.getChildren().addAll(leftDarkModeContainer, rightDarkModeContainer);
 
-        textBox.getChildren().add(helpText);
+        HBox.setHgrow(leftDarkModeContainer, Priority.ALWAYS);
+        HBox.setHgrow(rightDarkModeContainer, Priority.ALWAYS);
 
-        helpBox.getChildren().add(textBox);
+        rightDarkModeContainer.setAlignment(Pos.CENTER_RIGHT);
+        leftDarkModeContainer.setAlignment(Pos.CENTER_LEFT);
 
-        helpBox.setAlignment(Pos.CENTER);
-        textBox.setTextAlignment(TextAlignment.CENTER);
+        //Sound container
+        HBox rightSoundContainer = new HBox();
+        HBox leftSoundContainer = new HBox();
+        HBox soundContainer = new HBox();
+        ToggleButton soundButton = new ToggleButton();
+        TextFlow soundText = new TextFlow(new Text("Mute: "));
+        rightSoundContainer.getChildren().add(soundButton);
+        leftSoundContainer.getChildren().add(soundText);
+        soundContainer.getChildren().addAll(leftSoundContainer, rightSoundContainer);
 
-        //
-        return helpBox;
+        HBox.setHgrow(leftSoundContainer, Priority.ALWAYS);
+        HBox.setHgrow(rightSoundContainer, Priority.ALWAYS);
+
+        rightSoundContainer.setAlignment(Pos.CENTER_RIGHT);
+        leftSoundContainer.setAlignment(Pos.CENTER_LEFT);
+
+
+        //Fullscreen container
+        HBox rightFullscreenContainer = new HBox();
+        HBox leftFullscreenContainer = new HBox();
+        HBox fullscreenContainer = new HBox();
+
+        ToggleButton fullscreenButton = new ToggleButton();
+        TextFlow fullscreenText = new TextFlow(new Text("Fullscreen :"));
+        rightFullscreenContainer.getChildren().add(fullscreenButton);
+        leftFullscreenContainer.getChildren().add(fullscreenText);
+        fullscreenContainer.getChildren().addAll(leftFullscreenContainer, rightFullscreenContainer);
+
+        HBox.setHgrow(leftFullscreenContainer, Priority.ALWAYS);
+        HBox.setHgrow(rightFullscreenContainer, Priority.ALWAYS);
+        rightFullscreenContainer.setAlignment(Pos.CENTER_RIGHT);
+        leftFullscreenContainer.setAlignment(Pos.CENTER_LEFT);
+
+
+
+        menuContainer.getChildren().addAll(darkModeContainer, soundContainer, fullscreenContainer);
+
+
+        //Menu styling
+        menuContainer.getStyleClass().add("menu");
+
+        return menuContainer;
     }
 
-    private HBox buildBottomMenu(Scene scene) {
+    private HBox buildBottomMenu() {
 
-        //Bottom menu container
-        HBox bottomMenu = new HBox();
+        //Bottom menubar container
+        HBox leftBox = new HBox();
+        HBox rightBox = new HBox();
+        HBox bottom = new HBox();
 
         //Buttons
-        Button back = new Button("Back");
+        Button returnButton = new Button("Return");
+        Button startGameButton = new Button("Save");
 
-        back.setPadding(new javafx.geometry.Insets(10, 20, 10, 20));
 
-        bottomMenu.setPadding(new javafx.geometry.Insets(10, 20, 10, 20));
-
-        //Add buttons to container
-        bottomMenu.getChildren().addAll(back);
-
-        //Set button alignment
-        bottomMenu.setAlignment(Pos.CENTER_LEFT);
-
-        //Styling
-        back.getStyleClass().add("menu-button");
-
-        //Button effects
-        ButtonEffects.addCursorImageChange(back, scene);
+        //Padding
+        leftBox.setPadding(new Insets(20, 0, 20, 20));
+        rightBox.setPadding(new Insets(20, 20, 20, 0));
 
         //Button actions
-        back.setOnAction(e -> {
-            StartScene startScene = new StartScene(stage, stage.getWidth(), stage.getHeight());
-            ButtonEffects.buttonPressed(back);
-            stage.setScene(startScene.getScene());
-        });
+        returnButton.setOnAction(event ->
+                stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
 
-        back.setOnMouseEntered(e -> {
-            ButtonEffects.buttonHover(back);
-        });
+        returnButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(returnButton));
+        startGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(startGameButton));
 
-        back.setOnMouseExited(e -> {
-            ButtonEffects.buttonExit(back);
-        });
+        returnButton.setOnMouseExited(event -> ButtonEffects.buttonExit(returnButton));
+        startGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(startGameButton));
 
-        return bottomMenu;
+
+        //Button placement
+        leftBox.getChildren().add(returnButton);
+        rightBox.getChildren().add(startGameButton);
+        bottom.getChildren().addAll(leftBox, rightBox);
+
+        //Node alignment
+        leftBox.setAlignment(Pos.CENTER_LEFT);
+        rightBox.setAlignment(Pos.CENTER_RIGHT);
+
+        //Node padding
+        HBox.setHgrow(leftBox, Priority.ALWAYS);
+        HBox.setHgrow(rightBox, Priority.ALWAYS);
+
+        //Styling
+        returnButton.getStyleClass().add("secondary-button");
+        startGameButton.getStyleClass().add("secondary-button");
+
+        return bottom;
     }
 
-    private Pane buildPane() {
-        Pane pane = new Pane();
-
-        ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
-        imageView.fitWidthProperty().bind(pane.widthProperty());
-        imageView.setPreserveRatio(true);
-
-        pane.getChildren().add(imageView);
-
-        return pane;
-    }
 
 }

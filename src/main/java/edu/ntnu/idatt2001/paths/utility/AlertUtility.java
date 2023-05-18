@@ -1,6 +1,11 @@
 package edu.ntnu.idatt2001.paths.utility;
 
+import edu.ntnu.idatt2001.paths.scenes.startscene.StartScene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
+
+import java.util.Optional;
 
 public class AlertUtility {
 
@@ -16,6 +21,35 @@ public class AlertUtility {
     alert.setHeaderText(headerText);
     alert.setContentText(contentText);
     alert.showAndWait();
+  }
+
+  public static void showConfirmationAlert(Stage stage) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Exit");
+    alert.setHeaderText("Are you sure you want to exit?");
+    alert.setContentText("You will lose all unsaved progress.");
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+    }
+
+  }
+
+  public static boolean showSaveAlert(Stage stage) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle("Save");
+    alert.setHeaderText("Are you sure you want to save?");
+    alert.setContentText("You will overwrite any previous save.");
+    Optional<ButtonType> result = alert.showAndWait();
+
+    if (result.get() == ButtonType.OK) {
+      stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+      return true;
+    }
+
+    return false;
+
   }
 
 }

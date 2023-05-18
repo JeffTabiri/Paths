@@ -259,7 +259,7 @@ public class ChooseStoryScene {
 
         List<String> storyList = new ArrayList<>();
 
-        File[] files = new File("src/main/resources/stories").listFiles();
+        File[] files = new File("src/main/resources/stories/preloadedStories").listFiles();
 
         for (File file : files) {
 
@@ -314,7 +314,7 @@ public class ChooseStoryScene {
                     throw new IllegalArgumentException("Please enter a name");
                   }
 
-                  String storyAddress = "src/main/resources/stories/";
+                  String storyAddress = "src/main/resources/stories/preloadedStories/";
                   dialog.close();
                   File storyFile = new File(storyAddress + storyListView.getSelectionModel().getSelectedItem());
                   String name = nameField.getText();

@@ -1,7 +1,7 @@
 .title {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #000000;
     -fx-font-weight: bold;
 }
 
@@ -70,6 +70,15 @@
 
 }
 
+.help-content {
+
+        -fx-font-family: "Press Start 2P";
+        -fx-font-size: 14px;
+        -fx-text-fill: #ffffff;
+        -fx-font-weight: bold;
+        -fx-spacing: 10px;
+}
+
 .game-content {
 
     -fx-font-family: "Press Start 2P";
@@ -90,4 +99,10 @@
 .text-flow {
     -fx-background-color: RED;
 }
+
+.dialog-pane {
+    -fx-background-color: #000000;
+}
+
+.
 

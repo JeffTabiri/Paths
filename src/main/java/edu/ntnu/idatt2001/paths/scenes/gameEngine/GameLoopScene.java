@@ -6,10 +6,11 @@ import edu.ntnu.idatt2001.paths.Story;
 import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
-import edu.ntnu.idatt2001.paths.scenes.startscene.StartScene;
+import edu.ntnu.idatt2001.paths.scenes.startscene.OptionScene;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.DialogUtility;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,6 +22,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -36,9 +38,6 @@ public class GameLoopScene {
     Stage stage;
     double prevWidth;
     double prevHeight;
-
-    //GUI variables
-    ImageView imageView;
 
     //Game variables
     Game game;
@@ -115,7 +114,7 @@ public class GameLoopScene {
     private ListView buildPassageChoices(BorderPane root) {
 
         ListView<String> passageChoice = new ListView<>();
-        passageChoice.setPrefHeight(150);
+
         passageChoice.getItems().addAll(getPassageChoices(currentPassage));
 
         passageChoice.onMouseClickedProperty().set(e -> {
@@ -135,18 +134,13 @@ public class GameLoopScene {
 
             passageChoice.getItems().addAll(getPassageChoices(currentPassage));
 
-            //Content placement
-            VBox topBox = new VBox();
-            topBox.setAlignment(Pos.CENTER_LEFT);
-            topBox.getChildren().addAll(createOptionsTab(), buildTitle());
-
-
             VBox ground = new VBox();
-            ground.getChildren().addAll(buildHotbarBox(), buildPassageChoices(root));
+            ground.getChildren().addAll(buildPassageChoices(root));
 
-            root.setTop(topBox);
-            root.setCenter(buildPassageContent());
+            //Choices placement
+            root.setTop(buildTopMenu());
             root.setBottom(ground);
+            root.setCenter(buildPassageContent());
         });
 
         return passageChoice;
@@ -167,10 +161,25 @@ public class GameLoopScene {
         passageContent.setPadding(new Insets(20,20,20,20));
 
         //Image container
-        ImageView image = new ImageView(buildImage(currentPassage.getUrl()).getImage());
-
-        image.setFitWidth(800);
+        ImageView image = buildImage(currentPassage.getUrl());
         image.setPreserveRatio(true);
+        image.setFitWidth(600);
+        image.maxWidth(600);
+
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() < 600) {
+                image.setFitWidth((double) newVal / 2);
+            } else {
+                image.setFitWidth(600);
+            }
+        });
+
+
+        /*
+        Create code which scales the image to fit so the passage choice list is not pushed down
+         */
+
 
 
         //Container for text and image
@@ -181,6 +190,9 @@ public class GameLoopScene {
 
         verticalBox.setAlignment(Pos.CENTER);
         passageContent.setTextAlignment(TextAlignment.CENTER);
+
+        VBox.setVgrow(passageContent, Priority.ALWAYS);
+        verticalBox.setPadding(new Insets(20,20,20,20));
 
         //Styling
         verticalBox.getStyleClass().add("game-content");
@@ -197,6 +209,7 @@ public class GameLoopScene {
 
         //Title text
         Text storyTitle = new Text(currentPassage.getTitle());
+
 
         //Title container
         HBox titleBox = new HBox();
@@ -250,7 +263,7 @@ public class GameLoopScene {
         //Options container
         HBox optionsBox = new HBox(10);
 
-        //Styling
+        //Stylinaaa
         String optionBoxStyle = "option-button";
 
         //Save button
@@ -282,8 +295,6 @@ public class GameLoopScene {
         helpButton.setGraphic(helpImage);
         helpButton.backgroundProperty().set(Background.EMPTY);
 
-
-
         //Exit button
         Button exitButton = new Button();
         ImageView exitImage = new ImageView("/images/icon/Exit.png");
@@ -292,8 +303,6 @@ public class GameLoopScene {
         exitImage.setFitWidth(32);
         exitButton.setGraphic(exitImage);
         exitButton.backgroundProperty().set(Background.EMPTY);
-
-
 
         optionsBox.getChildren().addAll(saveButton, optionsButton, helpButton, exitButton);
         optionsBox.setSpacing(10);
@@ -312,6 +321,27 @@ public class GameLoopScene {
 
         exitButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(exitButton));
         exitButton.setOnMouseExited(event -> ButtonEffects.buttonExit(exitButton));
+
+        saveButton.setOnAction(event -> {
+            if (AlertUtility.showSaveAlert(stage)) {
+            }
+        });
+
+
+        exitButton.setOnAction(event -> AlertUtility.showConfirmationAlert(stage));
+
+            helpButton.setOnAction(event -> DialogUtility.helpBox(stage));
+
+        optionsButton.setOnAction(event -> {
+            Stage dialog = new Stage();
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(stage);
+            dialog.setTitle("Options");
+            dialog.setScene(new OptionScene(dialog, 400, 400).getScene());
+            dialog.show();
+        });
+
+
 
         //Styling
         optionsBox.getStyleClass().add(optionBoxStyle);
@@ -411,7 +441,6 @@ public class GameLoopScene {
         outerHotbarBox.setAlignment(Pos.CENTER);
         playerNameBox.setAlignment(Pos.CENTER);
 
-
         outerHotbarBox.getStyleClass().add("hotbar");
 
         BorderPane.setAlignment(outerHotbarBox, Pos.CENTER_RIGHT);
@@ -419,6 +448,8 @@ public class GameLoopScene {
         return outerHotbarBox;
 
 }
+
+
 
 
 
