@@ -1,13 +1,12 @@
 .title {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #000000;
     -fx-font-weight: bold;
 }
 
 .list-view {
     -fx-background-color: #ffffff;
-    -fx-background-radius: 10;
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;
     -fx-text-fill: #000000;
@@ -15,39 +14,51 @@
 }
 
 
-.button {
+.menu-button {
+    -fx-padding: 10 20 10 20;
     -fx-font-family: "Press Start 2P";
-    -fx-font-size: 20px;;
+    -fx-font-size: 25px;;
     -fx-font-weight: bold;
-
-    -fx-background-image: url("/images/buttonBackground/ActiveButton.png");
+    -fx-background-image: url("/images/button/ActiveButton.png");
     -fx-background-size: 100% 100%;
-
 }
 
-.optionButton {
+.secondary-button {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;;
+    -fx-font-weight: bold;
+    -fx-background-image: url("/images/button/ActiveButton.png");
+    -fx-background-size: 100% 100%;
+}
+
+.text-field {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;;
+    -fx-font-weight: bold;
+}
+
+.option-button {
 
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;;
     -fx-font-weight: bold;
     -fx-background-color: transparent;
-    -fx-background-size: 100% 100%;
 
 }
 
-
-.button:hover {
-    -fx-scale-x: 1.05;
-    -fx-scale-y: 1.05;
-    -fx-scale-z: 1.05;
-
-    -fx-background-image: url("/images/buttonBackground/UnactiveButton.png");
-    -fx-background-size: 100% 100%;
+.secondary-text {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
+
 
 .hotbar {
-    -fx-background-image: url("/images/UI/hotbar/HotbarBackground.png");
-    -fx-background-size: 100% 100%;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
 }
 
 .content {
@@ -59,6 +70,23 @@
 
 }
 
+.help-content {
+
+        -fx-font-family: "Press Start 2P";
+        -fx-font-size: 14px;
+        -fx-text-fill: #ffffff;
+        -fx-font-weight: bold;
+        -fx-spacing: 10px;
+}
+
+.game-content {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
 .UI-text {
 
     -fx-font-family: "Press Start 2P";
@@ -67,4 +95,14 @@
     -fx-font-weight: bold;
 
 }
+
+.text-flow {
+    -fx-background-color: RED;
+}
+
+.dialog-pane {
+    -fx-background-color: #000000;
+}
+
+.
 

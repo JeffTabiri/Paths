@@ -2,6 +2,7 @@ package edu.ntnu.idatt2001.paths.goals;
 
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.actions.InventoryAction;
+import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,7 @@ class InventoryGoalTest {
         List<String> inventory = List.of("Sword");
         inventoryGoal = new InventoryGoal(inventory);
         inventoryAction = new InventoryAction("Sword");
-        testPlayer = new Player("Test", 100, 100, 100);
+        testPlayer = new PlayerBuilder("Test").gold(100).health(100).score(100).build();
     }
 
     @DisplayName("Test if inventory goal is fulfilled")

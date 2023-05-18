@@ -10,17 +10,17 @@ public enum GameStates {
 
   // Game state constants which are used to determine which music should be played at a given time.
 
-  MAIN_MENU("/audio/backgroundMusic/Title Theme/"),
+  MAIN_MENU("/audio/background/Title Theme/"),
 
   HELP_MENU(null),
 
-  EXPLORE("/audio/backgroundMusic/Exploring The Unknown/"),
+  EXPLORE("/audio/background/Exploring The Unknown/"),
 
-  ENEMY("/audio/backgroundMusic/Prepare for Battle!/"),
+  ENEMY("/audio/background/Prepare for Battle!/"),
 
-  BOSS("/audio/backgroundMusic/Decisive Battle/"),
+  BOSS("/audio/background/Decisive Battle/"),
 
-  REST(("/audio/backgroundMusic/Take some rest and eat some food!/")),
+  REST(("/audio/background/Take some rest and eat some food!/")),
 
   SHOP(null);
 

@@ -1,8 +1,10 @@
 package edu.ntnu.idatt2001.paths;
 
+import edu.ntnu.idatt2001.paths.filehandling.StorySaver;
 import edu.ntnu.idatt2001.paths.goals.Goal;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -74,5 +76,13 @@ public class Game {
    */
   public Passage go(Link link) {
     return story.getPassage(link);
+  }
+
+  public void saveGame() {
+    StorySaver storySaver = new StorySaver();
+    storySaver.saveStory(this.story);
+    File file = new File("src/main/resources/savedGames/" + this.player.getName() + ".txt");
+
+
   }
 }

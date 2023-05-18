@@ -1,7 +1,5 @@
 package edu.ntnu.idatt2001.paths;
 
-import edu.ntnu.idatt2001.paths.Link;
-import edu.ntnu.idatt2001.paths.Passage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -87,7 +85,7 @@ class PassageTest {
     @DisplayName("Test the url")
     void
     testUrl() {Passage testPassage = new Passage("Test title", "Test content", new ArrayList<>(), "test");
-        String expectedValue = "src/main/resources/images/background/test.jpg";
+        String expectedValue = "/images/background/test.png";
         String actualValue = testPassage.getUrl();
 
         assertEquals(expectedValue, actualValue);

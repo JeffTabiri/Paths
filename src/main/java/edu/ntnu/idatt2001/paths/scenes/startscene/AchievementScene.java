@@ -2,9 +2,7 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 
 import edu.ntnu.idatt2001.paths.Achievement;
 import edu.ntnu.idatt2001.paths.AchievementList;
-import edu.ntnu.idatt2001.paths.goals.GoldGoal;
-import edu.ntnu.idatt2001.paths.goals.HealthGoal;
-import edu.ntnu.idatt2001.paths.goals.InventoryGoal;
+import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
@@ -16,9 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class AchievementScene {
 
@@ -54,7 +49,14 @@ public class AchievementScene {
         BorderPane root = new BorderPane();
 
         //Scene
-        Scene scene = new Scene(root);
+        //Menu container
+        StackPane menuContainer = new StackPane();
+
+        //Scene container
+        Scene scene = new Scene(menuContainer);
+
+
+        menuContainer.getChildren().addAll(buildPane(), root);
 
 
         /*#######################
@@ -71,7 +73,7 @@ public class AchievementScene {
         #######################*/
 
         root.getStylesheets().add("css/global.css");
-        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
         return scene;
     }
 
@@ -98,6 +100,12 @@ public class AchievementScene {
         goBackButton.setOnAction(e ->
                 stage.setScene(new StartScene(stage, prevWidth, prevHeight).getScene()));
 
+        goBackButton.setOnMouseEntered(e -> ButtonEffects.buttonHover(goBackButton));
+
+        goBackButton.setOnMouseExited(e -> ButtonEffects.buttonExit(goBackButton));
+
+        addAchievements.setOnMouseEntered(e -> ButtonEffects.buttonHover(addAchievements));
+        addAchievements.setOnMouseExited(e -> ButtonEffects.buttonExit(addAchievements));
 
         /*#######################
         # Node alignment        #
@@ -115,6 +123,10 @@ public class AchievementScene {
         HBox.setHgrow(rightBox, Priority.ALWAYS);
         bottom.setPadding(new Insets(10));
 
+        //Styling
+        goBackButton.getStyleClass().add("menu-button");
+        addAchievements.getStyleClass().add("menu-button");
+
         return bottom;
     }
 
@@ -128,7 +140,7 @@ public class AchievementScene {
         HBox titleBox = new HBox();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(400);
@@ -177,7 +189,7 @@ public class AchievementScene {
         achievementTextContainer.getChildren().addAll(achievementTitle, achievementDescription, achievementProgress);
         achievementTextContainer.setSpacing(10);
 
-        Image achievementImage = new Image("images/cursors/cursor_grab.png", 64, 64, true, true);
+        Image achievementImage = new Image("images/cursor/cursor_grab.png", 64, 64, true, true);
         ImageView achievementImageView = new ImageView(achievementImage);
         achievementBox.getChildren().addAll(achievementImageView, achievementTextContainer);
         achievementBox.setSpacing(20);
@@ -185,6 +197,18 @@ public class AchievementScene {
         return achievementBox;
 
 
+    }
+
+    private Pane buildPane() {
+        Pane pane = new Pane();
+
+        ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+        imageView.fitWidthProperty().bind(pane.widthProperty());
+        imageView.setPreserveRatio(true);
+
+        pane.getChildren().add(imageView);
+
+        return pane;
     }
 
 }

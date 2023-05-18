@@ -3,17 +3,18 @@ package edu.ntnu.idatt2001.paths.scenes.startscene;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import edu.ntnu.idatt2001.paths.utility.GameStates;
+import javafx.animation.Animation;
+import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class StartScene {
@@ -40,14 +41,12 @@ public class StartScene {
 
     public Scene getScene() {
 
-
         /*#######################
         # Stage size declaration #
         #######################*/
 
         stage.setWidth(prevWidth);
         stage.setHeight(prevHeight);
-
 
         /*#######################
         # GUI element creation #
@@ -56,18 +55,27 @@ public class StartScene {
         //Root container
         BorderPane root = new BorderPane();
 
+        //Menu container
+        StackPane menuContainer = new StackPane();
 
         //Scene container
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(menuContainer);
 
 
         /*#######################
-        # Node positioning      #
+        # Background elements   #
+        #######################*/
+
+
+        menuContainer.getChildren().addAll(buildPane(), root);
+
+        /*#######################
+        # Root Node positioning #
         #######################*/
 
         root.setTop(buildTitle());
 
-        root.setCenter(buildMenu(scene));
+        root.setCenter(buildMenu());
 
         root.setBottom(buildCredits());
 
@@ -77,9 +85,34 @@ public class StartScene {
 
         //CSS styling
         root.getStylesheets().add("css/global.css");
-        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursors/cursor_grab.png")));
+        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
 
         return scene;
+    }
+
+    private Pane buildPane() {
+        Pane pane = new Pane();
+
+        ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+        imageView.fitWidthProperty().bind(pane.widthProperty());
+        imageView.setPreserveRatio(true);
+        pane.getChildren().add(imageView);
+
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(3), imageView);
+        translateTransition.setFromY(-imageView.getImage().getHeight());
+        translateTransition.setToY(0);
+        translateTransition.play();
+
+        translateTransition.setOnFinished(event -> {
+            TranslateTransition fadeTransition = new TranslateTransition(Duration.seconds(4), imageView);
+            fadeTransition.setFromY(0);
+            fadeTransition.setToY(-40);
+            fadeTransition.setCycleCount(Animation.INDEFINITE);
+            fadeTransition.setAutoReverse(true);
+            fadeTransition.play();
+        });
+
+        return pane;
     }
 
 
@@ -89,7 +122,7 @@ public class StartScene {
      * @param scene the scene which the menu is to be added to
      * @return a VBox containing the menu
      */
-    private VBox buildMenu(Scene scene) {
+    private VBox buildMenu() {
 
 
         /*#######################
@@ -108,49 +141,66 @@ public class StartScene {
         Button loadGameButton = new Button("Load");
         Button optionButton = new Button("Help");
         Button achievementButton = new Button("Achievements");
+        Button exitButton = new Button("Exit");
 
+        newGameButton.getStyleClass().add("menu-button");
+        loadGameButton.getStyleClass().add("menu-button");
+        optionButton.getStyleClass().add("menu-button");
+        achievementButton.getStyleClass().add("menu-button");
+        exitButton.getStyleClass().add("menu-button");
 
-        //Cursor change on hover
-        ButtonEffects.addCursorImageChange(newGameButton, scene);
-        ButtonEffects.addCursorImageChange(loadGameButton, scene);
-        ButtonEffects.addCursorImageChange(optionButton, scene);
-        ButtonEffects.addCursorImageChange(achievementButton, scene);
+        newGameButton.setOnAction(event -> {
+                    stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+                    ButtonEffects.buttonPressed(newGameButton);
+        });
 
-        ButtonEffects.addAudioChange(newGameButton);
-        ButtonEffects.addAudioChange(loadGameButton);
-        ButtonEffects.addAudioChange(optionButton);
-        ButtonEffects.addAudioChange(achievementButton);
+        loadGameButton.setOnAction(event -> {
+            ButtonEffects.buttonPressed(loadGameButton);
+        });
 
-
-        //Button actions
-        optionButton.setOnAction(event ->
-                stage.setScene(new OptionScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
-
-
-        newGameButton.setOnAction(event ->
-                stage.setScene(new ChooseStoryScene(stage, stage.getWidth(), stage.getHeight()).getScene()));
-
-
-        /*
-        loadGameButton.setOnAction(event ->
-                stage.setScene(new OptionScene().getScene(stage, stage.getWidth(), stage.getHeight())));
-        */
+        optionButton.setOnAction(event -> {
+            stage.setScene(new HelpScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+            ButtonEffects.buttonPressed(optionButton);
+        });
 
         achievementButton.setOnAction(event -> {
             stage.setScene(new AchievementScene(stage, stage.getWidth(), stage.getHeight()).getScene());
+            ButtonEffects.buttonPressed(achievementButton);
         });
+
+        exitButton.setOnAction(event -> {
+            ButtonEffects.buttonPressed(exitButton);
+            stage.close();
+        });
+
+
+        newGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(newGameButton));
+        loadGameButton.setOnMouseExited(event -> ButtonEffects.buttonExit(loadGameButton));
+        optionButton.setOnMouseExited(event -> ButtonEffects.buttonExit(optionButton));
+        achievementButton.setOnMouseExited(event -> ButtonEffects.buttonExit(achievementButton));
+        exitButton.setOnMouseExited(event -> ButtonEffects.buttonExit(exitButton));
+
+        newGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(newGameButton));
+        loadGameButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(loadGameButton));
+        optionButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(optionButton));
+        achievementButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(achievementButton));
+        exitButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(exitButton));
 
 
         //Menu container
         VBox menu = new VBox();
-        menu.getChildren().addAll(newGameButton, loadGameButton, optionButton, achievementButton);
+        menu.getChildren().addAll(newGameButton, loadGameButton, optionButton, achievementButton, exitButton);
 
 
         //Menu styling
-        menu.setSpacing(20);
+        menu.setSpacing(40);
         menu.setAlignment(javafx.geometry.Pos.CENTER);
 
-
+        //Animation
+        FadeTransition fadeTransition = new FadeTransition(Duration.seconds(3), menu);
+        fadeTransition.setFromValue(0);
+        fadeTransition.setToValue(1);
+        fadeTransition.play();
 
         return menu;
     }
@@ -170,7 +220,7 @@ public class StartScene {
         HBox title = new HBox();
 
         //Image
-        ImageView image = new ImageView("/images/UI_Flat_Banner_01_Upward.png");
+        ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
 
         //Set image size
         image.setFitWidth(400);
@@ -194,6 +244,25 @@ public class StartScene {
 
         //Styling
         gameTitle.getStyleClass().add("title");
+
+        //Animation
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(javafx.util.Duration.seconds(1.5));
+        translateTransition.setNode(title);
+        translateTransition.setFromY(-200);
+        translateTransition.setToY(0);
+        translateTransition.play();
+
+        translateTransition.setOnFinished(event -> {
+            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
+            translateTransition2.setNode(title);
+            translateTransition2.setFromY(0);
+            translateTransition2.setToY(-20);
+            translateTransition2.autoReverseProperty().setValue(true);
+            translateTransition2.setCycleCount(Animation.INDEFINITE);
+            translateTransition2.play();
+        });
+
 
         return title;
     }
@@ -220,6 +289,14 @@ public class StartScene {
 
         //Styling
         creditsText.getStyleClass().add("title");
+
+        //Animation
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(javafx.util.Duration.seconds(1.5));
+        translateTransition.setNode(credits);
+        translateTransition.setFromY(40);
+        translateTransition.setToY(0);
+        translateTransition.play();
 
         return credits;
     }
