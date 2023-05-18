@@ -3,6 +3,7 @@ package edu.ntnu.idatt2001.paths;
 import edu.ntnu.idatt2001.paths.goals.Goal;
 import edu.ntnu.idatt2001.paths.goals.GoldGoal;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -25,7 +26,7 @@ class GameTest {
 
     @BeforeEach
     void setUp() {
-        testPlayer = new Player("Test player", 100, 100, 1234);
+        testPlayer = new PlayerBuilder("Test").gold(100).health(100).score(100).build();
         testPassage = new Passage("Test passage", "Test content");
         testGoal = new GoldGoal(100);
         testGoals = new ArrayList<>();
@@ -55,7 +56,7 @@ class GameTest {
     class AccessorsTest {
         @Test
         void getPlayer() {
-            String expectedValue = "Test player";
+            String expectedValue = "Test";
             String actualValue = testGame.getPlayer().getName();
             assertEquals(expectedValue, actualValue);
         }

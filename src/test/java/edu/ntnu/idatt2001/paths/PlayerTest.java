@@ -1,7 +1,10 @@
 package edu.ntnu.idatt2001.paths;
 
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
 import org.junit.jupiter.api.*;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -11,7 +14,7 @@ class PlayerTest {
 
     @BeforeEach
     void setUp() {
-        testPlayer = new Player("Player", 100,  0, 50);
+         testPlayer = new PlayerBuilder("Test").gold(100).health(100).score(100).build();
     }
 
     @DisplayName("Test Constructor")
@@ -23,21 +26,22 @@ class PlayerTest {
         @Test
         @DisplayName("Test constructor with valid parameters")
         void testConstructorWithValidParameters() {
-            Player player = new Player("Player", 100,  0, 0);
+            testPlayer = new PlayerBuilder("Test").gold(100).health(100).score(100).build();
 
-            assertEquals("Player", player.getName());
-            assertEquals(100, player.getHealth());
-            assertEquals(0, player.getGold());
-            assertEquals(0, player.getScore());
+
+            assertEquals("Test", testPlayer.getName());
+            assertEquals(100, testPlayer.getHealth());
+            assertEquals(100, testPlayer.getGold());
+            assertEquals(100, testPlayer.getScore());
         }
 
         @Test
         @DisplayName("Test constructor with invalid parameters")
         void testConstructorWithInvalidParameters() {
-            Assertions.assertThrows(IllegalArgumentException.class, () -> new Player("", 100,  0, 0));
-            Assertions.assertThrows(IllegalArgumentException.class, () -> new Player("Player", -100,  0, 0));
-            Assertions.assertThrows(IllegalArgumentException.class, () -> new Player("Player", 100,  -1, 0));
-            Assertions.assertThrows(IllegalArgumentException.class, () -> new Player("Player", 100,  0, -1));
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder("Player").gold(-100).health(100).score(100).inventory(new ArrayList<>()).build());
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder("Player").gold(100).health(-100).score(100).build());
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder("Player").gold(100).health(100).score(-100).build());
+            Assertions.assertThrows(IllegalArgumentException.class, () -> new PlayerBuilder("").gold(-100).health(-100).score(100).build());
         }
 
     }
@@ -50,7 +54,7 @@ class PlayerTest {
         @Test
         void getNameTest() {
 
-            String expectedValue = "Player";
+            String expectedValue = "Test";
             String actualValue = testPlayer.getName();
 
             assertEquals(expectedValue, actualValue);
@@ -66,7 +70,7 @@ class PlayerTest {
         @DisplayName("Test access to gold")
         @Test
         void getGoldTest() {
-            int expectedValue = 50;
+            int expectedValue = 100;
             int actualValue = testPlayer.getGold();
 
             assertEquals(expectedValue, actualValue);
@@ -84,7 +88,7 @@ class PlayerTest {
         @DisplayName("Test access to score")
         @Test
         void getScoreTest() {
-            int expectedValue = 0;
+            int expectedValue = 100;
             int actualValue = testPlayer.getScore();
 
             assertEquals(expectedValue, actualValue);
@@ -107,7 +111,7 @@ class PlayerTest {
         void addGoldTest() {
             testPlayer.addGold(100);
 
-            int expectedValue = 150;
+            int expectedValue = 200;
             int actualValue = testPlayer.getGold();
 
             assertEquals(expectedValue, actualValue);
@@ -128,7 +132,7 @@ class PlayerTest {
         @Test
         void addScoreTest() {
             testPlayer.addScore(100);
-            int expectedValue = 100;
+            int expectedValue = 200;
             int actualValue = testPlayer.getScore();
             assertEquals(expectedValue, actualValue);
         }
