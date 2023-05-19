@@ -15,12 +15,15 @@ public class AlertUtility {
    * @param headerText  the header text of the alert
    * @param contentText the content text of the alert
    */
-  public static void showErrorAlert(String headerText, String contentText) {
+  public static boolean  showErrorAlert(String headerText, String contentText) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Error");
     alert.setHeaderText(headerText);
     alert.setContentText(contentText);
     alert.showAndWait();
+
+
+    return alert.getResult() == ButtonType.OK;
   }
 
   public static void showConfirmationAlert(Stage stage) {

@@ -7,6 +7,7 @@ import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
 import edu.ntnu.idatt2001.paths.playerBuilder.Player;
 import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
 import edu.ntnu.idatt2001.paths.scenes.startscene.OptionScene;
+import edu.ntnu.idatt2001.paths.scenes.startscene.StartScene;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
@@ -119,6 +120,7 @@ public class GameLoopScene {
 
         passageChoice.onMouseClickedProperty().set(e -> {
 
+
             currentPassage.getLinks().get(passageChoice.getSelectionModel().getSelectedIndex()).getActions().forEach(action ->
                     action.execute(player));
 
@@ -126,11 +128,18 @@ public class GameLoopScene {
 
             currentPassage = game.go(currentPassage.getLinks().get(passageChoice.getSelectionModel().getSelectedIndex()));
 
-            if(currentPassage.getGameState() != null) {
-                AudioEngine.getInstance().playMusic(currentPassage.getGameState());
-            }
 
             passageChoice.getItems().clear();
+
+            if (currentPassage == null) {
+                if (AlertUtility.showErrorAlert("You have reached the end of the story!", "Game over You have reached the end of the story!")) {
+                    StartScene startScene = new StartScene(stage, stage.getWidth(), stage.getHeight());
+                    stage.setScene(startScene.getScene());
+                };
+
+
+
+            }
 
             passageChoice.getItems().addAll(getPassageChoices(currentPassage));
 
@@ -155,8 +164,16 @@ public class GameLoopScene {
     private VBox buildPassageContent() {
 
 
-        //Build passage content
         TextFlow passageContent = new TextFlow(new Text(currentPassage.getContent()));
+
+        //Build passage content
+        if (!currentPassage.equals(null)){
+            passageContent = new TextFlow(new Text(currentPassage.getContent()));
+        }
+
+        else {
+            passageContent = new TextFlow(new Text("You have reached the end of the story!"));
+        }
 
         passageContent.setPadding(new Insets(20,20,20,20));
 
