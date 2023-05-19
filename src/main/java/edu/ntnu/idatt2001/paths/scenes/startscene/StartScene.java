@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.paths.scenes.startscene;
 
+import edu.ntnu.idatt2001.paths.scenes.startscene.achievementScene.AchievementView;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import edu.ntnu.idatt2001.paths.utility.GameStates;
@@ -164,7 +165,6 @@ public class StartScene {
         });
 
         achievementButton.setOnAction(event -> {
-            stage.setScene(new AchievementScene(stage, stage.getWidth(), stage.getHeight()).getScene());
             ButtonEffects.buttonPressed(achievementButton);
         });
 
