@@ -1,11 +1,18 @@
-package edu.ntnu.idatt2001.paths.scenes.startscene;
+package edu.ntnu.idatt2001.paths.scenes.startscene.achievementScene;
 
 import edu.ntnu.idatt2001.paths.Achievement;
 import edu.ntnu.idatt2001.paths.AchievementList;
+import edu.ntnu.idatt2001.paths.goals.GoldGoal;
+import edu.ntnu.idatt2001.paths.goals.HealthGoal;
+import edu.ntnu.idatt2001.paths.goals.InventoryGoal;
+import edu.ntnu.idatt2001.paths.goals.ScoreGoal;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import javafx.animation.Animation;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.ImageCursor;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -14,68 +21,54 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-public class AchievementScene {
+import java.util.List;
 
-    Stage stage;
-    double prevWidth;
-    double prevHeight;
-    AchievementList achievementList = AchievementList.getInstance();
+public class AchievementView {
+
+    StackPane view = new StackPane();
 
     ListView<HBox> achievementListView = new ListView<>();
 
-    /**
-     * Constructor for the achievement scene. Creates a new stage and sets the previous width and height.
-     */
-    public AchievementScene(Stage stage, double prevWidth, double prevHeight) {
-        this.stage = stage;
-        this.prevWidth = prevWidth;
-        this.prevHeight = prevHeight;
+    AchievementModel model;
+
+    AchievementController controller;
+
+    AchievementList achievementList = AchievementList.getInstance();
+
+
+    public AchievementView (AchievementController controller, AchievementModel model) {
+        buildView();
+
+        this.controller = controller;
+        this.model = model;
     }
 
+    public void buildView() {
 
-
-    public Scene getScene() {
-
-
-        /*#######################
-        # Stage size declaration#
-        #######################*/
-
-        stage.setWidth(prevWidth);
-        stage.setHeight(prevHeight);
-
-        //Root
         BorderPane root = new BorderPane();
-
-        //Scene
-        //Menu container
-        StackPane menuContainer = new StackPane();
-
-        //Scene container
-        Scene scene = new Scene(menuContainer);
-
-
-        menuContainer.getChildren().addAll(buildPane(), root);
-
-
-        /*#######################
-        # Node placement        #
-        #######################*/
 
         root.setTop(buildTitle());
         root.setCenter(buildAchievementList());
         root.setBottom(buildBottomMenu());
+
+        view.getChildren().addAll(buildPane(), root);
 
 
         /*#######################
         # CSS Styling           #
         #######################*/
 
-        root.getStylesheets().add("css/global.css");
-        scene.setCursor(new ImageCursor(new javafx.scene.image.Image("images/cursor/cursor_grab.png")));
-        return scene;
+        view.getStylesheets().add("css/global.css");
+
     }
+
+    public Parent asParent() {
+        return view;
+    }
+
+
 
     private HBox buildBottomMenu() {
         //Buttons
@@ -93,17 +86,13 @@ public class AchievementScene {
         bottom.getChildren().addAll(leftBox, rightBox);
 
 
-        /*#######################
-        # Button actions       #
-        #######################*/
+        goBackButton.setOnAction(e -> {
+            controller.goBackHandler();
+        });
 
-        goBackButton.setOnAction(e ->
-                stage.setScene(new StartScene(stage, prevWidth, prevHeight).getScene()));
 
         goBackButton.setOnMouseEntered(e -> ButtonEffects.buttonHover(goBackButton));
-
         goBackButton.setOnMouseExited(e -> ButtonEffects.buttonExit(goBackButton));
-
         addAchievements.setOnMouseEntered(e -> ButtonEffects.buttonHover(addAchievements));
         addAchievements.setOnMouseExited(e -> ButtonEffects.buttonExit(addAchievements));
 
@@ -128,6 +117,13 @@ public class AchievementScene {
         addAchievements.getStyleClass().add("menu-button");
 
         return bottom;
+    }
+
+    private void updateAchievementList() {
+        List<Achievement> achievements = achievementList.getAchievements();
+        for (Achievement achievement : achievements) {
+            achievementList.getItems().add(achievement);
+        }
     }
 
 
@@ -165,41 +161,114 @@ public class AchievementScene {
         //Styling
         gameTitle.getStyleClass().add("title");
 
+        //Animation
+        TranslateTransition translateTransition = new TranslateTransition();
+        translateTransition.setDuration(javafx.util.Duration.seconds(1.5));
+        translateTransition.setNode(titleBox);
+        translateTransition.setFromY(-200);
+        translateTransition.setToY(0);
+        translateTransition.play();
+
+        translateTransition.setOnFinished(event -> {
+            TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
+            translateTransition2.setNode(titleBox);
+            translateTransition2.setFromY(0);
+            translateTransition2.setToY(-20);
+            translateTransition2.autoReverseProperty().setValue(true);
+            translateTransition2.setCycleCount(Animation.INDEFINITE);
+            translateTransition2.play();
+        });
+
         return titleBox;
     }
 
     private ListView<HBox> buildAchievementList() {
-        ListView<HBox> achievementListView = new ListView<>();
 
-        for (Achievement achievement : achievementList.getAchievements()) {
-            achievementListView.getItems().add(addAchievement(achievement));
-        }
+        achievementListView = new ListView<>();
+
+        achievementList.getAchievements().forEach(achievement -> {
+            HBox hBox = new HBox();
+            hBox.getChildren().add(achievement);
+            achievementListView.getItems().add(hBox);
+        });
+
+        achievementListView.paddingProperty().setValue(new Insets(10, 10, 10, 10));
+
+        BorderPane.setMargin(achievementListView, new Insets(20, 20, 20, 20));
 
         return achievementListView;
     }
 
+    private HBox buildAchievementBox(Achievement achievement) {
 
-
-    private HBox addAchievement(Achievement achievement) {
         Text achievementTitle = new Text(achievement.getTitle());
+
         Text achievementDescription = new Text(achievement.getDescription());
+
         Text achievementProgress = new Text(achievement.getIsFulfilled().toString());
+
         HBox achievementBox = new HBox();
+
         VBox achievementTextContainer = new VBox();
+
         achievementTextContainer.getChildren().addAll(achievementTitle, achievementDescription, achievementProgress);
+
         achievementTextContainer.setSpacing(10);
 
         Image achievementImage = new Image("images/cursor/cursor_grab.png", 64, 64, true, true);
+
         ImageView achievementImageView = new ImageView(achievementImage);
         achievementBox.getChildren().addAll(achievementImageView, achievementTextContainer);
         achievementBox.setSpacing(20);
 
         return achievementBox;
+    }
+
+    private String achievementGoalCheck(Achievement achievement) {
+
+            if (achievement.getGoal() instanceof HealthGoal) {
+                return "HEALTH";
+            }
+
+            if (achievement.getGoal() instanceof InventoryGoal) {
+                return "INVENTORY";
+            }
+
+            if (achievement.getGoal() instanceof GoldGoal) {
+                return "GOLD";
+            }
+
+            if (achievement.getGoal() instanceof ScoreGoal) {
+                return "SCORE";
+            }
+
+            return null;
+    }
+
+    private String achievemntImageChoose(String goalType) {
+
+        switch (goalType) {
+            case "HEALTH":
+                return "images/achievements/health.png";
+            case "INVENTORY":
+                return "images/achievements/inventory.png";
+            case "GOLD":
+                return "images/icon/achievementIcons/Coin.png";
+            case "SCORE":
+                return "images/achievements/score.png";
+            default:
+                return null;
+        }
+    }
 
 
+
+    private void addAchievement(Achievement achievement) {
+        controller.addAchievementHandler(achievement);
     }
 
     private Pane buildPane() {
+
         Pane pane = new Pane();
 
         ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
