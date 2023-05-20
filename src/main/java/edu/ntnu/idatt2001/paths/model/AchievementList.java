@@ -1,8 +1,8 @@
-package edu.ntnu.idatt2001.paths;
+package edu.ntnu.idatt2001.paths.model;
 
-import edu.ntnu.idatt2001.paths.goals.GoldGoal;
-import edu.ntnu.idatt2001.paths.goals.HealthGoal;
-import edu.ntnu.idatt2001.paths.goals.InventoryGoal;
+import edu.ntnu.idatt2001.paths.model.goals.GoldGoal;
+import edu.ntnu.idatt2001.paths.model.goals.HealthGoal;
+import edu.ntnu.idatt2001.paths.model.goals.InventoryGoal;
 
 import java.util.ArrayList;
 import java.util.List;
