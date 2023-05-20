@@ -1,6 +1,6 @@
-package edu.ntnu.idatt2001.paths.goals;
+package edu.ntnu.idatt2001.paths.model.goals;
 
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.model.Player;
 
 /**
  * A goal represents a final state of the players actions.

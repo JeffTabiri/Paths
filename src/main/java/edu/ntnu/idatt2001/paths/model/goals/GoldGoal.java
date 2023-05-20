@@ -1,6 +1,6 @@
-package edu.ntnu.idatt2001.paths.goals;
+package edu.ntnu.idatt2001.paths.model.goals;
 
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.model.Player;
 
 /**
  * An GoldGoal represents the final state of gold in the inventory of a player.

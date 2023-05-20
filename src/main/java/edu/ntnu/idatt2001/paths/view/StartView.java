@@ -1,5 +1,7 @@
-package edu.ntnu.idatt2001.paths.scenes.startscene.startscene;
+package edu.ntnu.idatt2001.paths.view;
 
+import edu.ntnu.idatt2001.paths.controller.StartController;
+import edu.ntnu.idatt2001.paths.model.OptionManager;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
@@ -11,41 +13,43 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 public class StartView {
+
+  OptionManager optionManager = OptionManager.getInstance();
   StackPane view = new StackPane();
-  StartModel model;
   StartController controller;
 
-    public StartView(StartModel model, StartController controller) {
+
+  public StartView(StartController model) {
 
         buildView();
 
-        this.model = model;
-        this.controller = controller;
-    }
+        this.controller = model;
+  }
 
-    public Parent asParent() {
-      return view;
-    }
+  public Parent asParent() {
+    return view;
+  }
 
-    public void buildView() {
+  public void buildView() {
 
-      //Root container
-      BorderPane root = new BorderPane();
+    //Root container
+    BorderPane root = new BorderPane();
 
-      //Building root container
-      root.setTop(buildTitle());
-      root.setCenter(buildMenu());
-      root.setBottom(buildCredits());
+    //Building root container
+    root.setTop(buildTitle());
+    root.setCenter(buildMenu());
+    root.setBottom(buildCredits());
 
-      //CSS styling
-      root.getStylesheets().add("css/global.css");
+    //CSS styling
+    root.getStylesheets().add(optionManager.getCurrentStyle());
 
-      //Node placement
-      view.getChildren().addAll(buildPane(), root);
+    //Node placement
+    view.getChildren().addAll(buildPane(), root);
 
-    }
+  }
 
 
 
@@ -136,6 +140,7 @@ public class StartView {
     return title;
   }
 
+
   /**
    * Builds the credits box.
    *
@@ -197,6 +202,7 @@ public class StartView {
     });
 
     optionButton.setOnAction(event -> {
+
       ButtonEffects.buttonPressed(optionButton);
     });
 
@@ -224,27 +230,27 @@ public class StartView {
 
     newGameButton.setOnAction(event -> {
       ButtonEffects.buttonPressed(newGameButton);
-      model.goNewGameHandler();
+      controller.goNewGameHandler();
     });
 
     loadGameButton.setOnAction(event -> {
       ButtonEffects.buttonPressed(loadGameButton);
-      model.goLoadGameHandler();
+      controller.goLoadGameHandler();
     });
 
     optionButton.setOnAction(event -> {
       ButtonEffects.buttonPressed(optionButton);
-      model.goHelpHandler();
+      controller.goHelpHandler();
     });
 
     achievementButton.setOnAction(event -> {
       ButtonEffects.buttonPressed(achievementButton);
-      model.goAchievementsHandler();
+      controller.goAchievementsHandler();
     });
 
     exitButton.setOnAction(event -> {
       ButtonEffects.buttonPressed(exitButton);
-      model.goExitHandler();
+      controller.goExitHandler();
     });
 
     //Menu container

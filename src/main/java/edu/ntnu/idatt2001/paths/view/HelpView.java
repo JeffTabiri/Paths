@@ -1,11 +1,12 @@
-package edu.ntnu.idatt2001.paths.scenes.startscene.helpScene;
+package edu.ntnu.idatt2001.paths.view;
 
+import edu.ntnu.idatt2001.paths.controller.HelpController;
+import edu.ntnu.idatt2001.paths.model.OptionManager;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,20 +17,19 @@ import javafx.util.Duration;
 
 public class HelpView {
 
+  OptionManager optionManager = OptionManager.getInstance();
   StackPane view = new StackPane();
   HelpController controller;
-  HelpModel model;
 
-  public HelpView(HelpController controller, HelpModel model) {
+
+  public HelpView(HelpController controller) {
 
     buildView();
 
     this.controller = controller;
-    this.model = model;
-
   }
 
-  public StackPane getView() {
+  public StackPane asParent() {
   return view;
   }
 
@@ -67,7 +67,7 @@ public class HelpView {
     view.getChildren().addAll(buildPane(), root);
 
     //CSS styling
-    root.getStylesheets().add("css/global.css");
+    root.getStylesheets().add(optionManager.getCurrentStyle());
 
   }
 
@@ -171,17 +171,11 @@ public class HelpView {
     back.getStyleClass().add("menu-button");
 
     //Button actions
-    back.setOnAction(event -> {
-      controller.goBackHandler();
-    });
+    back.setOnAction(event -> controller.goBackHandler());
 
-    back.setOnMouseEntered(e -> {
-      ButtonEffects.buttonHover(back);
-    });
+    back.setOnMouseEntered(e -> ButtonEffects.buttonHover(back));
 
-    back.setOnMouseExited(e -> {
-      ButtonEffects.buttonExit(back);
-    });
+    back.setOnMouseExited(e -> ButtonEffects.buttonExit(back));
 
     return bottomMenu;
   }

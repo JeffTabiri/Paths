@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.paths;
+package edu.ntnu.idatt2001.paths.model;
 
 import edu.ntnu.idatt2001.paths.utility.GameStates;
 
@@ -110,7 +110,7 @@ public class Passage {
     }
 
     public String getUrl() {
-        if(fileName == "" || fileName == null) {
+        if (fileName == "" || fileName == null) {
             return "";
         }else {
             return url;
@@ -157,6 +157,7 @@ public class Passage {
      */
     @Override
     public boolean equals(Object o) {
+
         if (this == o) {
             return true;
         }

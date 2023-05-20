@@ -1,8 +1,7 @@
-package edu.ntnu.idatt2001.paths;
+package edu.ntnu.idatt2001.paths.model;
 
 import edu.ntnu.idatt2001.paths.filehandling.StorySaver;
-import edu.ntnu.idatt2001.paths.goals.Goal;
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.model.goals.Goal;
 
 import java.io.File;
 import java.util.List;
@@ -19,17 +18,15 @@ import java.util.List;
 public class Game {
   private final Player player;
   private final Story story;
-  private final List<Goal> goals;
 
   /**
    * Game constructor.
    *
    * @param player is an object of the player class,
    * @param story is an object of the story class
-   * @param goals is the list of goals in the
    * @throws IllegalArgumentException if player, story or goals is null.
    */
-  public Game(Player player, Story story, List<Goal> goals) {
+  public Game(Player player, Story story) {
 
     if (player == null) {
       throw new IllegalArgumentException("Player cannot be null");
@@ -39,13 +36,10 @@ public class Game {
       throw new IllegalArgumentException("Story cannot be null");
     }
 
-    if (goals == null) {
-      throw new IllegalArgumentException("Goals cannot be null");
-    }
 
     this.story = story;
     this.player = player;
-    this.goals = goals;
+
   }
 
   public Player getPlayer() {
@@ -54,10 +48,6 @@ public class Game {
 
   public Story getStory() {
     return story;
-  }
-
-  public List<Goal> getGoals() {
-    return goals;
   }
 
   /**
@@ -78,11 +68,4 @@ public class Game {
     return story.getPassage(link);
   }
 
-  public void saveGame() {
-    StorySaver storySaver = new StorySaver();
-    storySaver.saveStory(this.story);
-    File file = new File("src/main/resources/savedGames/" + this.player.getName() + ".txt");
-
-
-  }
 }

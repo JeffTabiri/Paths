@@ -1,6 +1,5 @@
-package edu.ntnu.idatt2001.paths.playerBuilder;
+package edu.ntnu.idatt2001.paths.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

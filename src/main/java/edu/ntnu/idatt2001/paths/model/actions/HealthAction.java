@@ -1,6 +1,6 @@
-package edu.ntnu.idatt2001.paths.actions;
+package edu.ntnu.idatt2001.paths.model.actions;
 
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.model.Player;
 
 /**
  * The class HealthAction represents the action of changing the health of a player.

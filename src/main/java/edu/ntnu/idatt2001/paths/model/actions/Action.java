@@ -1,6 +1,6 @@
-package edu.ntnu.idatt2001.paths.actions;
+package edu.ntnu.idatt2001.paths.model.actions;
 
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
+import edu.ntnu.idatt2001.paths.model.Player;
 
 /**
  * An Action represents a future change in the state of a player,
