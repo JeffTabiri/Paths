@@ -2,8 +2,11 @@ Catacombs of Agniritha
 
 ::Beginnings
 ++CaveIntro
+--Forest
 You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.
 [Procceed further](Enter the catacombs)
+{Gold}(1000)
+{Inventory}(+Sword)
 
 ::Enter the catacombs
 ++Skeleton
