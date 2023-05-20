@@ -1,9 +1,13 @@
 package edu.ntnu.idatt2001.paths;
 
-import edu.ntnu.idatt2001.paths.goals.Goal;
-import edu.ntnu.idatt2001.paths.goals.GoldGoal;
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
-import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.model.goals.Goal;
+import edu.ntnu.idatt2001.paths.model.goals.GoldGoal;
+import edu.ntnu.idatt2001.paths.model.Game;
+import edu.ntnu.idatt2001.paths.model.Link;
+import edu.ntnu.idatt2001.paths.model.Passage;
+import edu.ntnu.idatt2001.paths.model.Story;
+import edu.ntnu.idatt2001.paths.model.Player;
+import edu.ntnu.idatt2001.paths.model.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
@@ -33,7 +37,7 @@ class GameTest {
         testGoals.add(testGoal);
         testStory = new Story("Test story", testPassage);
         testStory.addPassage(testPassage);
-        testGame = new Game(testPlayer, testStory, testGoals);
+        testGame = new Game(testPlayer, testStory);
 
     }
 
@@ -43,10 +47,10 @@ class GameTest {
             @DisplayName("Test constructor with valid parameters")
             @Test
             void testConstructorWithValidParameters() {
-                Game testGame = new Game(testPlayer, testStory, testGoals);
+                Game testGame = new Game(testPlayer, testStory);
                 assertEquals(testPlayer, testGame.getPlayer());
                 assertEquals(testStory, testGame.getStory());
-                assertEquals(testGoals, testGame.getGoals());
+
             }
     }
 
@@ -68,13 +72,6 @@ class GameTest {
             assertEquals(expectedValue, actualValue);
         }
 
-        @Test
-        void getGoals() {
-            List<Goal> expectedValue = testGoals;
-            List<Goal> actualValue = testGame.getGoals();
-
-            assertEquals(expectedValue, actualValue);
-        }
     }
 
     @DisplayName("Test Mutators")
