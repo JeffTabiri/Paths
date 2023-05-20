@@ -1,9 +1,9 @@
 package edu.ntnu.idatt2001.paths.filehandling;
 
-import edu.ntnu.idatt2001.paths.Link;
-import edu.ntnu.idatt2001.paths.Passage;
-import edu.ntnu.idatt2001.paths.Story;
-import edu.ntnu.idatt2001.paths.actions.*;
+import edu.ntnu.idatt2001.paths.model.Link;
+import edu.ntnu.idatt2001.paths.model.Passage;
+import edu.ntnu.idatt2001.paths.model.Story;
+import edu.ntnu.idatt2001.paths.model.actions.*;
 import edu.ntnu.idatt2001.paths.utility.GameStates;
 
 import java.io.BufferedReader;
@@ -28,6 +28,7 @@ public class StoryLoader {
 
 
     public StoryLoader(File file) throws IOException {
+
         String[] passagesInString = splitFileInParagraphs(readFileAsString(file));
 
         List<Passage> passages = new ArrayList<>();
@@ -207,12 +208,8 @@ public class StoryLoader {
             bufferedReader.close();
         }
 
-        if(!image.equals("")||!image.equals(null)) {
-            passage = new Passage(passageTitle, content.toString(), links, image);
-            passage.setGameState(getStateType(music));
-        } else {
-            passage = new Passage(passageTitle, content.toString(), links);
-        }
+        passage = new Passage(passageTitle, content.toString(), links, image);
+        passage.setGameState(getStateType(music));
 
 
         return passage;
@@ -278,6 +275,7 @@ public class StoryLoader {
     }
 
     }
+
 
     /**
      * Takes in a line from an action (formatted as a string) and creates an action object.

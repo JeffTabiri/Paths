@@ -1,8 +1,9 @@
 package edu.ntnu.idatt2001.paths;
 
 
-import edu.ntnu.idatt2001.paths.actions.Action;
-import edu.ntnu.idatt2001.paths.actions.InventoryAction;
+import edu.ntnu.idatt2001.paths.model.actions.Action;
+import edu.ntnu.idatt2001.paths.model.actions.InventoryAction;
+import edu.ntnu.idatt2001.paths.model.Link;
 import org.junit.jupiter.api.*;
 import java.util.ArrayList;
 import java.util.List;

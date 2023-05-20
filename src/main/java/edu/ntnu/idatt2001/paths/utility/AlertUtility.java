@@ -1,6 +1,5 @@
 package edu.ntnu.idatt2001.paths.utility;
 
-import edu.ntnu.idatt2001.paths.scenes.startscene.StartScene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -15,25 +14,25 @@ public class AlertUtility {
    * @param headerText  the header text of the alert
    * @param contentText the content text of the alert
    */
-  public static void showErrorAlert(String headerText, String contentText) {
+  public static boolean showErrorAlert(String headerText, String contentText) {
     Alert alert = new Alert(Alert.AlertType.ERROR);
     alert.setTitle("Error");
     alert.setHeaderText(headerText);
     alert.setContentText(contentText);
     alert.showAndWait();
-  }
-
-  public static void showConfirmationAlert(Stage stage) {
-    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    alert.setTitle("Exit");
-    alert.setHeaderText("Are you sure you want to exit?");
-    alert.setContentText("You will lose all unsaved progress.");
     Optional<ButtonType> result = alert.showAndWait();
 
-    if (result.get() == ButtonType.OK) {
-      stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene());
-    }
+    return result.get() == ButtonType.OK;
+  }
 
+  public static boolean showConfirmationAlert(String headerText, String contentText, String title) {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle(title);
+    alert.setHeaderText(headerText);
+    alert.setContentText(contentText);
+    Optional<ButtonType> result = alert.showAndWait();
+
+    return result.get() == ButtonType.OK;
   }
 
   public static boolean showSaveAlert(Stage stage) {
@@ -44,7 +43,6 @@ public class AlertUtility {
     Optional<ButtonType> result = alert.showAndWait();
 
     if (result.get() == ButtonType.OK) {
-      stage.setScene(new StartScene(stage, stage.getWidth(), stage.getHeight()).getScene());
       return true;
     }
 

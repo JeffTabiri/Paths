@@ -10,23 +10,26 @@ import javafx.stage.Stage;
 
 public class DialogUtility {
 
-    public static void helpBox(Stage stage) {
+
+
+    public static void helpBox() {
         Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(stage);
-
         VBox root = new VBox();
-
 
         TextFlow topTitle = new TextFlow(new Text("Welcome to the game!"));
 
         topTitle.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
 
-        TextFlow centerText = new TextFlow(new Text("Traverse through the story by navigating the passage choices. \n"
-                +
-                "When traversing through these choices you can earn gold coins and score points. \n"
-                +
-                "If youre health reaches zero you die."));
+        TextFlow centerText = new TextFlow (
+
+                new Text(
+                        """
+                        Traverse through the story by navigating the passage choices.
+                        When traversing through these choices you can earn gold coins and score points.
+                        If youre health reaches zero you die.
+                        
+                        """));
 
 
 
@@ -36,13 +39,10 @@ public class DialogUtility {
         //Node placement
         root.getChildren().addAll(topTitle, centerText, bottomText);
 
-
-
         //Alignment
         topTitle.setTextAlignment(javafx.scene.text.TextAlignment.CENTER);
         centerText.setTextAlignment(TextAlignment.CENTER);
         bottomText.setTextAlignment(TextAlignment.CENTER);
-
         centerText.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
         dialog.setHeight(300);
 
@@ -53,6 +53,7 @@ public class DialogUtility {
         //Styling
         root.getStylesheets().add("css/global.css");
         root.getStyleClass().add("help-content");
+
     }
 
 }

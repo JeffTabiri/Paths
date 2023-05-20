@@ -1,7 +1,7 @@
 package edu.ntnu.idatt2001.paths;
 
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
-import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.model.Player;
+import edu.ntnu.idatt2001.paths.model.PlayerBuilder;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;

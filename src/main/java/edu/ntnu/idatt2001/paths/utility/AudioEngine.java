@@ -59,8 +59,6 @@ public class AudioEngine {
 
         mediaPlayer = new MediaPlayer(media);
 
-        mediaPlayer.setVolume(0);
-
         mediaPlayer.play();
 
         mediaPlayer.setOnEndOfMedia(() -> {
@@ -101,5 +99,12 @@ public class AudioEngine {
       return;
     }
 
+    public void mute() {
+      mediaPlayer.setVolume(0);
+    }
+
+    public void unmute() {
+      mediaPlayer.setVolume(0.5);
+    }
 }
 

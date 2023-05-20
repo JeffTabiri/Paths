@@ -1,7 +1,8 @@
 package edu.ntnu.idatt2001.paths.actions;
 
-import edu.ntnu.idatt2001.paths.playerBuilder.Player;
-import edu.ntnu.idatt2001.paths.playerBuilder.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.model.Player;
+import edu.ntnu.idatt2001.paths.model.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.model.actions.ScoreAction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
