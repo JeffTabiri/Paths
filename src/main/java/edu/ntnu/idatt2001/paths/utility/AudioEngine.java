@@ -13,14 +13,23 @@ import javafx.scene.media.MediaPlayer;
  * @author Elementum
  */
 public class AudioEngine {
+
     private static AudioEngine audioEngine;
+
     GameStates currentState;
+
     MediaPlayer mediaPlayer;
 
     /**
      * Constructor for the AudioEngine class.
      */
     private AudioEngine() {
+      currentState = GameStates.MAIN_MENU;
+      mediaPlayer = new MediaPlayer(new Media(AudioEngine.class.getResource(GameStates.MAIN_MENU.getValue()).toString() + "LOOP.wav"));
+
+      mediaPlayer.play();
+      mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+
     }
 
   /**
@@ -32,6 +41,7 @@ public class AudioEngine {
       if (audioEngine == null) {
         audioEngine = new AudioEngine();
       }
+
 
       return audioEngine;
     }
@@ -45,59 +55,27 @@ public class AudioEngine {
      */
     public void playMusic(GameStates state) {
 
-      //TODO refactor this method to use the state pattern
+      if (state.getValue() == null) {
+      }
 
-      if (!state.equals(currentState)) {
+      else if (!state.equals(currentState)) {
 
-        if (state.getValue() == null) {
-          mediaPlayer.stop();
-          currentState = null;
-          return;
-        }
+        mediaPlayer.stop();
 
-        Media media = new Media(AudioEngine.class.getResource(state.getValue()).toString() + "FULL.wav");
+        Media media = new Media(AudioEngine.class.getResource(state.getValue()).toString() + "LOOP.wav");
 
         mediaPlayer = new MediaPlayer(media);
 
         mediaPlayer.play();
 
-        mediaPlayer.setOnEndOfMedia(() -> {
-          mediaPlayer.stop();
-          mediaPlayer = new MediaPlayer(new Media(AudioEngine.class.getResource(state.getValue()).toString() + "LOOP.wav"));
-          mediaPlayer.play();
-          mediaPlayer.setVolume(0.5);
-          mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        });
-
-
-
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
-      }
-
-      currentState = state;
-    }
-
-
-  /**
-   * @deprecated
-   * @param state the current state of the game
-   */
-  public void evaluateState(GameStates state) {
-
-      if (state.getValue() == null) {
-        mediaPlayer.stop();
-        currentState = null;
-      }
-
-      if (!state.equals(currentState)) {
 
         currentState = state;
 
       }
 
-      return;
     }
+
 
     public void mute() {
       mediaPlayer.setVolume(0);
@@ -106,5 +84,6 @@ public class AudioEngine {
     public void unmute() {
       mediaPlayer.setVolume(0.5);
     }
+
 }
 

@@ -9,7 +9,9 @@ import edu.ntnu.idatt2001.paths.model.goals.InventoryGoal;
 import edu.ntnu.idatt2001.paths.model.goals.ScoreGoal;
 import edu.ntnu.idatt2001.paths.controller.AchievementController;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
@@ -29,6 +31,8 @@ import javafx.util.Duration;
 
 public class AchievementView {
 
+    AudioEngine audioEngine = AudioEngine.getInstance();
+
     OptionManager optionManager = OptionManager.getInstance();
 
     StackPane view = new StackPane();
@@ -42,6 +46,7 @@ public class AchievementView {
 
     public AchievementView (AchievementController controller) {
         buildView();
+        audioEngine.playMusic(GameStates.MAIN_MENU);
 
         this.controller = controller;
     }

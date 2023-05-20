@@ -1,5 +1,9 @@
 package edu.ntnu.idatt2001.paths.model;
 
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Stream;
+
 public class GameManager {
 
   Game game;
@@ -52,6 +56,4 @@ public class GameManager {
   public void setGame(Game game) {
     this.game = game;
   }
-
-
 }

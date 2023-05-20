@@ -2,7 +2,9 @@ package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.StartController;
 import edu.ntnu.idatt2001.paths.model.OptionManager;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -13,9 +15,11 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
+
 
 public class StartView {
+
+  AudioEngine audioEngine = AudioEngine.getInstance();
 
   OptionManager optionManager = OptionManager.getInstance();
   StackPane view = new StackPane();
@@ -25,6 +29,8 @@ public class StartView {
   public StartView(StartController model) {
 
         buildView();
+
+        audioEngine.playMusic(GameStates.MAIN_MENU);
 
         this.controller = model;
   }

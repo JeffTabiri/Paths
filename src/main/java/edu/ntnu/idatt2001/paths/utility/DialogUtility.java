@@ -1,12 +1,16 @@
 package edu.ntnu.idatt2001.paths.utility;
 
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.List;
 
 public class DialogUtility {
 
@@ -55,5 +59,6 @@ public class DialogUtility {
         root.getStyleClass().add("help-content");
 
     }
+
 
 }

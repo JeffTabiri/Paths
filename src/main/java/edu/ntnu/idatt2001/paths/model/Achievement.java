@@ -37,8 +37,8 @@ public class Achievement {
      *
      * @param player the player to check the achievement for
      */
-    public void checkProgress(Player player) {
-        isFulfilled = goal.isFulfilled(player);
+    public void setIsFulfilled(boolean isFulfilled) {
+        this.isFulfilled = isFulfilled;
     }
 
 

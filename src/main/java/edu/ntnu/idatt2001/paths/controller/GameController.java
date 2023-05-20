@@ -56,10 +56,10 @@ public class GameController extends Controller {
 
 
   public void goPassageHandler(int index) {
-
-        updatePlayerStats(index);
-
-        updataPassage(index);
+    if(isGameFinished(index)) {
+      updatePlayerStats(index);
+      updatePassage(index);
+    }
 
   }
 
@@ -75,7 +75,7 @@ public class GameController extends Controller {
   }
 
 
-  private void updataPassage (int passageChoiceIndex) {
+  private void updatePassage(int passageChoiceIndex) {
 
         Passage currentPassage = gameManager.getCurrentPassage();
 
@@ -90,6 +90,18 @@ public class GameController extends Controller {
       StartView view = new StartView(new StartController(getStage(), getWidth(), getHeight()));
       getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
     }
+  }
+
+  public boolean isGameFinished(int index) {
+
+    if (gameManager.getGame().go(gameManager.getCurrentPassage().getLinks().get(index)) == null) {
+      if (AlertUtility.showConfirmationAlert("Exit game", "You Finished the game!", "Exit game")) {
+        StartView view = new StartView(new StartController(getStage(), getWidth(), getHeight()));
+        getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
+      }
+    return false;
+    }
+    return true;
   }
 
 }

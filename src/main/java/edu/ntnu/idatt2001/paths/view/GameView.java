@@ -1,14 +1,18 @@
 package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.GameController;
+import edu.ntnu.idatt2001.paths.model.AchievementList;
 import edu.ntnu.idatt2001.paths.model.GameManager;
 import edu.ntnu.idatt2001.paths.model.OptionManager;
 import edu.ntnu.idatt2001.paths.model.Passage;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
@@ -17,21 +21,29 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import org.controlsfx.control.Notifications;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GameView {
 
+  AudioEngine audioEngine = AudioEngine.getInstance();
   OptionManager optionManager = OptionManager.getInstance();
+  AchievementList achievementList = AchievementList.getInstance();
   GameController controller;
   GameManager gameManager;
-
   ListView<String> passageChoices = new ListView<>();
+
 
   BorderPane view = new BorderPane();
 
     public GameView(GameController controller , GameManager gameManager)  {
+
+      passageChoices.getStyleClass().add("file-view");
 
       this.gameManager = gameManager;
       this.controller = controller;
@@ -39,13 +51,20 @@ public class GameView {
       passageChoices.getItems().addAll(getPassageChoices(gameManager.getCurrentPassage()));
 
       passageChoices.setOnMouseClicked(e -> {
-        controller.goPassageHandler(passageChoices.getSelectionModel().getSelectedIndex());
-        updateView();
+        if (e.getClickCount() == 2) {
+          if (passageChoices.getSelectionModel().getSelectedItem() == null) {
+            AlertUtility.showErrorAlert("Error", "No passage selected. Please select a passage");
+            return;
+          }
+          controller.goPassageHandler(passageChoices.getSelectionModel().getSelectedIndex());
+          updateView();
+        }
       });
 
       view.getStylesheets().add(optionManager.getCurrentStyle());
 
       buildView();
+      playMusic(gameManager.getCurrentPassage());
     }
 
 
@@ -54,12 +73,18 @@ public class GameView {
       return view;
     }
 
-    public void updateView(){
+    public void updateView() {
+
+
       buildView();
-      updateChoices();
+
       if (!gameManager.getIsPlayerAlive()) {
         controller.playerDied();
       }
+
+      updateChoices();
+      playMusic(gameManager.getCurrentPassage());
+      updateAchievements();
     }
 
 
@@ -68,12 +93,22 @@ public class GameView {
       passageChoices.getItems().addAll(getPassageChoices(gameManager.getCurrentPassage()));
     }
 
-    public void buildView(){
+    public void updateAchievements() {
+      achievementList.getAchievements().stream().filter(achievement -> !achievement.getIsFulfilled()).forEach(achievement -> {
+        if (achievement.getGoal().isFulfilled(gameManager.getGame().getPlayer())) {
+          achievement.setIsFulfilled(true);
+          Notifications.create().title("Achievement unlocked").text(achievement.getDescription()).showInformation();
+        }
+      });
+
+
+    }
+
+    public void buildView() {
       //Choices placement
       view.setTop(buildTopMenu());
       view.setCenter(buildCenterMenu());
       view.setBottom(passageChoices);
-
     }
 
 
@@ -173,12 +208,18 @@ public class GameView {
 
   }
 
+  public void playMusic(Passage passage) {
+    if (passage.getGameState() != null) {
+      audioEngine.playMusic(passage.getGameState());
+    }
+  }
+
   private ImageView buildImage(String path) {
     Image image = new Image(path);
     ImageView imageView;
     imageView = new ImageView(image);
     imageView.setPreserveRatio(true);
-    imageView.setFitHeight(300);
+    imageView.setFitHeight(250);
     return imageView;
   }
 
@@ -256,6 +297,21 @@ public class GameView {
     return choices;
   }
 
+  private ArrayList<TextFlow> getItems() {
+    ArrayList<TextFlow> items = new ArrayList<>();
+
+    gameManager.getGame().getPlayer().getInventory().forEach(item -> {
+      TextFlow itemFlow = new TextFlow();
+      Text itemText = new Text(item);
+      itemFlow.getChildren().add(itemText);
+      itemText.getStyleClass().add("content");
+      items.add(itemFlow);
+    });
+
+
+    return items;
+  }
+
 
   private HBox createOptionsTab() {
 
@@ -266,6 +322,16 @@ public class GameView {
     String optionBoxStyle = "option-button";
 
     int buttonSize = 32;
+
+    //BackPack button
+    Button backPackButton = new Button();
+    ImageView backPackImage = new ImageView("/images/icon/BackPack.png");
+    backPackImage.setPreserveRatio(true);
+    backPackImage.setFitHeight(buttonSize);
+    backPackImage.setFitWidth(buttonSize);
+    backPackButton.setGraphic(backPackImage);
+    backPackButton.backgroundProperty().set(Background.EMPTY);
+
 
     //Save button
     Button saveButton = new Button();
@@ -305,7 +371,7 @@ public class GameView {
     exitButton.setGraphic(exitImage);
     exitButton.backgroundProperty().set(Background.EMPTY);
 
-    optionsBox.getChildren().addAll(saveButton, optionsButton, helpButton, exitButton);
+    optionsBox.getChildren().addAll(backPackButton, saveButton, optionsButton, helpButton, exitButton);
     optionsBox.setSpacing(10);
     optionsBox.setPadding(new javafx.geometry.Insets(2, 2, 2, 2));
 
@@ -323,6 +389,9 @@ public class GameView {
     exitButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(exitButton));
     exitButton.setOnMouseExited(event -> ButtonEffects.buttonExit(exitButton));
 
+    backPackButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(backPackButton));
+    backPackButton.setOnMouseExited(event -> ButtonEffects.buttonExit(backPackButton));
+
 
     //Button actions
     exitButton.setOnAction(event -> controller.exitGame());
@@ -333,12 +402,45 @@ public class GameView {
 
     optionsButton.setOnAction(event -> controller.optionGame());
 
+    backPackButton.setOnAction(event -> {
+
+      Stage dialog = new Stage();
+      dialog.initModality(Modality.APPLICATION_MODAL);
+      dialog.initOwner(controller.getStage());
+      BorderPane root = new BorderPane();
+      dialog.setWidth(300);
+
+      TextFlow topTitle = new TextFlow(new Text("Inventory"));
+      BorderPane.setAlignment(topTitle, javafx.geometry.Pos.CENTER);
+      root.setTop(topTitle);
+      ListView<TextFlow> listView = new ListView<>();
+      root.setCenter(listView);
+
+      topTitle.setTextAlignment(TextAlignment.CENTER);
+
+      if (getItems().size() > 0) {
+        listView.getItems().addAll(getItems());
+      } else {
+        listView.getItems().add(new TextFlow(new Text("No items in inventory")));
+      }
+
+      Scene dialogScene = new Scene(root, 300, 300);
+      dialogScene.getStylesheets().add("css/global.css");
+      dialog.setScene(dialogScene);
+
+      topTitle.getStyleClass().add("secondary-title");
+      listView.getStyleClass().add("secondary-title");
+      topTitle.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
+      dialog.show();
+    });
+
     //Styling
     optionsBox.getStyleClass().add(optionBoxStyle);
 
     return optionsBox;
 
   }
+
 
 
   private VBox buildTopMenu() {

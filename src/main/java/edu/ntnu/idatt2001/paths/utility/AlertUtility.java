@@ -19,7 +19,6 @@ public class AlertUtility {
     alert.setTitle("Error");
     alert.setHeaderText(headerText);
     alert.setContentText(contentText);
-    alert.showAndWait();
     Optional<ButtonType> result = alert.showAndWait();
 
     return result.get() == ButtonType.OK;
@@ -35,7 +34,7 @@ public class AlertUtility {
     return result.get() == ButtonType.OK;
   }
 
-  public static boolean showSaveAlert(Stage stage) {
+  public static boolean showSaveAlert() {
     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     alert.setTitle("Save");
     alert.setHeaderText("Are you sure you want to save?");

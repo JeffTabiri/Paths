@@ -2,7 +2,9 @@ package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.HelpController;
 import edu.ntnu.idatt2001.paths.model.OptionManager;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.animation.Animation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
@@ -17,6 +19,10 @@ import javafx.util.Duration;
 
 public class HelpView {
 
+  AudioEngine audioEngine = AudioEngine.getInstance();
+
+
+
   OptionManager optionManager = OptionManager.getInstance();
   StackPane view = new StackPane();
   HelpController controller;
@@ -26,6 +32,7 @@ public class HelpView {
 
     buildView();
 
+    audioEngine.playMusic(GameStates.MAIN_MENU);
     this.controller = controller;
   }
 

@@ -3,7 +3,9 @@ package edu.ntnu.idatt2001.paths.view;
 import edu.ntnu.idatt2001.paths.controller.ChooseStoryController;
 import edu.ntnu.idatt2001.paths.model.OptionManager;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
+import edu.ntnu.idatt2001.paths.utility.GameStates;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
@@ -28,6 +30,8 @@ public class ChooseStoryView {
 
   OptionManager optionManager = OptionManager.getInstance();
 
+  AudioEngine audioEngine = AudioEngine.getInstance();
+
   StackPane view = new StackPane();
 
   ListView<String> storyListView = new ListView<>();
@@ -35,6 +39,9 @@ public class ChooseStoryView {
   ChooseStoryController controller;
 
   public ChooseStoryView(ChooseStoryController controller) {
+    storyListView.getStyleClass().add("file-view");
+
+    audioEngine.playMusic(GameStates.MAIN_MENU);
 
     storyListView.setItems(FXCollections.observableArrayList(controller.getStoryList()));
 
@@ -262,6 +269,7 @@ public class ChooseStoryView {
     popupBox.getStylesheets().add("css/global.css");
     confirmButton.getStyleClass().add("secondary-button");
     popupTitle.getStyleClass().add("secondary-text");
+
 
     Scene popupScene = new Scene(popupBox, 300, 200);
 
