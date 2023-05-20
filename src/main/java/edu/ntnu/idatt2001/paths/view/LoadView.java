@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.ChooseStoryController;
+import edu.ntnu.idatt2001.paths.controller.LoadController;
 import edu.ntnu.idatt2001.paths.model.OptionManager;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
@@ -26,7 +27,7 @@ import javafx.util.Duration;
 import java.io.File;
 import java.io.IOException;
 
-public class ChooseStoryView {
+public class LoadView {
 
   OptionManager optionManager = OptionManager.getInstance();
 
@@ -36,14 +37,14 @@ public class ChooseStoryView {
 
   ListView<String> storyListView = new ListView<>();
 
-  ChooseStoryController controller;
+  LoadController controller;
 
-  public ChooseStoryView(ChooseStoryController controller) {
+  public LoadView(LoadController controller) {
     storyListView.getStyleClass().add("file-view");
 
     audioEngine.playMusic(GameStates.MAIN_MENU);
 
-    storyListView.setItems(FXCollections.observableArrayList(controller.getStoryList()));
+    storyListView.setItems(FXCollections.observableArrayList(controller.getSavedStoryList()));
 
     storyListView.setOnMouseClicked(event -> {
       if (event.getClickCount() == 2) {
@@ -51,7 +52,7 @@ public class ChooseStoryView {
           AlertUtility.showErrorAlert("Error", "No story selected. Please select a story");
           return;
         }
-        popupBox().show();
+        popupBox();
       }
     });
 
@@ -107,10 +108,16 @@ public class ChooseStoryView {
 
       if (storyListView.getSelectionModel().getSelectedItem() == null) {
         AlertUtility.showErrorAlert("Error!", "No story selected. Please select a story");
+
         return;
       }
 
-      popupBox().show();
+      try {
+        controller.loadGame();
+      } catch (IOException ex) {
+        throw new RuntimeException(ex);
+      }
+      popupBox();
 
     });
 
@@ -208,75 +215,8 @@ public class ChooseStoryView {
 
 
 
-  private Stage popupBox() {
-    final Stage dialog = new Stage();
-
-    dialog.initModality(Modality.APPLICATION_MODAL);
-
-    dialog.resizableProperty().setValue(false);
-
-
-    VBox popupBox = new VBox(20);
-    HBox inputBox = new HBox(20);
-
-    Text popupTitle = new Text("Choose a name: ");
-
-    TextField nameField = new TextField("");
-    nameField.setPromptText("Please enter a name");
-
-    Button confirmButton = new Button("Confirm");
-
-    popupBox.getChildren().addAll(popupTitle);
-    inputBox.getChildren().addAll(nameField);
-
-    popupBox.getChildren().addAll(inputBox, confirmButton);
-
-    popupBox.setAlignment(Pos.CENTER);
-    inputBox.setAlignment(Pos.CENTER);
-
-
-    confirmButton.setOnAction(
-            event -> {
-
-              ButtonEffects.buttonPressed(confirmButton);
-
-              try {
-
-                String storyAddress = "src/main/resources/story/preloadedStory/";
-                String name = nameField.getText();
-
-                controller.startGameHandler(new File(storyAddress + storyListView.getSelectionModel().getSelectedItem()), name);
-
-                dialog.close();
-
-              } catch (IOException e) {
-
-                AlertUtility.showErrorAlert("xf:", e.getMessage());
-
-              } catch (IllegalArgumentException e) {
-
-                AlertUtility.showErrorAlert("xsf", e.getMessage());
-
-              }
-
-            });
-
-    confirmButton.setOnMouseEntered(event -> ButtonEffects.buttonHover(confirmButton));
-
-    confirmButton.setOnMouseExited(event -> ButtonEffects.buttonExit(confirmButton));
-
-    //Styling
-    popupBox.getStylesheets().add("css/global.css");
-    confirmButton.getStyleClass().add("secondary-button");
-    popupTitle.getStyleClass().add("secondary-text");
-
-
-    Scene popupScene = new Scene(popupBox, 300, 200);
-
-    dialog.setScene(popupScene);
-
-    return dialog;
-
+  private void popupBox() {
+    //pLAY LOADED GAME
   }
 
 

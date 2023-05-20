@@ -67,7 +67,7 @@ public class ChooseStoryController extends Controller {
 
     List<String> storyList = new ArrayList<>();
 
-    File[] files = new File("src/main/resources/stories/preloadedStories").listFiles();
+    File[] files = new File("src/main/resources/story/preloadedStory").listFiles();
 
     for (File file : files) {
 

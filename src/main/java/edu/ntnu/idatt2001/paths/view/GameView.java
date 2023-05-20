@@ -8,7 +8,6 @@ import edu.ntnu.idatt2001.paths.model.Passage;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.AudioEngine;
 import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
-import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -26,8 +25,8 @@ import javafx.stage.Stage;
 import org.controlsfx.control.Notifications;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class GameView {
 
@@ -325,7 +324,7 @@ public class GameView {
 
     //BackPack button
     Button backPackButton = new Button();
-    ImageView backPackImage = new ImageView("/images/icon/BackPack.png");
+    ImageView backPackImage = new ImageView("/images/icons/optionIcon/BackPack.png");
     backPackImage.setPreserveRatio(true);
     backPackImage.setFitHeight(buttonSize);
     backPackImage.setFitWidth(buttonSize);
@@ -335,7 +334,7 @@ public class GameView {
 
     //Save button
     Button saveButton = new Button();
-    ImageView saveImage = new ImageView("/images/icon/Save.png");
+    ImageView saveImage = new ImageView("/images/icons/optionIcon/Save.png");
     saveImage.setPreserveRatio(true);
     saveImage.setFitHeight(buttonSize);
     saveImage.setFitWidth(buttonSize);
@@ -345,7 +344,7 @@ public class GameView {
 
     //Options button
     Button optionsButton = new Button();
-    ImageView optionsImage = new ImageView("/images/icon/Gear.png");
+    ImageView optionsImage = new ImageView("/images/icons/optionIcon/Gear.png");
     optionsImage.setPreserveRatio(true);
     optionsImage.setFitHeight(buttonSize);
     optionsImage.setFitWidth(buttonSize);
@@ -355,7 +354,7 @@ public class GameView {
 
     //Help button
     Button helpButton = new Button();
-    ImageView helpImage = new ImageView("/images/icon/Info.png");
+    ImageView helpImage = new ImageView("/images/icons/optionIcon/Info.png");
     helpImage.setPreserveRatio(true);
     helpImage.setFitHeight(buttonSize);
     helpImage.setFitWidth(buttonSize);
@@ -364,7 +363,7 @@ public class GameView {
 
     //Exit button
     Button exitButton = new Button();
-    ImageView exitImage = new ImageView("/images/icon/Exit.png");
+    ImageView exitImage = new ImageView("/images/icons/optionIcon/Exit.png");
     exitImage.setPreserveRatio(true);
     exitImage.setFitHeight(buttonSize);
     exitImage.setFitWidth(buttonSize);
@@ -398,7 +397,13 @@ public class GameView {
 
     helpButton.setOnAction(event -> controller.helpGame());
 
-    saveButton.setOnAction(event -> controller.saveGame());
+    saveButton.setOnAction(event -> {
+      try {
+        controller.saveGame();
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+    });
 
     optionsButton.setOnAction(event -> controller.optionGame());
 

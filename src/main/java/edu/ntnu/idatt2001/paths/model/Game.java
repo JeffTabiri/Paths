@@ -1,11 +1,5 @@
 package edu.ntnu.idatt2001.paths.model;
 
-import edu.ntnu.idatt2001.paths.filehandling.StorySaver;
-import edu.ntnu.idatt2001.paths.model.goals.Goal;
-
-import java.io.File;
-import java.util.List;
-
 /**
  * The class {@code Game} represents a game.
  * It contains fields objects such as player and story.

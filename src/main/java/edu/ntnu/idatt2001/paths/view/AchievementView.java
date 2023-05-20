@@ -254,10 +254,10 @@ public class AchievementView {
     private String achievementImageChoose(String goalType) {
 
         return switch (goalType) {
-            case "HEALTH" -> "images/icon/achievementIcons/RedPotion.png";
-            case "INVENTORY" -> "images/icon/achievementIcons/Sword.png";
-            case "GOLD" -> "images/icon/achievementIcons/Coin.png";
-            case "SCORE" -> "images/icon/achievementIcons/Point.png";
+            case "HEALTH" -> "images/icons/achievementIcons/RedPotion.png";
+            case "INVENTORY" -> "images/icons/achievementIcons/Sword.png";
+            case "GOLD" -> "images/icons/achievementIcons/Coin.png";
+            case "SCORE" -> "images/icons/achievementIcons/Point.png";
             default -> null;
         };
 

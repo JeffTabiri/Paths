@@ -5,6 +5,7 @@ import edu.ntnu.idatt2001.paths.utility.GameStates;
 import edu.ntnu.idatt2001.paths.view.ChooseStoryView;
 import edu.ntnu.idatt2001.paths.view.AchievementView;
 import edu.ntnu.idatt2001.paths.view.HelpView;
+import edu.ntnu.idatt2001.paths.view.LoadView;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -29,8 +30,11 @@ public class StartController extends Controller {
   }
 
   public void goLoadGameHandler() {
-    System.out.println("Go load game");
+    LoadView view = new LoadView(new LoadController(getStage(), getWidth(), getHeight()));
+    getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
   }
+
+
 
   public void goAchievementsHandler() {
     AchievementController controller = new AchievementController(getStage(), getWidth(), getHeight());

@@ -1,7 +1,5 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.controller.Controller;
-import edu.ntnu.idatt2001.paths.controller.StartController;
 import edu.ntnu.idatt2001.paths.model.Achievement;
 import edu.ntnu.idatt2001.paths.model.AchievementList;
 import edu.ntnu.idatt2001.paths.model.goals.GoldGoal;

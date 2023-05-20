@@ -1,5 +1,6 @@
 package edu.ntnu.idatt2001.paths.controller;
 
+import edu.ntnu.idatt2001.paths.filehandling.GameSave;
 import edu.ntnu.idatt2001.paths.model.*;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.DialogUtility;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 
 
 public class GameController extends Controller {
@@ -39,9 +41,11 @@ public class GameController extends Controller {
 
   }
 
-  public void saveGame() {
+  public void saveGame() throws IOException {
 
     if (AlertUtility.showConfirmationAlert("Save game", "Are you sure you want to save the game?", "Save game")) {
+      GameSave gameSave = new GameSave();
+      gameSave.saveGame(gameManager.getGame());
       StartView view = new StartView(new StartController(getStage(), getWidth(), getHeight()));
       getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
     }
