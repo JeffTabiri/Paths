@@ -5,6 +5,7 @@
     -fx-font-weight: bold;
 }
 
+
 .secondary-title {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 10px;
@@ -16,8 +17,9 @@
     -fx-background-color: #000000;
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: BLACK;
     -fx-font-weight: bold;
+
 }
 
 
@@ -26,8 +28,8 @@
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/button/ActiveButton.png");
-    -fx-background-size: 100% 100%;
+    -fx-background-color: BLACK;
+    -fx-text-fill: #ffffff;
 }
 
 .menu {
@@ -41,8 +43,9 @@
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/button/ActiveButton.png");
-    -fx-background-size: 100% 100%;
+    -fx-background-color: BLACK;
+    -fx-text-fill: #ffffff;
+
 }
 
 .text-field {
@@ -56,14 +59,15 @@
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;;
     -fx-font-weight: bold;
-    -fx-background-color: transparent;
+    -fx-background-color: BLACK;
+    -fx-text-fill: #ffffff;
 
 }
 
 .secondary-text {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
 }
 
@@ -71,24 +75,22 @@
 .hotbar {
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 10px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
 }
 
 .content {
-
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 10px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
-
 }
 
 .help-content {
 
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 14px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
     -fx-spacing: 10px;
 }
@@ -97,7 +99,7 @@
 
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
 }
 
@@ -105,7 +107,7 @@
 
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;
-    -fx-text-fill: #000000;
+    -fx-text-fill: #ffffff;
     -fx-font-weight: bold;
 
 }
