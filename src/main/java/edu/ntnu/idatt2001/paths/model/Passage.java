@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.model;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -49,7 +49,7 @@ public class Passage {
     this.content = content;
     this.links.addAll(links);
     this.fileName = fileName;
-    url = "/images/background/" + fileName + ".png";
+    url = "/images/background/passages/" + fileName + ".png";
   }
 
   /**

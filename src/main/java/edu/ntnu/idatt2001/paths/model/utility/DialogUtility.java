@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001.paths.model.utility;
 
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
+import edu.ntnu.idatt2001.paths.view.OptionView;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -8,6 +9,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 
 /**
  * <h1>DialogUtility</h1>
@@ -20,6 +22,16 @@ import javafx.stage.Stage;
 public class DialogUtility {
 
   private DialogUtility() {
+  }
+
+  public static void optionBox(OptionView view) {
+    Stage dialog = new Stage();
+    Scene scene = new Scene(view.asParent(), 500, 300);
+    dialog.initModality(Modality.APPLICATION_MODAL);
+    dialog.setResizable(false);
+    dialog.setScene(scene);
+    dialog.setTitle("Options");
+    dialog.show();
   }
 
   /**
@@ -47,7 +59,6 @@ public class DialogUtility {
     dialog.initModality(Modality.APPLICATION_MODAL);
     topTitle.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
     centerText.setPadding(new javafx.geometry.Insets(10, 10, 10, 10));
-    dialog.setHeight(300);
 
 
     //Node placement
@@ -64,7 +75,8 @@ public class DialogUtility {
     root.getStylesheets().add(optionManager.getCurrentStyleSheet());
     root.getStyleClass().add("help-content");
 
-    dialog.setScene(new Scene(root));
+    dialog.setScene(new Scene(root, 300, 300));
+    dialog.setResizable(false);
     dialog.show();
   }
 }

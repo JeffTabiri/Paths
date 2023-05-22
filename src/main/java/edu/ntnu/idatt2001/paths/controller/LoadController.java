@@ -2,8 +2,8 @@ package edu.ntnu.idatt2001.paths.controller;
 
 import static edu.ntnu.idatt2001.paths.controller.ChooseStoryController.getStrings;
 
-import edu.ntnu.idatt2001.paths.filehandling.FileGameHandler;
 import edu.ntnu.idatt2001.paths.model.Game;
+import edu.ntnu.idatt2001.paths.model.filehandling.FileGameHandler;
 import edu.ntnu.idatt2001.paths.model.manager.GameManager;
 import edu.ntnu.idatt2001.paths.view.GameView;
 import edu.ntnu.idatt2001.paths.view.StartView;

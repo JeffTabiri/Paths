@@ -1,6 +1,5 @@
 package edu.ntnu.idatt2001.paths.model.filehandling;
 
-import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import edu.ntnu.idatt2001.paths.model.Link;
 import edu.ntnu.idatt2001.paths.model.Passage;
 import edu.ntnu.idatt2001.paths.model.Story;
@@ -9,6 +8,7 @@ import edu.ntnu.idatt2001.paths.model.actions.GoldAction;
 import edu.ntnu.idatt2001.paths.model.actions.HealthAction;
 import edu.ntnu.idatt2001.paths.model.actions.InventoryAction;
 import edu.ntnu.idatt2001.paths.model.actions.ScoreAction;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -231,7 +231,7 @@ public class StoryLoader {
     }
 
     passage = new Passage(passageTitle, content.toString(), links, image);
-    passage.setGameState(getStateType(music).getValue());
+    passage.setGameState(getStateType(music));
 
 
     return passage;

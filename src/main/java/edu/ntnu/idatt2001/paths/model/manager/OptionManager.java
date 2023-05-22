@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.model.manager;
 
-import edu.ntnu.idatt2001.paths.enums.StyleSheets;
+import edu.ntnu.idatt2001.paths.model.enums.StyleSheets;
 
 /**
  * <h1>OptionManager</h1>

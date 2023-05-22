@@ -1,4 +1,4 @@
-package edu.ntnu.idatt2001.paths.utility;
+package edu.ntnu.idatt2001.paths.model.utility;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;

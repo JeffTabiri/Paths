@@ -9,6 +9,8 @@ import edu.ntnu.idatt2001.paths.model.Player;
 import edu.ntnu.idatt2001.paths.model.PlayerBuilder;
 import edu.ntnu.idatt2001.paths.model.Story;
 import java.io.IOException;
+
+import edu.ntnu.idatt2001.paths.model.filehandling.FileGameHandler;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

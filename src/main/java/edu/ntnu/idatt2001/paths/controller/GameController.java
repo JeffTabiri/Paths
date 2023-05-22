@@ -1,18 +1,17 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
-import edu.ntnu.idatt2001.paths.filehandling.FileGameHandler;
 import edu.ntnu.idatt2001.paths.model.Passage;
 import edu.ntnu.idatt2001.paths.model.Player;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.filehandling.FileGameHandler;
 import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.GameManager;
-import edu.ntnu.idatt2001.paths.utility.AlertUtility;
-import edu.ntnu.idatt2001.paths.utility.DialogUtility;
+import edu.ntnu.idatt2001.paths.model.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.model.utility.DialogUtility;
 import edu.ntnu.idatt2001.paths.view.ChooseStoryView;
 import edu.ntnu.idatt2001.paths.view.OptionView;
 import edu.ntnu.idatt2001.paths.view.StartView;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
@@ -49,14 +48,10 @@ public class GameController extends Controller {
    * Responsible for create a new StartView and set the scene to the stage.
    */
   public void onActionOptionGame() {
-    Stage dialog = new Stage();
+
     OptionView view = new OptionView(new OptionController(stage));
-    Scene scene = new Scene(view.asParent(), 500, 300);
-    dialog.initModality(Modality.APPLICATION_MODAL);
-    dialog.setResizable(false);
-    dialog.setScene(scene);
-    dialog.setTitle("Options");
-    dialog.show();
+    DialogUtility.optionBox(view);
+
   }
 
   /**

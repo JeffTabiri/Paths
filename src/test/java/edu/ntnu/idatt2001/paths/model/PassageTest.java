@@ -86,7 +86,7 @@ class PassageTest {
   @DisplayName("Test the url")
   void testUrl() {
     Passage testPassage = new Passage("Test title", "Test content", new ArrayList<>(), "test");
-    String expectedValue = "/images/background/test.png";
+    String expectedValue = "/images/background/passages/test.png";
     String actualValue = testPassage.getUrl();
 
     assertEquals(expectedValue, actualValue);

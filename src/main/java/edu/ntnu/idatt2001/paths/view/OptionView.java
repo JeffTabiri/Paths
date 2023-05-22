@@ -3,7 +3,7 @@ package edu.ntnu.idatt2001.paths.view;
 import edu.ntnu.idatt2001.paths.controller.ChooseStoryController;
 import edu.ntnu.idatt2001.paths.controller.OptionController;
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
-import edu.ntnu.idatt2001.paths.utility.ButtonUtility;
+import edu.ntnu.idatt2001.paths.model.utility.ButtonUtility;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;

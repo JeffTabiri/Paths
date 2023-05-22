@@ -1,15 +1,15 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
+import edu.ntnu.idatt2001.paths.model.utility.DialogUtility;
 import edu.ntnu.idatt2001.paths.view.AchievementView;
 import edu.ntnu.idatt2001.paths.view.ChooseStoryView;
 import edu.ntnu.idatt2001.paths.view.HelpView;
 import edu.ntnu.idatt2001.paths.view.LoadView;
 import edu.ntnu.idatt2001.paths.view.OptionView;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -75,16 +75,8 @@ public class StartController extends Controller {
    * Creates controller instance and opens the options view.
    */
   public void onActionOptions() {
-
-    Stage dialog = new Stage();
     OptionView view = new OptionView(new OptionController(stage));
-    Scene scene = new Scene(view.asParent(), 500, 300);
-    dialog.initModality(Modality.APPLICATION_MODAL);
-    dialog.setResizable(false);
-    dialog.setScene(scene);
-    dialog.setTitle("Options");
-    dialog.show();
-
+    DialogUtility.optionBox(view);
   }
 
 
