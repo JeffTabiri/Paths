@@ -49,10 +49,3 @@ deploy-job:      # This job runs in the deploy stage.
     - echo "Deploying application..."
     - echo "Application successfully deployed."
 
-
-javadoc-job:
-  stage: javadoc
-  script:
-    - echo "Generating Javadoc..."
-    - javadoc -d javadoc/ src/
-    - echo "Javadoc generation complete."
