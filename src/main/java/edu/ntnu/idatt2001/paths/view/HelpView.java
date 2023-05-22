@@ -1,45 +1,80 @@
 package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.HelpController;
-import edu.ntnu.idatt2001.paths.model.OptionManager;
-import edu.ntnu.idatt2001.paths.utility.AudioEngine;
-import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
-import edu.ntnu.idatt2001.paths.utility.GameStates;
+import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.enums.StyleClass;
+import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
+import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
+import edu.ntnu.idatt2001.paths.utility.ButtonUtility;
 import javafx.animation.Animation;
-import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.util.Duration;
 
+/**
+ * <h1>HelpView</h1>
+ * {@code HelpView} is the view class for the help view.
+ * This class is responsible for building the help view.
+ *
+ * @author Elementum
+ * @version 1.0
+ * @see HelpController
+ * @since 06/04/2023
+ */
 public class HelpView {
-
-  AudioEngine audioEngine = AudioEngine.getInstance();
-
-
-
-  OptionManager optionManager = OptionManager.getInstance();
-  StackPane view = new StackPane();
+  AudioManager audioManager;
+  OptionManager optionManager;
+  StackPane view;
   HelpController controller;
 
 
+  /**
+   * Constructor for the view. Responsible for building the view.
+   *
+   * @param controller the controller for the view.
+   */
   public HelpView(HelpController controller) {
 
+
+    //Initializing variables
+    audioManager = AudioManager.getInstance();
+    optionManager = OptionManager.getInstance();
+    view = new StackPane();
+    this.controller = controller;
+
+    //Playing music
+    audioManager.playMusic(GameStates.MAIN_MENU);
+
+    //Building view
     buildView();
 
-    audioEngine.playMusic(GameStates.MAIN_MENU);
-    this.controller = controller;
   }
 
+  /**
+   * Gets the view.
+   *
+   * @return the view as a Parent.
+   */
   public StackPane asParent() {
-  return view;
+    return view;
   }
 
+
+  /**
+   * Builds the pane that contains the background image.
+   *
+   * @return the pane.
+   */
   private Pane buildPane() {
 
     Pane pane = new Pane();
@@ -53,7 +88,15 @@ public class HelpView {
     return pane;
   }
 
+
+  /**
+   * Builds the nodes for the view.
+   */
   public void buildView() {
+
+    /*
+     * Initializing variables
+     */
 
     //Root container
     BorderPane root = new BorderPane();
@@ -63,87 +106,112 @@ public class HelpView {
     root.setCenter(buildHelp());
     root.setBottom(buildBottomMenu());
 
-    //Animation
-    FadeTransition fadeTransition = new FadeTransition(Duration.seconds(0.5));
-    fadeTransition.setNode(view);
-    fadeTransition.setFromValue(0.75);
-    fadeTransition.setToValue(1);
-    fadeTransition.play();
-
     //Node placement
     view.getChildren().addAll(buildPane(), root);
 
     //CSS styling
-    root.getStylesheets().add(optionManager.getCurrentStyle());
-
+    root.getStylesheets().add(optionManager.getCurrentStyleSheet());
   }
 
+
+  /**
+   * Builds the bottom menu. The bottom menu is the bottom part of the view.
+   *
+   * @return the bottom menu as a HBox.
+   */
   private VBox buildHelp() {
 
-    //Options container
-    VBox helpBox = new VBox();
+    /*
+    Initializing variables
+     */
+    final VBox helpBox = new VBox();
 
-    TextFlow textBox = new TextFlow();
+    final TextFlow textBox = new TextFlow();
 
-    Text helpText;
+    final Text helpText;
+
+    /*
+    Configurations
+     */
     helpText = new Text(
             """
                     Embark on an extraordinary journey, filled with twists and turns.
                     Your fate lies in your hands as you make crucial decisions,
-                    shaping the outcome of your adventure.\s
-                    Earn coveted gold coins, uncover hidden secrets, and unlock your true potential.
+                    shaping the outcome of your adventure.
+                    Search for gold coins, uncover hidden secrets and unlock your true potential.
                     But beware, danger lurks and your choices carry the weight of life and death.
-                    Are you ready to leave your mark on this extraordinary adventure? Welcome, brave adventurer!
-              """);
+                    Are you ready to leave your mark on this extraordinary adventure?
+                    Welcome, brave adventurer!
+                    """);
 
-    helpText.getStyleClass().add("title");
+    helpText.setLineSpacing(5);
 
+
+    /*
+    Placement
+     */
     textBox.getChildren().add(helpText);
-
     helpBox.getChildren().add(textBox);
 
-    helpBox.setAlignment(Pos.CENTER);
 
+    /*
+    Alignment
+     */
+    helpBox.setAlignment(Pos.CENTER);
     textBox.setTextAlignment(TextAlignment.CENTER);
 
+    /*
+    Styling
+     */
+    helpText.getStyleClass().add(StyleClass.TITLE.getValue());
 
     return helpBox;
   }
 
+
+  /**
+   * Builds the title. The title is the top part of the view.
+   *
+   * @return the title as a HBox.
+   */
   private HBox buildTitle() {
-    //Title text
-    Text gameTitle = new Text("HELP");
 
-    //Title container
-    HBox title = new HBox();
+    /*
+    Initializing variables
+     */
+    final Text gameTitle = new Text("HELP");
+    final HBox title = new HBox();
+    final ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
+    final StackPane topBorderPane = new StackPane();
 
-    //Image
-    ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
-
-    //Set image size
+    /*
+    Configurations
+     */
     image.setFitWidth(400);
     image.setPreserveRatio(true);
 
-    //StackPane
-    StackPane topBorderPane = new StackPane();
 
-    //Add elements to StackPane
+    /*
+    Placement
+     */
     topBorderPane.getChildren().addAll(image, gameTitle);
-
-    //Add elements to HBox
     title.getChildren().add(topBorderPane);
 
-    //Set StackPane alignment
+    /*
+    Alignment
+    */
     StackPane.setAlignment(gameTitle, javafx.geometry.Pos.CENTER);
     StackPane.setAlignment(image, javafx.geometry.Pos.CENTER);
-
-    //Set title box alignment
     title.setAlignment(javafx.geometry.Pos.CENTER);
 
-    //Styling
-    gameTitle.getStyleClass().add("title");
+    /*
+    Style class
+     */
+    gameTitle.getStyleClass().add(StyleClass.TITLE.getValue());
 
-    //Animation
+    /*
+    Animation
+    */
     TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
     translateTransition2.setNode(title);
     translateTransition2.setFromY(0);
@@ -153,36 +221,50 @@ public class HelpView {
     translateTransition2.play();
 
     return title;
-
   }
 
-  private HBox buildBottomMenu( ) {
 
-    //Bottom menu container
-    HBox bottomMenu = new HBox();
+  /**
+   * Builds the bottom menu.
+   *
+   * @return the bottom menu as a HBox.
+   */
+  private HBox buildBottomMenu() {
 
-    //Buttons
-    Button back = new Button("Back");
+    /*
+    Initializing variables
+    */
+    final HBox bottomMenu = new HBox();
+    final Button back = new Button("Back");
 
+
+    /*
+    Configurations
+    */
+    bottomMenu.setPadding(new javafx.geometry.Insets(10, 20, 10, 20));
     back.setPadding(new javafx.geometry.Insets(10, 20, 10, 20));
 
-    bottomMenu.setPadding(new javafx.geometry.Insets(10, 20, 10, 20));
-
-    //Add buttons to container
+    /*
+    Placement
+     */
     bottomMenu.getChildren().addAll(back);
 
-    //Set button alignment
+    /*
+    Alignment
+     */
     bottomMenu.setAlignment(Pos.CENTER_LEFT);
 
-    //Styling
-    back.getStyleClass().add("menu-button");
+    /*
+    Styling
+    */
+    back.getStyleClass().add(StyleClass.MENU_BUTTON.getValue());
 
-    //Button actions
-    back.setOnAction(event -> controller.goBackHandler());
-
-    back.setOnMouseEntered(e -> ButtonEffects.buttonHover(back));
-
-    back.setOnMouseExited(e -> ButtonEffects.buttonExit(back));
+    /*
+    Button Actions
+    */
+    back.setOnMouseEntered(e -> ButtonUtility.buttonHover(back));
+    back.setOnMouseExited(e -> ButtonUtility.buttonExit(back));
+    back.setOnAction(event -> controller.onActionReturn());
 
     return bottomMenu;
   }
