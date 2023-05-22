@@ -1,4 +1,4 @@
-# Project Title
+# Paths
 
 Paths is a game engine developed for choice-based and interactive storytelling. It allows users to create and play interactive stories where the narrative unfolds based on the choices made by the player. The engine provides a platform for developers to design engaging and immersive narratives with branching storylines and multiple endings.
 
