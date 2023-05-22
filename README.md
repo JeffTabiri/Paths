@@ -21,23 +21,6 @@ Paths offers the following features:
 
 - Maven Integration: The project follows Maven conventions, allowing for easy dependency management, building, testing, and packaging.
 
-## How to use Paths
-
-To create an interactive story using Paths, follow these steps:
-
-- Set up a Maven project with the required dependencies and configurations.
-
-- Create and define the passages of your story using the Passage class.
-
-- Establish connections between passages using links to create branching paths.
-
-- Customize the attributes and actions of the player using the Player and Action classes.
-
-- Set goals for the player to achieve using the Goal class.
-
-- Use the Game class as a facade to manage the player, story, and gameplay.
-
-- Compile, test, and package your project using Maven.
 
 ### Dependencies
 
