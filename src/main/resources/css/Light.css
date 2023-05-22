@@ -7,7 +7,14 @@
 
 .secondary-title {
     -fx-font-family: "Press Start 2P";
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.secondary-content {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 14px;
     -fx-text-fill: #000000;
     -fx-font-weight: bold;
 }
@@ -20,13 +27,20 @@
     -fx-font-weight: bold;
 }
 
+.combo-box {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
 
 .menu-button {
     -fx-padding: 10 20 10 20;
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 20px;;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/button/ActiveButton.png");
+    -fx-background-image: url("/images/background/button/buttonUp.png");
     -fx-background-size: 100% 100%;
 }
 
@@ -41,7 +55,7 @@
     -fx-font-family: "Press Start 2P";
     -fx-font-size: 15px;;
     -fx-font-weight: bold;
-    -fx-background-image: url("/images/button/ActiveButton.png");
+    -fx-background-image: url("/images/background/button/buttonUp.png");
     -fx-background-size: 100% 100%;
 }
 
