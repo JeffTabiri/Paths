@@ -3,6 +3,7 @@ package edu.ntnu.idatt2001.paths.model.actions;
 import edu.ntnu.idatt2001.paths.model.Player;
 
 /**
+ * <h1>ScoreAction</h1>
  * The class {@code ScoreAction} represents an action that adds score points to the player.
  * The amount of points added is specified in the constructor.
  * The class {@code ScoreAction} implements the interface {@code Action}.
@@ -18,7 +19,7 @@ public class ScoreAction implements Action {
    * The constructor for the class {@code ScoreAction}.
    *
    * @param points the amount of points to be added to the player's score.
-   *               The points must be a integer.
+   *               The points must be an integer.
    *
    */
   public ScoreAction(int points) {
@@ -27,13 +28,34 @@ public class ScoreAction implements Action {
 
   /**
    * The method {@code execute} adds the points to the player's score.
+   * If the points are negative, the player loses points.
+   * If the points are positive, the player gains points.
+   *
+   * @param player the player to add the points to.
+   * @throws IllegalArgumentException if the player is null.
    */
   public void execute(Player player) {
-    player.addScore(points);
+
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null");
+    }
+
+    if (points < 0) {
+      player.removeScore(points);
+    } else if (points > 0) {
+      player.addScore(points);
+    }
+
   }
 
+  /**
+   * The method {@code toString} returns a representation of the {@code ScoreAction}.
+   *
+   * @return a string representation of the {@code ScoreAction}.
+   */
   @Override
   public String toString() {
     return "{Score}(" + points + ")";
   }
+
 }
