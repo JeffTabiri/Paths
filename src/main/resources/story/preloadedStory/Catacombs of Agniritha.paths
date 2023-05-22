@@ -213,6 +213,6 @@ You strike the slime with your sword, and you defeat it.
 --Shop
 You press onward, the memory of the slime's vile presence fading behind you.
 As you traverse the catacombs, the air grows thinner, and an eerie silence descends upon you.
-At last, you glimpse a faint light ahead—an exit to the catacombs,
-a breath of fresh air beyond the darkness.
+At last, you glimpse a faint light ahead. An exit to the catacombs!
+ A breath of fresh air beyond the darkness.
 [Exit the catacombs](ExitCatacombs)

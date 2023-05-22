@@ -50,6 +50,14 @@ public class AchievementController extends Controller {
    */
   public void onActionAddAchievement(String goalType, String goalValue) {
 
+    if (goalType == null) {
+      throw new IllegalArgumentException("Please choose a goal type");
+    }
+
+    if (goalValue == null) {
+      throw new IllegalArgumentException("Please enter a goal");
+    }
+
     if (goalType.isEmpty()) {
       throw new IllegalArgumentException("Goal type cannot be empty");
     }

@@ -66,6 +66,10 @@ public class FileGameHandler {
     //Add the json object to the json array.
     jsonArray.add(jsonObject);
 
+    if (!new File("src/main/resources/story/savedStory").exists()) {
+      new File("src/main/resources/story/savedStory").mkdir();
+    }
+
     //Write the json array to the file.
     try (BufferedWriter writer = new BufferedWriter(
             new FileWriter("src/main/resources/story/savedStory/" + uniqueId + ".json"))) {

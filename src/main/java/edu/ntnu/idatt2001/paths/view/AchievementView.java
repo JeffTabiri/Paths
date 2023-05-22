@@ -10,8 +10,10 @@ import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.ButtonUtility;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
@@ -171,7 +173,7 @@ public class AchievementView {
                 "This action cannot be undone")) {
 
           controller.onActionRemoveAchievement(achievementManager.getAchievements().get(
-                          achievementListView.getSelectionModel().getSelectedIndex()));
+                  achievementListView.getSelectionModel().getSelectedIndex()));
 
           updateAchievementList();
 
@@ -451,6 +453,7 @@ public class AchievementView {
 
     confirmButton.setOnMouseExited(event -> ButtonUtility.buttonExit(confirmButton));
 
+
     confirmButton.setOnAction(event -> {
 
       try {
@@ -462,8 +465,17 @@ public class AchievementView {
       } catch (IllegalArgumentException e) {
 
         AlertUtility.showErrorAlert("Invalid input", e.getMessage());
-        logger.log(Level.WARNING, e.getMessage(), e);
+        logger.log(Level.WARNING, e.getMessage());
 
+      } catch (NullPointerException e) {
+
+        AlertUtility.showErrorAlert("Invalid input", "Please fill in the fields");
+        logger.log(Level.WARNING, e.getMessage());
+
+      } catch (Exception e) {
+
+        AlertUtility.showErrorAlert("Error", e.getMessage());
+        logger.log(Level.WARNING, e.getMessage());
       }
 
     });

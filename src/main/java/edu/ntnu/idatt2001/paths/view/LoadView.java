@@ -101,7 +101,15 @@ public class LoadView {
     Text placeholder = new Text("No saved stories found");
     storyListView.setPlaceholder(placeholder);
 
-    storyListView.setItems(FXCollections.observableArrayList(controller.getSavedStoryList()));
+    try {
+      storyListView.setItems(FXCollections.observableArrayList(controller.getSavedStoryList()));
+    } catch (IllegalArgumentException e) {
+      AlertUtility.showErrorAlert("No loaded files.", "Could not load saved stories");
+      logger.warning("Could not load saved stories");
+    } catch (Exception e) {
+        AlertUtility.showErrorAlert("Error", e.getMessage());
+        logger.warning(e.getMessage());
+    }
 
     storyListView.setOnMouseClicked(event -> {
       if (event.getClickCount() == 2
