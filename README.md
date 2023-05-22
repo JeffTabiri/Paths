@@ -13,8 +13,7 @@ Reference-style (hover to see title text):
 
 ![alt text1][logo]
 
-[logo]: paths
-src/main/resources/images/background/Capture.png "adada"
+[logo]: src/main/resources/images/background/Capture.png "adada"
 
 
 ## Description
