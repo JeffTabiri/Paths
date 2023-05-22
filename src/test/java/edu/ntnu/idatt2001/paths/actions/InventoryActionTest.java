@@ -1,18 +1,52 @@
 package edu.ntnu.idatt2001.paths.actions;
 
-import edu.ntnu.idatt2001.paths.Player;
-import edu.ntnu.idatt2001.paths.actions.InventoryAction;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import edu.ntnu.idatt2001.paths.model.Player;
+import edu.ntnu.idatt2001.paths.model.PlayerBuilder;
+import edu.ntnu.idatt2001.paths.model.actions.Action;
+import edu.ntnu.idatt2001.paths.model.actions.InventoryAction;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 
+@DisplayName("InventoryActionTest")
 class InventoryActionTest {
+  Player testPlayer;
+  Action testAction;
 
-    Player player1 = new Player("Player", 100,  54, 1234);
+  @BeforeEach
+  void setUp() {
+    testPlayer = new PlayerBuilder("Test").gold(100).health(100).score(100).build();
+    testAction = new InventoryAction("Excalibur");
+  }
+
+
+
+  @DisplayName("Test execute")
+  @Nested
+  class ExecuteTest {
+    @Test
+    void executeWithValidParameters() {
+
+      testAction.execute(testPlayer);
+      boolean actualValue = testPlayer.getInventory().contains("Excalibur");
+      assertTrue(actualValue);
+    }
 
     @Test
-    void execute() {
-        new InventoryAction("Sword").execute(player1);
-        assertEquals("Sword", player1.getInventory().get(0));
+    void executeWithInvalidParameters() {
+      assertThrows(IllegalArgumentException.class, () -> new InventoryAction(""));
     }
+
+    @Test
+    void executeWithNoPlayer() {
+      assertThrows(IllegalArgumentException.class, () -> testAction.execute(null));
+    }
+
+  }
+
 }

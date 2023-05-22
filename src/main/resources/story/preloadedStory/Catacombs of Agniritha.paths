@@ -1,0 +1,218 @@
+Catacombs of Agniritha
+
+::Beginnings
+++CaveIntro
+--Forest
+You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.
+As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within.
+ In the darkness of the catacombs, a sword lies on the ground, you pick it up.
+[Pick the sword and proceed further](Enter the catacombs)
+{Inventory}(Excalibur)
+
+::Enter the catacombs
+++Skeleton
+--Boss
+You encounter some skeletons! To proceed further, you must defeat them.
+[Strike the skeleton](Strike the skeleton)
+{Health}(-20)
+{Inventory}(Torch)
+{Inventory}(Bow)
+[Return](Beginnings)
+
+::Strike the skeleton
+++Skeleton
+--Boss
+The skeletons strikes, you manage to dodge, but not without taking some damage. You strike back
+with a mighty blow, and the skeletons falls to the ground.
+You see some loot fall on the ground, you pick up a torch and a bow.
+[Take a rest and heal](Rest)
+{Health}(10)
+[Continue](Continue)
+
+::Rest
+++Campfire
+--Rest
+You take a rest and heal your wounds.
+As you rest, you hear a faint sound of a campfire crackling,
+scaring the lurking creatures away.
+[Continue](Continue)
+[Rest more](RestMore)
+{Health}(60)
+
+::RestMore
+++Campfire
+--Rest
+You rejuvenate your wounds, and you feel ready to continue your journey.
+Confusing as it may be, you sense the darkness closing in on you, and you feel the need to continue.
+[Continue](Continue)
+[Rest even more...](Dread)
+
+::Dread
+++Death
+--Cave
+The darkness swallows you whole, and you feel the dread of the catacombs.
+In the distance you see a faint light. It looks like a creature.
+ "Death awaits you, mortal."
+[R    U      N](Falls)
+{Health}(-1000)
+
+::Continue
+++Intersection
+--Forest
+You continue on your way, and find a 4 way intersection. You must choose one of 3 paths.
+[Go left](Left)
+[Go right](Right)
+[Go straight](Straight)
+[Return](Rest)
+
+::Left
+++Left
+You go left, and you stumble on a piece of cobblestone that depresses into the ground, this releases a giant boulder that blocks the way you whence came, you must proceed further.
+[Continue](ContinueLeft)
+
+::ContinueLeft
+++Bats
+--Enemy
+You continue on your way, a large bat flies towards you. You must defeat it!
+[Strike the bat with your sword](StrikeBats)
+{Health}(-40)
+[Fend them off with a torch](FendBats)
+{Health}(-10)
+
+::StrikeBats
+++Bats
+--Enemy
+You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.
+[Strike the bats with your sword](StrikeBats2)
+{Health}(-40)
+[Fend them off with a torch from the wall](FendBats)
+{Health}(-10)
+
+::StrikeBats2
+++Bats
+--Enemy
+You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.
+[Strike the bats with your sword](Treasury)
+{Gold}(3500)
+[Fend them off with a torch from the wall](FendBats)
+{Health}(-10)
+
+::Treasury
+++Treasure
+--SHOP
+You strike the bat with your sword, and you defeat it. The bat was guarding a secret
+hallway, you enter it, and you find a treasury, with the most luxurious items you have ever seen.
+The world is your oyster, you can buy anything you want.
+[End your journey!](End of Game)
+
+::FendBats
+++Bats
+You wave the fiery torch and the bat runs deeper into the cave, you continue on your way.
+[Continue](BatEncounterFinished)
+
+::BatEncounterFinished
+++Bats
+You continue on your way, you find a chest, you open it and find a stick of dynamite.
+[Pick it up](PickDynamite)
+{Inventory}(Dynamite)
+[Continue](ReturnBoulder)
+
+::PickDynamite
+++Bomb
+You pick up the dynamite, and you return to the boulder.
+[Return to the boulder.](ReturnBoulder2)
+
+::ReturnBoulder
+++Boulder
+You return to the boulder.
+[Explode the boulder.](ExplodeBoulder)
+[Return.](BatEncounterFinished)
+
+::ReturnBoulder2
+++Boulder
+You return to the boulder.
+[Explode the boulder!](ExplodeBoulder)
+
+::ExplodeBoulder
+++ExplodeBoulder
+--Shop
+You explode the boulder, and leave the wretched place with your life intact.
+[End your journey?](End your journey)
+
+::Straight
+++ChestOpen
+You go straight, and you find a a chest.
+As your gaze falls upon the chest, time seems to stand still, captivated by its allure. Its exquisite craftsmanship, meticulously hand-carved by the finest artisans, reveals an opulent tapestry of intricate motifs that weave tales of forgotten grandeur. YOU FEEL COMPELLED TO OPEN THE CHEST.
+[Open the chest!](OpenChest)
+[Go back](Continue)
+
+::OpenChest
+++Falling
+--Cave
+You open the chest, the chest was a trap, you fall into a pitfall and die, you have failed.
+You fall into the endless abyss, and as the darkness consumes you, only one though fills your mind.
+ Do not open chests in the catacombs.
+[Fall into your doom.](Falls)
+{Health}(-100)
+
+::Falls
+++Falling
+--Cave
+You fall into the endless abyss, and as the darkness consumes you, only one though fills your mind.
+Do not open chests in the catacombs.
+[FALL](Falls)
+
+::Right
+++Slime
+You go right, and you find a slime blocking your way, you must defeat it.
+[Strike the slime](StrikeSlime)
+{Health}(-20)
+[Stun the slime with your shield](StunSlime)
+[Return](Continue)
+
+::StrikeSlime
+++SlimeAttack
+You strike the slime with your sword, but your attack is not effective, it strikes back, and you take some damage.
+[Strike the slime](StrikeSlime2)
+{Health}(-20)
+[Stun the slime with your shield](StunSlime)
+
+::StrikeSlime2
+++SlimeAttack
+Once again you strike the slime with your sword, but your attack is not effective, it strikes back, and you take some damage.
+[Strike the slime](StrikeSlime3)
+{Health}(-40)
+[Stun the slime with your shield](StunSlime)
+
+::StrikeSlime3
+++SlimeAttack
+Your complacent to strike the slime again, but your attack is not effective, it strikes back, and you take some damage.
+[Strike the slime](StrikeSlime3)
+{Health}(-80)
+[Stun the slime with your shield](StunSlime)
+
+::StrikeSlime4
+++SlimeAttack
+You strike the slime with your sword, but your attack is not effective, it strikes back, and you take some damage.
+[Strike the slime](StrikeSlime)
+{Health}(-80)
+[Stun the slime with your shield](StunSlime)
+
+::StunSlime
+++Slime
+You stun the slime with your shield, it falls to the ground, in a daze, it is vulnerable.
+[Strike the slime](StrikeSlimeStunned)
+
+::StrikeSlimeStunned
+++Slime
+You strike the slime with your sword, and you defeat it.
+[Continue](SlimeEncounterFinished)
+
+::SlimeEncounterFinished
+++Slime
+--Shop
+You press onward, the memory of the slime's vile presence fading behind you.
+As you traverse the catacombs, the air grows thinner, and an eerie silence descends upon you.
+At last, you glimpse a faint light ahead. An exit to the catacombs!
+ A breath of fresh air beyond the darkness.
+[Exit the catacombs](ExitCatacombs)
