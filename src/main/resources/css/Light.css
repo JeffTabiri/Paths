@@ -1,0 +1,136 @@
+.title {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.secondary-title {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 12px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.secondary-content {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 14px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.file-view {
+    -fx-background-color: #ffffff;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.combo-box {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+
+.menu-button {
+    -fx-padding: 10 20 10 20;
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;;
+    -fx-font-weight: bold;
+    -fx-background-image: url("/images/background/button/buttonUp.png");
+    -fx-background-size: 100% 100%;
+}
+
+.menu {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+}
+
+.secondary-button {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;;
+    -fx-font-weight: bold;
+    -fx-background-image: url("/images/background/button/buttonUp.png");
+    -fx-background-size: 100% 100%;
+}
+
+.text-field {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;;
+    -fx-font-weight: bold;
+}
+
+.option-button {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 20px;;
+    -fx-font-weight: bold;
+    -fx-background-color: transparent;
+
+}
+
+.secondary-text {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+
+.hotbar {
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 10px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.content {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 10px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+
+}
+
+.help-content {
+
+        -fx-font-family: "Press Start 2P";
+        -fx-font-size: 14px;
+        -fx-text-fill: #ffffff;
+        -fx-font-weight: bold;
+        -fx-spacing: 10px;
+}
+
+.game-content {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+.UI-text {
+
+    -fx-font-family: "Press Start 2P";
+    -fx-font-size: 15px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+
+}
+
+.text-flow {
+    -fx-background-color: RED;
+}
+
+.dialog-pane {
+    -fx-background-color: #000000;
+}
+
+.
+
