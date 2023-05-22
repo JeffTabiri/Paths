@@ -7,11 +7,17 @@ Paths is a game engine developed for choice-based and interactive storytelling. 
 Paths offers the following features:
 
 - Choice-based Gameplay: Players make decisions at various points in the story, leading to different outcomes and branching paths.
+
 - Interactive Storytelling: The engine enables developers to create captivating narratives with dynamic storytelling elements.
+
 - Passages: Passages represent smaller sections or paragraphs of the story and are interconnected through links.
+
 - Links: Links allow players to navigate between passages, creating a non-linear storyline.
+
 - Actions: Actions represent future changes to the player's attributes, such as modifying their score, health, gold, or inventory.
+
 - Goals: Goals define the desired conditions or outcomes that players aim to achieve in the game.
+
 - Maven Integration: The project follows Maven conventions, allowing for easy dependency management, building, testing, and packaging.
 
 ## How to use Paths
