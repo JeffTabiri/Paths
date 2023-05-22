@@ -1,85 +1,130 @@
 package edu.ntnu.idatt2001.paths.view;
 
-import edu.ntnu.idatt2001.paths.controller.ChooseStoryController;
 import edu.ntnu.idatt2001.paths.controller.LoadController;
-import edu.ntnu.idatt2001.paths.model.OptionManager;
+import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.enums.StyleClass;
+import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
+import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
-import edu.ntnu.idatt2001.paths.utility.AudioEngine;
-import edu.ntnu.idatt2001.paths.utility.ButtonEffects;
-import edu.ntnu.idatt2001.paths.utility.GameStates;
+import edu.ntnu.idatt2001.paths.utility.ButtonUtility;
+import java.io.IOException;
+import java.util.logging.Logger;
 import javafx.animation.Animation;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.io.File;
-import java.io.IOException;
 
+/**
+ * <h1>LoadView</h1>
+ * {@code LoadView} is the view class for the load view.
+ * This class is responsible for building the load view.
+ *
+ * @author Elementum
+ * @version 1.0
+ * @see LoadController
+ * @since 06/04/2023
+ */
 public class LoadView {
+  private final Logger logger = Logger.getLogger(getClass().getName());
+  private static final String ERROR_MESSAGE = "No saved stories found.";
+  private final OptionManager optionManager;
+  AudioManager audioManager;
+  private final StackPane view;
+  private final ListView<String> storyListView;
+  private final LoadController controller;
 
-  OptionManager optionManager = OptionManager.getInstance();
-
-  AudioEngine audioEngine = AudioEngine.getInstance();
-
-  StackPane view = new StackPane();
-
-  ListView<String> storyListView = new ListView<>();
-
-  LoadController controller;
-
+  /**
+   * Constructor for the view. Responsible for building the view.
+   *
+   * @param controller the controller for the view.
+   */
   public LoadView(LoadController controller) {
-    storyListView.getStyleClass().add("file-view");
 
-    audioEngine.playMusic(GameStates.MAIN_MENU);
-
-    storyListView.setItems(FXCollections.observableArrayList(controller.getSavedStoryList()));
-
-    storyListView.setOnMouseClicked(event -> {
-      if (event.getClickCount() == 2) {
-        if (storyListView.getSelectionModel().getSelectedItem() == null) {
-          AlertUtility.showErrorAlert("Error", "No story selected. Please select a story");
-          return;
-        }
-        popupBox();
-      }
-    });
-
-
-
+    //Initializing variables
+    optionManager = OptionManager.getInstance();
+    audioManager = AudioManager.getInstance();
+    view = new StackPane();
+    storyListView = new ListView<>();
     this.controller = controller;
 
+    //Playing music
+    audioManager.playMusic(GameStates.MAIN_MENU);
+
+    //Building view
     buildView();
   }
 
 
+  /**
+   * Builds the popup box for the load view.
+   */
   public void buildView() {
 
+    //Initializing root
     BorderPane root = new BorderPane();
 
-    root.setBottom(buildBottomMenu());
+    //Building root
     root.setTop(buildTitle());
-    root.setCenter(storyListView);
+    root.setCenter(buildCenter());
+    root.setBottom(buildBottomMenu());
+
+    //Configurations
     root.setPadding(new Insets(10, 20, 10, 20));
 
     //CSS styling
-    root.getStylesheets().add(optionManager.getCurrentStyle());
+    view.getStylesheets().add(optionManager.getCurrentStyleSheet());
+
 
     view.getChildren().addAll(buildPane(), root);
-
   }
 
+  /**
+   * Builds the title for the load view.
+   *
+   * @return the title in a HBox.
+   */
+  public ListView<String> buildCenter() {
+
+    Text placeholder = new Text("No saved stories found");
+    storyListView.setPlaceholder(placeholder);
+
+    storyListView.setItems(FXCollections.observableArrayList(controller.getSavedStoryList()));
+
+    storyListView.setOnMouseClicked(event -> {
+      if (event.getClickCount() == 2
+              && (storyListView.getSelectionModel().getSelectedItem() == null)) {
+
+        AlertUtility.showErrorAlert("Error", ERROR_MESSAGE);
+        logger.warning(ERROR_MESSAGE);
+
+      }
+    });
+
+    placeholder.getStyleClass().add("content");
+    storyListView.getStyleClass().add("file-view");
+
+
+    return storyListView;
+  }
+
+  /**
+   * Gets the view.
+   *
+   * @return the view as a Parent.
+   */
   public Parent asParent() {
     return view;
   }
@@ -93,69 +138,106 @@ public class LoadView {
   private HBox buildBottomMenu() {
 
     //Bottom menubar container
-    HBox leftBox = new HBox();
-    HBox rightBox = new HBox();
-    HBox bottom = new HBox();
+    final HBox leftBox = new HBox();
+    final HBox rightBox = new HBox();
+    final HBox bottom = new HBox();
+    final HBox middleBox = new HBox();
 
     //Buttons
-    Button returnButton = new Button("Return");
-    Button startGameButton = new Button("Start Game");
+    Button returnGame = new Button("Return");
+    Button loadGame = new Button("Start Game");
+    Button deleteGame = new Button("Delete Game");
 
     //Button actions
-    returnButton.setOnAction(e -> controller.goBackHandler());
+    returnGame.setOnAction(e -> controller.onActionReturn());
 
-    startGameButton.setOnAction(e -> {
+    loadGame.setOnAction(e -> {
 
       if (storyListView.getSelectionModel().getSelectedItem() == null) {
-        AlertUtility.showErrorAlert("Error!", "No story selected. Please select a story");
-
-        return;
+        AlertUtility.showErrorAlert("Error:", "No story selected. Please select a story");
+        logger.warning("No story selected");
       }
 
       try {
-        controller.loadGame();
+        controller.onActionLoadGame(storyListView.getSelectionModel().getSelectedItem());
       } catch (IOException ex) {
-        throw new RuntimeException(ex);
+        AlertUtility.showErrorAlert("Error:", "Could not load game");
+        logger.warning("Could not load game");
       }
-      popupBox();
 
     });
 
+    deleteGame.setOnAction(e -> {
+
+      if (storyListView.getSelectionModel().getSelectedItem() == null) {
+        AlertUtility.showErrorAlert("Error!", "No story selected. Please select a story");
+        logger.warning("No story selected");
+      } else {
+
+        if (AlertUtility.showConfirmationAlert(
+                "Delete game",
+                "Are you sure you want to delete this game?",
+                "This action cannot be undone")) {
+
+          try {
+            controller.onActionDeleteGame(storyListView.getSelectionModel().getSelectedItem());
+          } catch (IOException ex) {
+            AlertUtility.showErrorAlert("Error!", "Could not delete game");
+            logger.warning("Could not delete game");
+          }
+          buildView();
+        }
+      }
+    });
+
     //Hover effects
-    returnButton.setOnMouseEntered(e -> ButtonEffects.buttonHover(returnButton));
-    startGameButton.setOnMouseEntered(e -> ButtonEffects.buttonHover(startGameButton));
+    returnGame.setOnMouseEntered(e -> ButtonUtility.buttonHover(returnGame));
+    loadGame.setOnMouseEntered(e -> ButtonUtility.buttonHover(loadGame));
+    deleteGame.setOnMouseEntered(e -> ButtonUtility.buttonHover(deleteGame));
 
     //Exit hover effects
-    returnButton.setOnMouseExited(e -> ButtonEffects.buttonExit(returnButton));
-    startGameButton.setOnMouseExited(e -> ButtonEffects.buttonExit(startGameButton));
+    returnGame.setOnMouseExited(e -> ButtonUtility.buttonExit(returnGame));
+    loadGame.setOnMouseExited(e -> ButtonUtility.buttonExit(loadGame));
+    deleteGame.setOnMouseExited(e -> ButtonUtility.buttonExit(deleteGame));
 
 
     //Padding
     leftBox.setPadding(new Insets(20, 0, 20, 20));
     rightBox.setPadding(new Insets(20, 20, 20, 0));
+    middleBox.setPadding(new Insets(20, 0, 20, 0));
 
     //Button placement
-    leftBox.getChildren().add(returnButton);
-    rightBox.getChildren().add(startGameButton);
-    bottom.getChildren().addAll(leftBox, rightBox);
+    leftBox.getChildren().add(returnGame);
+    rightBox.getChildren().add(loadGame);
+    middleBox.getChildren().add(deleteGame);
+    bottom.getChildren().addAll(leftBox, middleBox, rightBox);
 
     //Node alignment
     leftBox.setAlignment(Pos.CENTER_LEFT);
     rightBox.setAlignment(Pos.CENTER_RIGHT);
+    middleBox.setAlignment(Pos.CENTER);
 
     //Node padding
     HBox.setHgrow(leftBox, Priority.ALWAYS);
     HBox.setHgrow(rightBox, Priority.ALWAYS);
+    HBox.setHgrow(middleBox, Priority.ALWAYS);
 
     //Styling
-    returnButton.getStyleClass().add("menu-button");
-    startGameButton.getStyleClass().add("menu-button");
+    returnGame.getStyleClass().add(StyleClass.MENU_BUTTON.getValue());
+    loadGame.getStyleClass().add(StyleClass.MENU_BUTTON.getValue());
+    deleteGame.getStyleClass().add(StyleClass.MENU_BUTTON.getValue());
 
     return bottom;
   }
 
 
+  /**
+   * Builds the background for the load view.
+   *
+   * @return the background as a Pane.
+   */
   private Pane buildPane() {
+
     Pane pane = new Pane();
 
     ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
@@ -167,41 +249,49 @@ public class LoadView {
     return pane;
   }
 
+
+  /**
+   * Builds the title for the choose story scene.
+   *
+   * @return the title in a HBox.
+   */
   private HBox buildTitle() {
 
-    //Title text
-    Text gameTitle = new Text("CHOOSE STORY");
+    /*
+     * Initialize elements
+     */
+    final Text gameTitle = new Text("LOAD GAME");
+    final HBox titleBox = new HBox();
+    final ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
+    final StackPane topBorderPane = new StackPane();
 
-    //Title container
-    HBox titleBox = new HBox();
-
-    //Image
-    ImageView image = new ImageView("/images/UI/title/UI_Flat_Banner_01_Upward.png");
-
-    //Set image size
+    /*
+    Configurations
+     */
     image.setFitWidth(400);
     image.setPreserveRatio(true);
 
-    //StackPane
-    StackPane topBorderPane = new StackPane();
-
-    //Add elements to StackPane
+    /*
+    Placement
+     */
     topBorderPane.getChildren().addAll(image, gameTitle);
-
-    //Add elements to HBox
     titleBox.getChildren().add(topBorderPane);
 
-    //Set StackPane alignment
+    /*
+    Alignment
+     */
     StackPane.setAlignment(gameTitle, javafx.geometry.Pos.CENTER);
     StackPane.setAlignment(image, javafx.geometry.Pos.CENTER);
-
-    //Set title box alignment
     titleBox.setAlignment(javafx.geometry.Pos.CENTER);
 
-    //Styling
+    /*
+    Alignment
+     */
     gameTitle.getStyleClass().add("title");
 
-    //Animation
+    /*
+    Animation
+     */
     TranslateTransition translateTransition2 = new TranslateTransition(Duration.seconds(1.5));
     translateTransition2.setNode(titleBox);
     translateTransition2.setFromY(0);
@@ -212,14 +302,5 @@ public class LoadView {
 
     return titleBox;
   }
-
-
-
-  private void popupBox() {
-    //pLAY LOADED GAME
-  }
-
-
-
 
 }
