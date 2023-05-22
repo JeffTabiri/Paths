@@ -13,6 +13,7 @@ As an eerie draft whispers through the air, a chilling silence settles upon the 
 ++Skeleton
 --Boss
 You encounter some skeletons! To proceed further, you must defeat them.
+[Run past!](Rest)
 [Strike the skeleton](Strike the skeleton)
 {Health}(-20)
 {Inventory}(Torch)
@@ -76,7 +77,7 @@ You go left, and you stumble on a piece of cobblestone that depresses into the g
 You continue on your way, a large bat flies towards you. You must defeat it!
 [Strike the bat with your sword](StrikeBats)
 {Health}(-40)
-[Fend them off with a torch](FendBats)
+[Fend them off with a torch](FendBats){Torch}
 {Health}(-10)
 
 ::StrikeBats
@@ -85,7 +86,7 @@ You continue on your way, a large bat flies towards you. You must defeat it!
 You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.
 [Strike the bats with your sword](StrikeBats2)
 {Health}(-40)
-[Fend them off with a torch from the wall](FendBats)
+[Fend them off with a torch from the wall](FendBats){Torch}
 {Health}(-10)
 
 ::StrikeBats2
@@ -94,7 +95,7 @@ You strike the bat with your sword, but your attack is not effective, you manage
 You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.
 [Strike the bats with your sword](Treasury)
 {Gold}(3500)
-[Fend them off with a torch from the wall](FendBats)
+[Fend them off with a torch from the wall](FendBats){Torch}
 {Health}(-10)
 
 ::Treasury

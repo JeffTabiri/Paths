@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2001.paths.model;
 
 import edu.ntnu.idatt2001.paths.model.actions.Action;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -69,7 +70,7 @@ public class Link {
 
     this.text = text;
     this.reference = reference;
-    this.itemRequired = null;
+    this.itemRequired = "";
   }
 
   /**
@@ -149,6 +150,16 @@ public class Link {
     Link link = (Link) o;
 
     return reference.equals(link.reference);
+  }
+
+
+  /**
+   * Method for getting the item required to go to the next passage.
+   *
+   * @return a string which is the item required.
+   */
+  public String getItemRequired() {
+    return itemRequired;
   }
 
   /**

@@ -28,7 +28,7 @@ public class GameController extends Controller {
   /**
    * Constructor for the controller.
    *
-   * @param stage the stage to set the scene on.
+   * @param stage       the stage to set the scene on.
    * @param gameManager the gameManager to use.
    */
   public GameController(Stage stage, GameManager gameManager) {
@@ -76,8 +76,8 @@ public class GameController extends Controller {
 
 
   /**
-  * Responsible for create a new StartView and set the scene to the stage.
-  */
+   * Responsible for create a new StartView and set the scene to the stage.
+   */
   public void isPlayerDead() {
     if (AlertUtility.showDeathAlert("Death",
             "You died!", "You experienced a horrible death, "
@@ -97,19 +97,42 @@ public class GameController extends Controller {
    */
   public void onActionNextPassage(int index) {
 
-    updatePlayerStats(index);
-
-    if (gameManager.getGame().getPlayer().getHealth() == 0) {
-      isPlayerDead();
+    if (!checkForRequiredItem(index)) {
+      AlertUtility.showErrorAlert("Item required",
+              "You need the item: " + gameManager
+                      .getCurrentPassage()
+                      .getLinks()
+                      .get(index)
+                      .getItemRequired());
     } else {
-      if (!isGameFinished(index)) {
-        audioManager.playMusic(GameStates.MAIN_MENU);
 
-        ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage()));
-        getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
+
+      updatePlayerStats(index);
+
+      if (gameManager.getGame().getPlayer().getHealth() == 0) {
+        isPlayerDead();
       } else {
-        updatePassage(index);
+        if (isGamePlaying(index)) {
+          audioManager.playMusic(GameStates.MAIN_MENU);
+          ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage()));
+          getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
+        } else {
+          updatePassage(index);
+        }
       }
+    }
+  }
+
+  private boolean checkForRequiredItem(int index) {
+
+    if (gameManager.getCurrentPassage().getLinks().get(index).getItemRequired() == null ||
+            gameManager.getCurrentPassage().getLinks().get(index).getItemRequired().equals("")) {
+      return true;
+    } else {
+      return gameManager.getGame()
+              .getPlayer()
+              .getInventory()
+              .contains(gameManager.getCurrentPassage().getLinks().get(index).getItemRequired());
     }
   }
 
@@ -162,9 +185,9 @@ public class GameController extends Controller {
   }
 
   /**
-   * Responsible for checking if the game is finished.
+   * Responsible for checking if the game is playing.
    */
-  public boolean isGameFinished(int index) {
+  public boolean isGamePlaying(int index) {
 
     if (gameManager.getGame().go(gameManager.getCurrentPassage().getLinks().get(index)) == null) {
       if (AlertUtility.showDeathAlert("Exit game",
@@ -176,9 +199,9 @@ public class GameController extends Controller {
         StartView view = new StartView(new StartController(getStage()));
         getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
       }
-      return false;
+      return true;
     }
-    return true;
+    return false;
   }
 
 }

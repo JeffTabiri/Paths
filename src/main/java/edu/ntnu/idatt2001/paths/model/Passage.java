@@ -49,7 +49,7 @@ public class Passage {
     this.content = content;
     this.links.addAll(links);
     this.fileName = fileName;
-    url = "/images/background/" + fileName + ".png";
+    url = "/images/background/passage/" + fileName + ".png";
   }
 
   /**
