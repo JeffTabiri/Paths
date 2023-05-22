@@ -1,13 +1,13 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
-import edu.ntnu.idatt2001.paths.filehandling.FileGameHandler;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.filehandling.FileGameHandler;
 import edu.ntnu.idatt2001.paths.model.Passage;
 import edu.ntnu.idatt2001.paths.model.Player;
 import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.GameManager;
-import edu.ntnu.idatt2001.paths.utility.AlertUtility;
-import edu.ntnu.idatt2001.paths.utility.DialogUtility;
+import edu.ntnu.idatt2001.paths.model.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.model.utility.DialogUtility;
 import edu.ntnu.idatt2001.paths.view.ChooseStoryView;
 import edu.ntnu.idatt2001.paths.view.OptionView;
 import edu.ntnu.idatt2001.paths.view.StartView;

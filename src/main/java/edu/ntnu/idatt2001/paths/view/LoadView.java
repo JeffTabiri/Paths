@@ -1,12 +1,12 @@
 package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.LoadController;
-import edu.ntnu.idatt2001.paths.enums.GameStates;
-import edu.ntnu.idatt2001.paths.enums.StyleClass;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.enums.StyleClass;
 import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
-import edu.ntnu.idatt2001.paths.utility.AlertUtility;
-import edu.ntnu.idatt2001.paths.utility.ButtonUtility;
+import edu.ntnu.idatt2001.paths.model.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.model.utility.ButtonUtility;
 import java.io.IOException;
 import java.util.logging.Logger;
 import javafx.animation.Animation;

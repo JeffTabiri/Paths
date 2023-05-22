@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
 import edu.ntnu.idatt2001.paths.view.AchievementView;

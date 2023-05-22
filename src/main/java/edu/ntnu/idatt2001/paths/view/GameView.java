@@ -1,14 +1,14 @@
 package edu.ntnu.idatt2001.paths.view;
 
 import edu.ntnu.idatt2001.paths.controller.GameController;
-import edu.ntnu.idatt2001.paths.enums.StyleClass;
+import edu.ntnu.idatt2001.paths.model.enums.StyleClass;
 import edu.ntnu.idatt2001.paths.model.Passage;
 import edu.ntnu.idatt2001.paths.model.manager.AchievementManager;
 import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
 import edu.ntnu.idatt2001.paths.model.manager.GameManager;
 import edu.ntnu.idatt2001.paths.model.manager.OptionManager;
-import edu.ntnu.idatt2001.paths.utility.AlertUtility;
-import edu.ntnu.idatt2001.paths.utility.ButtonUtility;
+import edu.ntnu.idatt2001.paths.model.utility.AlertUtility;
+import edu.ntnu.idatt2001.paths.model.utility.ButtonUtility;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;

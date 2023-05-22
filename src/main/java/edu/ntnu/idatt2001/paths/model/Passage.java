@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.model;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

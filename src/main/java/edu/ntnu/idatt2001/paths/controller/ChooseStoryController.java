@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.filehandling.StoryLoader;
+import edu.ntnu.idatt2001.paths.model.filehandling.StoryLoader;
 import edu.ntnu.idatt2001.paths.model.Game;
 import edu.ntnu.idatt2001.paths.model.Player;
 import edu.ntnu.idatt2001.paths.model.PlayerBuilder;

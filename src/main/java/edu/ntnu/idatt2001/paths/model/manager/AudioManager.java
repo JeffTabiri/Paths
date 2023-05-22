@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2001.paths.model.manager;
 
-import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.model.enums.GameStates;
 import java.util.Objects;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
