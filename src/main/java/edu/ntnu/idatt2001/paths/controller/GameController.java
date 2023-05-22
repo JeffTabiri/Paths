@@ -1,7 +1,11 @@
 package edu.ntnu.idatt2001.paths.controller;
 
-import edu.ntnu.idatt2001.paths.filehandling.GameSave;
-import edu.ntnu.idatt2001.paths.model.*;
+import edu.ntnu.idatt2001.paths.enums.GameStates;
+import edu.ntnu.idatt2001.paths.filehandling.FileGameHandler;
+import edu.ntnu.idatt2001.paths.model.Passage;
+import edu.ntnu.idatt2001.paths.model.Player;
+import edu.ntnu.idatt2001.paths.model.manager.AudioManager;
+import edu.ntnu.idatt2001.paths.model.manager.GameManager;
 import edu.ntnu.idatt2001.paths.utility.AlertUtility;
 import edu.ntnu.idatt2001.paths.utility.DialogUtility;
 import edu.ntnu.idatt2001.paths.view.ChooseStoryView;
@@ -11,62 +15,110 @@ import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
-
+/**
+ * <h1>GameController</h1>
+ * The controller class for the application.
+ */
 public class GameController extends Controller {
 
+  AudioManager audioManager = AudioManager.getInstance();
   GameManager gameManager;
-  public GameController(Stage stage, double width, double height , GameManager gameManager) {
-    super(stage, width, height);
+
+  /**
+   * Constructor for the controller.
+   *
+   * @param stage the stage to set the scene on.
+   * @param gameManager the gameManager to use.
+   */
+  public GameController(Stage stage, GameManager gameManager) {
+    super(stage);
     this.gameManager = gameManager;
 
   }
 
 
-  public void helpGame() {
+  /**
+   * Responsible for create a new StartView and set the scene to the stage.
+   */
+  public void onActionHelpGame() {
     DialogUtility.helpBox();
   }
 
-  public void optionGame() {
-
+  /**
+   * Responsible for create a new StartView and set the scene to the stage.
+   */
+  public void onActionOptionGame() {
     Stage dialog = new Stage();
-    OptionView view = new OptionView(new OptionController(dialog, getWidth(), getHeight()));
+    OptionView view = new OptionView(new OptionController(stage));
     Scene scene = new Scene(view.asParent(), 500, 300);
     dialog.initModality(Modality.APPLICATION_MODAL);
     dialog.setResizable(false);
     dialog.setScene(scene);
     dialog.setTitle("Options");
     dialog.show();
+  }
+
+  /**
+   * Responsible for create a new StartView and set the scene to the stage.
+   */
+  public void onActionSaveGame() {
+
+    if (AlertUtility.showConfirmationAlert("Save game",
+            "Are you sure you want to save the game?", "Save game")) {
+      FileGameHandler fileGameHandler = new FileGameHandler();
+      fileGameHandler.saveGame(gameManager.getGame(), gameManager.getCurrentPassage());
+      StartView view = new StartView(new StartController(getStage()));
+      getStage().setScene(new Scene(view.asParent()));
+    }
 
   }
 
-  public void saveGame() throws IOException {
 
-    if (AlertUtility.showConfirmationAlert("Save game", "Are you sure you want to save the game?", "Save game")) {
-      GameSave gameSave = new GameSave();
-      gameSave.saveGame(gameManager.getGame());
-      StartView view = new StartView(new StartController(getStage(), getWidth(), getHeight()));
+  /**
+  * Responsible for create a new StartView and set the scene to the stage.
+  */
+  public void isPlayerDead() {
+    if (AlertUtility.showDeathAlert("Death",
+            "You died!", "You experienced a horrible death, "
+                    + "may the gods smile upon your next life.")) {
+
+      audioManager.playMusic(GameStates.MAIN_MENU);
+
+      ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage()));
       getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
+
     }
 
   }
 
-  public void playerDied() {
-    AlertUtility.showErrorAlert("You died", "You died a horrible death! May your next run be more successful.");
-    ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage(), getWidth(), getHeight()));
-    getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
-  }
+  /**
+   * Responsible for transitioning to the next passage.
+   */
+  public void onActionNextPassage(int index) {
 
+    updatePlayerStats(index);
 
-  public void goPassageHandler(int index) {
-    if(isGameFinished(index)) {
-      updatePlayerStats(index);
-      updatePassage(index);
+    if (gameManager.getGame().getPlayer().getHealth() == 0) {
+      isPlayerDead();
+    } else {
+      if (!isGameFinished(index)) {
+        audioManager.playMusic(GameStates.MAIN_MENU);
+
+        ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage()));
+        getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
+      } else {
+        updatePassage(index);
+      }
     }
-
   }
 
+
+  /**
+   * Responsible for updating the player stats.
+   *
+   * @param passageChoiceIndex the index of the passage choice.
+   */
   private void updatePlayerStats(int passageChoiceIndex) {
 
     Passage currentPassage = gameManager.getCurrentPassage();
@@ -76,34 +128,55 @@ public class GameController extends Controller {
     currentPassage.getLinks().get(passageChoiceIndex).getActions().forEach(action ->
             action.execute(player));
 
+    currentPassage.getLinks().get(passageChoiceIndex).getActions().clear();
   }
 
 
+  /**
+   * Responsible for updating the passage.
+   *
+   * @param passageChoiceIndex the index of the passage choice.
+   */
   private void updatePassage(int passageChoiceIndex) {
 
-        Passage currentPassage = gameManager.getCurrentPassage();
+    Passage currentPassage = gameManager.getCurrentPassage();
 
-        currentPassage = gameManager.getGame().go(currentPassage.getLinks().get(passageChoiceIndex));
+    currentPassage = gameManager.getGame().go(currentPassage.getLinks().get(passageChoiceIndex));
 
-        gameManager.setCurrentPassage(currentPassage);
+    gameManager.setCurrentPassage(currentPassage);
 
   }
 
-  public void exitGame() {
-    if (AlertUtility.showConfirmationAlert("Exit game", "Are you sure you want to exit the game?", "Exit game")) {
-      StartView view = new StartView(new StartController(getStage(), getWidth(), getHeight()));
+  /**
+   * Responsible for create a new StartView and set the scene to the stage.
+   */
+  public void onActionExitGame() {
+    if (AlertUtility.showConfirmationAlert("Exiting Game",
+            "Are you sure you want to exit the game?",
+            "Exiting Game")) {
+
+      audioManager.playMusic(GameStates.MAIN_MENU);
+      StartView view = new StartView(new StartController(getStage()));
       getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
     }
   }
 
+  /**
+   * Responsible for checking if the game is finished.
+   */
   public boolean isGameFinished(int index) {
 
     if (gameManager.getGame().go(gameManager.getCurrentPassage().getLinks().get(index)) == null) {
-      if (AlertUtility.showConfirmationAlert("Exit game", "You Finished the game!", "Exit game")) {
-        StartView view = new StartView(new StartController(getStage(), getWidth(), getHeight()));
+      if (AlertUtility.showDeathAlert("Exit game",
+              "You Finished the game!",
+              "You have finished the game, congratulations!")) {
+
+        audioManager.playMusic(GameStates.MAIN_MENU);
+
+        StartView view = new StartView(new StartController(getStage()));
         getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
       }
-    return false;
+      return false;
     }
     return true;
   }
