@@ -5,12 +5,13 @@ import java.util.HashSet;
 import java.util.List;
 
 /**
- * An Action represents a future change in the state of a player,
- * including changes in the player's score, health, gold inventory, or inventory.
+ * <h1>InventoryGoal</h1>
+ * {@code InventoryGoal} represents a an expected item in the players inventory,
+ * in order to reach the goal.
  *
  * @author Created by Jeffrey Yaw Annor Tabiri and Ari Maman
- * @version 06/02/2023
- * @since JDK 17.0.6
+ * @version 1.0
+ * @since 06/02/2023
  */
 public class InventoryGoal implements Goal {
   private final List<String> mandatoryItems;
@@ -28,8 +29,14 @@ public class InventoryGoal implements Goal {
    * The method {@code isFulfilled} checks if the player has reached the goal.
    *
    * @return true if the player has reached the goal, false otherwise.
+   * @throws IllegalArgumentException if the player is null.
    */
   public boolean isFulfilled(Player player) {
+
+    if (player == null) {
+      throw new IllegalArgumentException("Player cannot be null");
+    }
+
     return new HashSet<>(player.getInventory()).containsAll(mandatoryItems);
   }
 
