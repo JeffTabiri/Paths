@@ -4,16 +4,15 @@ Paths is a game engine developed for choice-based and interactive storytelling. 
 
 ## Preview
 
-
 Inline-style (hover to see title text):
 
-![alt text](img/markdown_logo.png "Title Text")
+img/markdown_logo.png "Title Text"
 
 Reference-style (hover to see title text):
 
 ![alt text1][logo]
 
-[logo]: src/main/resources/images/background/Capture.png "adada"
+[logo]: /images/background/Capture.png "adada"
 
 
 ## Description
