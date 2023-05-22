@@ -25,11 +25,17 @@ Paths offers the following features:
 To create an interactive story using Paths, follow these steps:
 
 - Set up a Maven project with the required dependencies and configurations.
+
 - Create and define the passages of your story using the Passage class.
+
 - Establish connections between passages using links to create branching paths.
+
 - Customize the attributes and actions of the player using the Player and Action classes.
+
 - Set goals for the player to achieve using the Goal class.
+
 - Use the Game class as a facade to manage the player, story, and gameplay.
+
 - Compile, test, and package your project using Maven.
 
 ### Dependencies
@@ -40,28 +46,31 @@ To create an interactive story using Paths, follow these steps:
 
 * Java Development Kit (JDK)
 
-* Maven Dependency Management Tool
+* Maven Dependency Management Tool (MDMT)
 
 
 ### Installing
 
-* How/where to download your program
-* Any modifications needed to be made to files/folders
+1. Open your gitbash.
+
+2. Clone the repository by utilizing the git commando, "git clone". 
+
 
 ### Executing program
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+1. Open the project in a Maven Dependency Management Tool (MDMT) such as IntelliJ or VSCode.
+
+2. Open the terminal in the Maven Dependency Management Tool (MDMT)
+
+3. Run the program by utilizing the commando, "mvn javafx:run"
+
 
 ## Help
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+For any inquiries or further information, please comment.
+
+Thank you for choosing Paths as your choice-based interactive storytelling game engine! Enjoy creating and playing captivating interactive stories.
+
 
 ## Authors
 
@@ -72,21 +81,10 @@ command to run if program contains helper info
 
 ## Version History
 
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
 * 0.1
     * Initial Release
+
 
 ## License
 
 This project is licensed under the MIT-License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
