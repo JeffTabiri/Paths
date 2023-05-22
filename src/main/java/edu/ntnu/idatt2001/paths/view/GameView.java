@@ -195,7 +195,7 @@ public class GameView {
 
     //Nodes
     if (gameManager.getCurrentPassage().getUrl().isEmpty()) {
-      imageView = buildImage("/images/background/ImageNotFound.png");
+      imageView = buildImage("/images/background/passages/ImageNotFound.png");
     } else {
       imageView = buildImage(gameManager.getCurrentPassage().getUrl());
     }

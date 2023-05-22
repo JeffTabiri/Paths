@@ -514,7 +514,7 @@ public class AchievementView {
 
     Pane pane = new Pane();
 
-    ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+    ImageView imageView = new ImageView("/images/background/passages/MainMenuBackground.png");
     imageView.fitWidthProperty().bind(pane.widthProperty());
     imageView.setPreserveRatio(true);
 

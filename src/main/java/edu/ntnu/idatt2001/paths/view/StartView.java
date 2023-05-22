@@ -99,7 +99,7 @@ public class StartView {
     Node initialization
      */
     Pane pane = new Pane();
-    ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+    ImageView imageView = new ImageView("/images/background/passages/MainMenuBackground.png");
 
 
     /*
