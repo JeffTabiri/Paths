@@ -206,7 +206,7 @@ public class ChooseStoryView {
   private Pane buildPane() {
     Pane pane = new Pane();
 
-    ImageView imageView = new ImageView("/images/background/MainMenuBackground.png");
+    ImageView imageView = new ImageView("/images/background/passage/MainMenuBackground.png");
     imageView.fitWidthProperty().bind(pane.widthProperty());
     imageView.setPreserveRatio(true);
 
