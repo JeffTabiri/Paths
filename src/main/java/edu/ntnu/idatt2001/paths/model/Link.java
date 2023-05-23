@@ -161,6 +161,16 @@ public class Link {
     return reference.equals(link.reference);
   }
 
+
+  /**
+   * Method for getting the item required to go to the next passage.
+   *
+   * @return a string which is the item required.
+   */
+  public String getItemRequired() {
+    return itemRequired;
+  }
+
   /**
    * Overridden method which will help the program function with hash-based collections.
    *
