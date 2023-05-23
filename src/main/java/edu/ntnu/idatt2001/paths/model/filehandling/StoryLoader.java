@@ -266,8 +266,6 @@ public class StoryLoader {
 
     } else if (line.startsWith("{")) {
       return "ACTION";
-
-
     } else {
       return "";
 

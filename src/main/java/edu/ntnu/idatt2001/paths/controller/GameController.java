@@ -73,7 +73,7 @@ public class GameController extends Controller {
   /**
   * Responsible for create a new StartView and set the scene to the stage.
   */
-  public void isPlayerDead() {
+  public void playerDied() {
     if (AlertUtility.showDeathAlert("Death",
             "You died!", "You experienced a horrible death, "
                     + "may the gods smile upon your next life.")) {
@@ -92,20 +92,45 @@ public class GameController extends Controller {
    */
   public void onActionNextPassage(int index) {
 
+    if (!playerHasItem(index)) {
+      AlertUtility.showErrorAlert("Item required",
+              "You need the item "
+                      + gameManager.getCurrentPassage()
+                      .getLinks().get(index).getRequiredItem() + " "
+                      + "to go this way");
+      return;
+    }
+
     updatePlayerStats(index);
 
     if (gameManager.getGame().getPlayer().getHealth() == 0) {
-      isPlayerDead();
-    } else {
-      if (!isGameFinished(index)) {
-        audioManager.playMusic(GameStates.MAIN_MENU);
-
-        ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage()));
-        getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
-      } else {
-        updatePassage(index);
-      }
+      playerDied();
+      return;
     }
+
+    if (!isGameFinished(index)) {
+      audioManager.playMusic(GameStates.MAIN_MENU);
+      ChooseStoryView view = new ChooseStoryView(new ChooseStoryController(getStage()));
+      getStage().setScene(new Scene(view.asParent(), getWidth(), getHeight()));
+      return;
+    }
+
+    updatePassage(index);
+
+  }
+
+  private boolean playerHasItem(int index) {
+
+
+
+    if (gameManager.getCurrentPassage().getLinks().get(index).getRequiredItem() == null
+            || gameManager.getCurrentPassage().getLinks().get(index).getRequiredItem().equals("")) {
+      return true;
+    }
+
+    return gameManager.getGame().getPlayer().getInventory()
+            .contains(gameManager.getCurrentPassage().getLinks().get(index).getRequiredItem());
+
   }
 
 

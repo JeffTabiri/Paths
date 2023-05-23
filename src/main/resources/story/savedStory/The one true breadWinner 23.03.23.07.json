@@ -1,0 +1,769 @@
+[
+  {
+    "player": {
+      "name": "The one true breadWinner",
+      "health": 100,
+      "score": 0,
+      "gold": 0,
+      "inventory": []
+    },
+    "storyTitle": "Catacombs of Agniritha\r",
+    "passages": [
+      {
+        "title": "StrikeSlime2",
+        "content": "Once again you strike the slime with your sword, but your attack is not effective, it strikes back, and you take some damage.",
+        "links": [
+          {
+            "text": "Strike the slime",
+            "reference": "StrikeSlime3",
+            "actions": [
+              {
+                "health": -40
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Stun the slime with your shield",
+            "reference": "StunSlime",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "SlimeAttack",
+        "url": "/images/background/passages/SlimeAttack.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "StrikeBats",
+        "content": "You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.",
+        "links": [
+          {
+            "text": "Strike the bats with your sword",
+            "reference": "StrikeBats2",
+            "actions": [
+              {
+                "health": -40
+              },
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Fend them off with a torch.",
+            "reference": "FendBats",
+            "actions": [
+              {
+                "health": -10
+              },
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": "Torch"
+          },
+          {
+            "text": "Run away!",
+            "reference": "BatEncounterFinished",
+            "actions": [
+              {
+                "health": -10
+              },
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Bats",
+        "url": "/images/background/passages/Bats.png",
+        "gameState": "ENEMY"
+      },
+      {
+        "title": "StrikeSlime3",
+        "content": "Your complacent to strike the slime again, but your attack is not effective, it strikes back, and you take some damage.",
+        "links": [
+          {
+            "text": "Strike the slime",
+            "reference": "StrikeSlime3",
+            "actions": [
+              {
+                "health": -80
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Stun the slime with your shield",
+            "reference": "StunSlime",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "SlimeAttack",
+        "url": "/images/background/passages/SlimeAttack.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "StrikeSlime4",
+        "content": "You strike the slime with your sword, but your attack is not effective, it strikes back, and you take some damage.",
+        "links": [
+          {
+            "text": "Strike the slime",
+            "reference": "StrikeSlime",
+            "actions": [
+              {
+                "health": -80
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Stun the slime with your shield",
+            "reference": "StunSlime",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "SlimeAttack",
+        "url": "/images/background/passages/SlimeAttack.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "StrikeBats2",
+        "content": "You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.",
+        "links": [
+          {
+            "text": "Strike the bats with your sword",
+            "reference": "Treasury",
+            "actions": [
+              {
+                "gold": 3500
+              },
+              {
+                "item": "Bow of Zephyr"
+              },
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Fend them off with a torch.",
+            "reference": "FendBats",
+            "actions": [
+              {
+                "health": -10
+              },
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": "Torch"
+          }
+        ],
+        "fileName": "Bats",
+        "url": "/images/background/passages/Bats.png",
+        "gameState": "ENEMY"
+      },
+      {
+        "title": "StunSlime",
+        "content": "You stun the slime with your shield, it falls to the ground, in a daze, it is vulnerable.",
+        "links": [
+          {
+            "text": "Strike the slime",
+            "reference": "StrikeSlimeStunned",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Slime",
+        "url": "/images/background/passages/Slime.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Dread",
+        "content": "The darkness swallows you whole, and you feel the dread of the catacombs.In the distance you see a faint light. It looks like a creature. \"Death awaits you, mortal.\"",
+        "links": [
+          {
+            "text": "R    U      N",
+            "reference": "Falls",
+            "actions": [
+              {
+                "health": -1000
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Death",
+        "url": "/images/background/passages/Death.png",
+        "gameState": "CAVE"
+      },
+      {
+        "title": "SlimeEncounterFinished",
+        "content": "You press onward, the memory of the slime\u0027s vile presence fading behind you.As you traverse the catacombs, the air grows thinner, and an eerie silence descends upon you.At last, you glimpse a faint light ahead. An exit to the catacombs! A breath of fresh air beyond the darkness.",
+        "links": [
+          {
+            "text": "Exit the catacombs",
+            "reference": "ExitCatacombs",
+            "actions": [
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Slime",
+        "url": "/images/background/passages/Slime.png",
+        "gameState": "SHOP"
+      },
+      {
+        "title": "Treasury",
+        "content": "You strike the bat with your sword, and you defeat it. The bat was guarding a secrethallway, you enter it, and you find a treasury, with the most luxurious items you have ever seen.In the corner you see a chest, you open it and find a bow of Zephyr, and 3500 gold.",
+        "links": [
+          {
+            "text": "End your journey!",
+            "reference": "End of Game",
+            "actions": [
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Treasure",
+        "url": "/images/background/passages/Treasure.png",
+        "gameState": "SHOP"
+      },
+      {
+        "title": "ContinueLeft",
+        "content": "You continue on your way, a large bat flies towards you. You must defeat it!",
+        "links": [
+          {
+            "text": "Strike the bat with your sword",
+            "reference": "StrikeBats",
+            "actions": [
+              {
+                "health": -40
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Fend them off with a torch",
+            "reference": "FendBats",
+            "actions": [
+              {
+                "health": -10
+              }
+            ],
+            "itemRequired": "Torch"
+          }
+        ],
+        "fileName": "Bats",
+        "url": "/images/background/passages/Bats.png",
+        "gameState": "ENEMY"
+      },
+      {
+        "title": "OpenChest",
+        "content": "You open the chest, the chest was a trap, you fall into a pitfall and die, you have failed.You fall into the endless abyss, and as the darkness consumes you, only one though fills your mind. Do not open chests in the catacombs.",
+        "links": [
+          {
+            "text": "Fall into your doom.",
+            "reference": "Falls",
+            "actions": [
+              {
+                "health": -100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Falling",
+        "url": "/images/background/passages/Falling.png",
+        "gameState": "CAVE"
+      },
+      {
+        "title": "Straight",
+        "content": "You go straight, and you find a a chest.As your gaze falls upon the chest, time seems to stand still, captivated by its allure. Its exquisite craftsmanship, meticulously hand-carved by the finest artisans, reveals an opulent tapestry of intricate motifs that weave tales of forgotten grandeur. YOU FEEL COMPELLED TO OPEN THE CHEST.",
+        "links": [
+          {
+            "text": "Open the chest!",
+            "reference": "OpenChest",
+            "actions": [],
+            "itemRequired": ""
+          },
+          {
+            "text": "Go back",
+            "reference": "Continue",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "ChestOpen",
+        "url": "/images/background/passages/ChestOpen.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Beginnings",
+        "content": "You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within. In the darkness of the catacombs, a sword lies on the ground, you pick it up.",
+        "links": [
+          {
+            "text": "Pick the sword and proceed further.",
+            "reference": "Enter the catacombs",
+            "actions": [
+              {
+                "item": "Excalibur"
+              },
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "CaveIntro",
+        "url": "/images/background/passages/CaveIntro.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Falls",
+        "content": "You fall into the endless abyss, and as the darkness consumes you, only one though fills your mind.Do not open chests in the catacombs.",
+        "links": [
+          {
+            "text": "FALL",
+            "reference": "Falls",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Falling",
+        "url": "/images/background/passages/Falling.png",
+        "gameState": "CAVE"
+      },
+      {
+        "title": "Left",
+        "content": "You go left, and you stumble on a piece of cobblestone that depresses into the ground, this releases a giant boulder that blocks the way you whence came, you must proceed further.",
+        "links": [
+          {
+            "text": "Continue",
+            "reference": "ContinueLeft",
+            "actions": [
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Left",
+        "url": "/images/background/passages/Left.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Enter the catacombs",
+        "content": "You encounter some skeletons! To proceed further, you must defeat them.",
+        "links": [
+          {
+            "text": "Run past the skeletons.",
+            "reference": "Rest",
+            "actions": [],
+            "itemRequired": ""
+          },
+          {
+            "text": "Strike the skeleton",
+            "reference": "Strike the skeleton",
+            "actions": [
+              {
+                "health": -20
+              },
+              {
+                "item": "Torch"
+              },
+              {
+                "item": "Bow"
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Return.",
+            "reference": "Beginnings",
+            "actions": [
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Skeleton",
+        "url": "/images/background/passages/Skeleton.png",
+        "gameState": "BOSS"
+      },
+      {
+        "title": "PickDynamite",
+        "content": "You pick up the dynamite, and you return to the boulder.",
+        "links": [
+          {
+            "text": "Return to the boulder.",
+            "reference": "ReturnBoulder",
+            "actions": [
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Bomb",
+        "url": "/images/background/passages/Bomb.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Continue",
+        "content": "You continue on your way, and find a 4 way intersection. You must choose one of 3 paths.",
+        "links": [
+          {
+            "text": "Go left",
+            "reference": "Left",
+            "actions": [
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Go right",
+            "reference": "Right",
+            "actions": [],
+            "itemRequired": ""
+          },
+          {
+            "text": "Go straight",
+            "reference": "Straight",
+            "actions": [
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Return",
+            "reference": "Rest",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Intersection",
+        "url": "/images/background/passages/Intersection.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "FendBats",
+        "content": "You wave the fiery torch and the bat runs deeper into the cave, you continue on your way.",
+        "links": [
+          {
+            "text": "Continue",
+            "reference": "BatEncounterFinished",
+            "actions": [
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Bats",
+        "url": "/images/background/passages/Bats.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Right",
+        "content": "You go right, and you find a slime blocking your way, you must defeat it.",
+        "links": [
+          {
+            "text": "Strike the slime",
+            "reference": "StrikeSlime",
+            "actions": [
+              {
+                "health": -20
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Stun the slime with your shield",
+            "reference": "StunSlime",
+            "actions": [],
+            "itemRequired": ""
+          },
+          {
+            "text": "Return",
+            "reference": "Continue",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Slime",
+        "url": "/images/background/passages/Slime.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "StrikeSlime",
+        "content": "You strike the slime with your sword, but your attack is not effective, it strikes back, and you take some damage.",
+        "links": [
+          {
+            "text": "Strike the slime",
+            "reference": "StrikeSlime2",
+            "actions": [
+              {
+                "health": -20
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Stun the slime with your shield",
+            "reference": "StunSlime",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "SlimeAttack",
+        "url": "/images/background/passages/SlimeAttack.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "RestMore",
+        "content": "You rejuvenate your wounds, and you feel ready to continue your journey.Confusing as it may be, you sense the darkness closing in on you, and you feel the need to continue.",
+        "links": [
+          {
+            "text": "Continue.",
+            "reference": "Continue",
+            "actions": [],
+            "itemRequired": ""
+          },
+          {
+            "text": "Rest even more...",
+            "reference": "Dread",
+            "actions": [
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Campfire",
+        "url": "/images/background/passages/Campfire.png",
+        "gameState": "REST"
+      },
+      {
+        "title": "ExplodeBoulder",
+        "content": "You explode the boulder, and leave the wretched place with your life intact.",
+        "links": [
+          {
+            "text": "End your journey?",
+            "reference": "End your journey",
+            "actions": [
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "ExplodeBoulder",
+        "url": "/images/background/passages/ExplodeBoulder.png",
+        "gameState": "SHOP"
+      },
+      {
+        "title": "BatEncounterFinished",
+        "content": "You continue on your way, you find a chest, you open it and find a stick of dynamite.",
+        "links": [
+          {
+            "text": "Pick it up",
+            "reference": "PickDynamite",
+            "actions": [
+              {
+                "item": "Dynamite"
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Continue",
+            "reference": "ReturnBoulder",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Bats",
+        "url": "/images/background/passages/Bats.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "Rest",
+        "content": "You take a rest and heal your wounds.As you rest, you hear a faint sound of a campfire crackling,scaring the lurking creatures away.",
+        "links": [
+          {
+            "text": "Continue.",
+            "reference": "Continue",
+            "actions": [
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Rest more.",
+            "reference": "RestMore",
+            "actions": [
+              {
+                "health": 60
+              },
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Campfire",
+        "url": "/images/background/passages/Campfire.png",
+        "gameState": "REST"
+      },
+      {
+        "title": "Strike the skeleton",
+        "content": "The skeletons strikes, you manage to dodge, but not without taking some damage. You strike backwith a mighty blow, and the skeletons falls to the ground.You see some loot fall on the ground, you pick up a torch and a bow.",
+        "links": [
+          {
+            "text": "Take a rest and heal.",
+            "reference": "Rest",
+            "actions": [
+              {
+                "health": 10
+              },
+              {
+                "gold": 100
+              }
+            ],
+            "itemRequired": ""
+          },
+          {
+            "text": "Continue.",
+            "reference": "Continue",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Skeleton",
+        "url": "/images/background/passages/Skeleton.png",
+        "gameState": "BOSS"
+      },
+      {
+        "title": "StrikeSlimeStunned",
+        "content": "You strike the slime with your sword, and you defeat it.",
+        "links": [
+          {
+            "text": "Continue",
+            "reference": "SlimeEncounterFinished",
+            "actions": [
+              {
+                "points": 100
+              }
+            ],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Slime",
+        "url": "/images/background/passages/Slime.png",
+        "gameState": "EXPLORE"
+      },
+      {
+        "title": "ReturnBoulder",
+        "content": "You return to the boulder.",
+        "links": [
+          {
+            "text": "Explode the boulder.",
+            "reference": "ExplodeBoulder",
+            "actions": [],
+            "itemRequired": "Dynamite"
+          },
+          {
+            "text": "Return.",
+            "reference": "BatEncounterFinished",
+            "actions": [],
+            "itemRequired": ""
+          }
+        ],
+        "fileName": "Boulder",
+        "url": "/images/background/passages/Boulder.png",
+        "gameState": "EXPLORE"
+      }
+    ],
+    "openingPassage": {
+      "title": "Beginnings",
+      "content": "You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within. In the darkness of the catacombs, a sword lies on the ground, you pick it up.",
+      "links": [
+        {
+          "text": "Pick the sword and proceed further.",
+          "reference": "Enter the catacombs",
+          "actions": [
+            {
+              "item": "Excalibur"
+            },
+            {
+              "points": 100
+            },
+            {
+              "gold": 100
+            }
+          ],
+          "itemRequired": ""
+        }
+      ],
+      "fileName": "CaveIntro",
+      "url": "/images/background/passages/CaveIntro.png",
+      "gameState": "EXPLORE"
+    }
+  }
+]

@@ -31,6 +31,7 @@ public class AlertUtility {
     alert.setTitle("Error");
     alert.setHeaderText(headerText);
     alert.setContentText(contentText);
+    alert.showAndWait();
   }
 
   /**

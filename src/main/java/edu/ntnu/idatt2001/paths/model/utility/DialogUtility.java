@@ -24,6 +24,11 @@ public class DialogUtility {
   private DialogUtility() {
   }
 
+  /**
+   * The method {@code optionBox} creates a dialog box with options.
+   *
+   * @param view the view to be displayed in the dialog box.
+   */
   public static void optionBox(OptionView view) {
     Stage dialog = new Stage();
     Scene scene = new Scene(view.asParent(), 500, 300);

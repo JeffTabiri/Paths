@@ -29,7 +29,7 @@ import java.util.List;
 public class FileGameHandler {
 
   BufferedReader reader;
-  SimpleDateFormat formatter = new SimpleDateFormat("yy");
+  SimpleDateFormat formatter = new SimpleDateFormat("yy.MM.dd.ss");
   String uniqueId = "";
 
   Gson gson = new GsonBuilder()
@@ -75,7 +75,7 @@ public class FileGameHandler {
             new FileWriter("src/main/resources/story/savedStory/" + uniqueId + ".json"))) {
       writer.write(gson.toJson(jsonArray));
     } catch (IOException e) {
-      throw new IllegalArgumentException("File could not be written.");
+      throw new IllegalArgumentException("File not found");
     }
 
   }

@@ -69,7 +69,7 @@ public class Link {
 
     this.text = text;
     this.reference = reference;
-    this.itemRequired = null;
+    this.itemRequired = "";
   }
 
   /**
@@ -119,6 +119,16 @@ public class Link {
 
     actions.remove(action);
   }
+
+  /**
+   * A method for getting the required item.
+   *
+   * @return a string which is the required item.
+   */
+  public String getRequiredItem() {
+    return itemRequired;
+  }
+
 
   /**
    * A method for getting actions.

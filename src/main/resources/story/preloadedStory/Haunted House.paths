@@ -2,11 +2,23 @@ Haunted House
 
 ::Beginnings
 You are in a small, dimly lit room. There is a door in front of you.
-[Open Chest](Another room)
+[Open Chest and gain Excalibur](Another room)
 {Gold}(100)
+{Inventory}(Excalibur)
+[Wander around](Another room)
 
 ::Another room
 The door opens to another room. You see a desk with a large, dusty book.
-[Open the book](The book of spells)
+[Open the book](The book of spells){Excalibur}
 [Go back](Beginnings)
+{Score}(100)
 
+::The book of spells
+You open the book and see a list of spells. You read one aloud and a ghost appears.
+[Attack the ghost](The ghost is dead)
+[Run away](Beginnings)
+{Score}(100)
+
+::The ghost is dead
+The ghost is dead. You see a chest in the corner of the room.
+[Open the chest](The chest)

@@ -6,18 +6,23 @@ Catacombs of Agniritha
 You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.
 As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within.
  In the darkness of the catacombs, a sword lies on the ground, you pick it up.
-[Pick the sword and proceed further](Enter the catacombs)
+[Pick the sword and proceed further.](Enter the catacombs)
 {Inventory}(Excalibur)
+{Score}(100)
+{Gold}(100)
 
 ::Enter the catacombs
 ++Skeleton
 --Boss
 You encounter some skeletons! To proceed further, you must defeat them.
+[Run past the skeletons.](Rest)
 [Strike the skeleton](Strike the skeleton)
 {Health}(-20)
 {Inventory}(Torch)
 {Inventory}(Bow)
-[Return](Beginnings)
+[Return.](Beginnings)
+{Score}(100)
+{Gold}(100)
 
 ::Strike the skeleton
 ++Skeleton
@@ -25,9 +30,10 @@ You encounter some skeletons! To proceed further, you must defeat them.
 The skeletons strikes, you manage to dodge, but not without taking some damage. You strike back
 with a mighty blow, and the skeletons falls to the ground.
 You see some loot fall on the ground, you pick up a torch and a bow.
-[Take a rest and heal](Rest)
+[Take a rest and heal.](Rest)
 {Health}(10)
-[Continue](Continue)
+{Gold}(100)
+[Continue.](Continue)
 
 ::Rest
 ++Campfire
@@ -35,17 +41,23 @@ You see some loot fall on the ground, you pick up a torch and a bow.
 You take a rest and heal your wounds.
 As you rest, you hear a faint sound of a campfire crackling,
 scaring the lurking creatures away.
-[Continue](Continue)
-[Rest more](RestMore)
+[Continue.](Continue)
+{Score}(100)
+{Gold}(100)
+[Rest more.](RestMore)
 {Health}(60)
+{Score}(100)
+{Gold}(100)
 
 ::RestMore
 ++Campfire
 --Rest
 You rejuvenate your wounds, and you feel ready to continue your journey.
 Confusing as it may be, you sense the darkness closing in on you, and you feel the need to continue.
-[Continue](Continue)
+[Continue.](Continue)
 [Rest even more...](Dread)
+{Score}(100)
+{Gold}(100)
 
 ::Dread
 ++Death
@@ -61,14 +73,17 @@ In the distance you see a faint light. It looks like a creature.
 --Forest
 You continue on your way, and find a 4 way intersection. You must choose one of 3 paths.
 [Go left](Left)
+{Gold}(100)
 [Go right](Right)
 [Go straight](Straight)
+{Gold}(100)
 [Return](Rest)
 
 ::Left
 ++Left
 You go left, and you stumble on a piece of cobblestone that depresses into the ground, this releases a giant boulder that blocks the way you whence came, you must proceed further.
 [Continue](ContinueLeft)
+{Gold}(100)
 
 ::ContinueLeft
 ++Bats
@@ -76,7 +91,7 @@ You go left, and you stumble on a piece of cobblestone that depresses into the g
 You continue on your way, a large bat flies towards you. You must defeat it!
 [Strike the bat with your sword](StrikeBats)
 {Health}(-40)
-[Fend them off with a torch](FendBats)
+[Fend them off with a torch](FendBats){Torch}
 {Health}(-10)
 
 ::StrikeBats
@@ -85,8 +100,13 @@ You continue on your way, a large bat flies towards you. You must defeat it!
 You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.
 [Strike the bats with your sword](StrikeBats2)
 {Health}(-40)
-[Fend them off with a torch from the wall](FendBats)
+{Score}(100)
+[Fend them off with a torch.](FendBats){Torch}
 {Health}(-10)
+{Score}(100)
+[Run away!](BatEncounterFinished)
+{Health}(-10)
+{Score}(100)
 
 ::StrikeBats2
 ++Bats
@@ -94,21 +114,28 @@ You strike the bat with your sword, but your attack is not effective, you manage
 You strike the bat with your sword, but your attack is not effective, you manage to scratch the bat, but not without taking some damage.
 [Strike the bats with your sword](Treasury)
 {Gold}(3500)
-[Fend them off with a torch from the wall](FendBats)
+{Inventory}(Bow of Zephyr)
+{Score}(100)
+{Gold}(100)
+[Fend them off with a torch.](FendBats){Torch}
 {Health}(-10)
+{Score}(100)
+{Gold}(100)
 
 ::Treasury
 ++Treasure
 --SHOP
 You strike the bat with your sword, and you defeat it. The bat was guarding a secret
 hallway, you enter it, and you find a treasury, with the most luxurious items you have ever seen.
-The world is your oyster, you can buy anything you want.
+In the corner you see a chest, you open it and find a bow of Zephyr, and 3500 gold.
 [End your journey!](End of Game)
+{Score}(100)
 
 ::FendBats
 ++Bats
 You wave the fiery torch and the bat runs deeper into the cave, you continue on your way.
 [Continue](BatEncounterFinished)
+{Score}(100)
 
 ::BatEncounterFinished
 ++Bats
@@ -120,24 +147,23 @@ You continue on your way, you find a chest, you open it and find a stick of dyna
 ::PickDynamite
 ++Bomb
 You pick up the dynamite, and you return to the boulder.
-[Return to the boulder.](ReturnBoulder2)
+[Return to the boulder.](ReturnBoulder)
+{Score}(100)
+{Gold}(100)
 
 ::ReturnBoulder
 ++Boulder
 You return to the boulder.
-[Explode the boulder.](ExplodeBoulder)
+[Explode the boulder.](ExplodeBoulder){Dynamite}
 [Return.](BatEncounterFinished)
-
-::ReturnBoulder2
-++Boulder
-You return to the boulder.
-[Explode the boulder!](ExplodeBoulder)
 
 ::ExplodeBoulder
 ++ExplodeBoulder
 --Shop
 You explode the boulder, and leave the wretched place with your life intact.
 [End your journey?](End your journey)
+{Score}(100)
+{Gold}(100)
 
 ::Straight
 ++ChestOpen
@@ -207,6 +233,7 @@ You stun the slime with your shield, it falls to the ground, in a daze, it is vu
 ++Slime
 You strike the slime with your sword, and you defeat it.
 [Continue](SlimeEncounterFinished)
+{Score}(100)
 
 ::SlimeEncounterFinished
 ++Slime
@@ -216,3 +243,4 @@ As you traverse the catacombs, the air grows thinner, and an eerie silence desce
 At last, you glimpse a faint light ahead. An exit to the catacombs!
  A breath of fresh air beyond the darkness.
 [Exit the catacombs](ExitCatacombs)
+{Score}(100)
