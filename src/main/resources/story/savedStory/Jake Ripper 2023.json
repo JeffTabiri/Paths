@@ -1,15 +1,11 @@
 [
   {
     "player": {
-      "name": "Jake of Diamonds",
-      "health": 80,
-      "score": 100,
-      "gold": 200,
-      "inventory": [
-        "Excalibur",
-        "Torch",
-        "Bow"
-      ]
+      "name": "Jake Ripper",
+      "health": 100,
+      "score": 0,
+      "gold": 0,
+      "inventory": []
     },
     "storyTitle": "Catacombs of Agniritha\r",
     "passages": [
@@ -328,7 +324,17 @@
           {
             "text": "Pick the sword and proceed further.",
             "reference": "Enter the catacombs",
-            "actions": [],
+            "actions": [
+              {
+                "item": "Excalibur"
+              },
+              {
+                "points": 100
+              },
+              {
+                "gold": 100
+              }
+            ],
             "itemRequired": ""
           }
         ],
@@ -383,7 +389,17 @@
           {
             "text": "Strike the skeleton",
             "reference": "Strike the skeleton",
-            "actions": [],
+            "actions": [
+              {
+                "health": -20
+              },
+              {
+                "item": "Torch"
+              },
+              {
+                "item": "Bow"
+              }
+            ],
             "itemRequired": ""
           },
           {
@@ -449,7 +465,11 @@
           {
             "text": "Go straight",
             "reference": "Straight",
-            "actions": [],
+            "actions": [
+              {
+                "gold": 100
+              }
+            ],
             "itemRequired": ""
           },
           {
@@ -721,24 +741,28 @@
       }
     ],
     "openingPassage": {
-      "title": "Straight",
-      "content": "You go straight, and you find a a chest.As your gaze falls upon the chest, time seems to stand still, captivated by its allure. Its exquisite craftsmanship, meticulously hand-carved by the finest artisans, reveals an opulent tapestry of intricate motifs that weave tales of forgotten grandeur. YOU FEEL COMPELLED TO OPEN THE CHEST.",
+      "title": "Beginnings",
+      "content": "You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within. In the darkness of the catacombs, a sword lies on the ground, you pick it up.",
       "links": [
         {
-          "text": "Open the chest!",
-          "reference": "OpenChest",
-          "actions": [],
-          "itemRequired": ""
-        },
-        {
-          "text": "Go back",
-          "reference": "Continue",
-          "actions": [],
+          "text": "Pick the sword and proceed further.",
+          "reference": "Enter the catacombs",
+          "actions": [
+            {
+              "item": "Excalibur"
+            },
+            {
+              "points": 100
+            },
+            {
+              "gold": 100
+            }
+          ],
           "itemRequired": ""
         }
       ],
-      "fileName": "ChestOpen",
-      "url": "/images/background/passages/ChestOpen.png",
+      "fileName": "CaveIntro",
+      "url": "/images/background/passages/CaveIntro.png",
       "gameState": "EXPLORE"
     }
   }

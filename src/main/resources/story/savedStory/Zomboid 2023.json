@@ -1,11 +1,13 @@
 [
   {
     "player": {
-      "name": "Zack Of Winterfell",
+      "name": "Zomboid",
       "health": 100,
-      "score": 0,
-      "gold": 0,
-      "inventory": []
+      "score": 200,
+      "gold": 200,
+      "inventory": [
+        "Excalibur"
+      ]
     },
     "storyTitle": "Catacombs of Agniritha\r",
     "passages": [
@@ -324,17 +326,7 @@
           {
             "text": "Pick the sword and proceed further.",
             "reference": "Enter the catacombs",
-            "actions": [
-              {
-                "item": "Excalibur"
-              },
-              {
-                "points": 100
-              },
-              {
-                "gold": 100
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           }
         ],
@@ -640,14 +632,7 @@
           {
             "text": "Continue.",
             "reference": "Continue",
-            "actions": [
-              {
-                "points": 100
-              },
-              {
-                "gold": 100
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           },
           {
@@ -741,28 +726,44 @@
       }
     ],
     "openingPassage": {
-      "title": "Beginnings",
-      "content": "You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within. In the darkness of the catacombs, a sword lies on the ground, you pick it up.",
+      "title": "Continue",
+      "content": "You continue on your way, and find a 4 way intersection. You must choose one of 3 paths.",
       "links": [
         {
-          "text": "Pick the sword and proceed further.",
-          "reference": "Enter the catacombs",
+          "text": "Go left",
+          "reference": "Left",
           "actions": [
-            {
-              "item": "Excalibur"
-            },
-            {
-              "points": 100
-            },
             {
               "gold": 100
             }
           ],
           "itemRequired": ""
+        },
+        {
+          "text": "Go right",
+          "reference": "Right",
+          "actions": [],
+          "itemRequired": ""
+        },
+        {
+          "text": "Go straight",
+          "reference": "Straight",
+          "actions": [
+            {
+              "gold": 100
+            }
+          ],
+          "itemRequired": ""
+        },
+        {
+          "text": "Return",
+          "reference": "Rest",
+          "actions": [],
+          "itemRequired": ""
         }
       ],
-      "fileName": "CaveIntro",
-      "url": "/images/background/passages/CaveIntro.png",
+      "fileName": "Intersection",
+      "url": "/images/background/passages/Intersection.png",
       "gameState": "EXPLORE"
     }
   }

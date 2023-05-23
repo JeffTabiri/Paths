@@ -29,7 +29,7 @@ import java.util.List;
 public class FileGameHandler {
 
   BufferedReader reader;
-  SimpleDateFormat formatter = new SimpleDateFormat("yy.MM.dd.ss");
+  SimpleDateFormat formatter = new SimpleDateFormat("yyyy");
   String uniqueId = "";
 
   Gson gson = new GsonBuilder()

@@ -1,11 +1,15 @@
 [
   {
     "player": {
-      "name": "The one true breadWinner",
-      "health": 100,
-      "score": 0,
-      "gold": 0,
-      "inventory": []
+      "name": "Zed",
+      "health": 150,
+      "score": 300,
+      "gold": 400,
+      "inventory": [
+        "Excalibur",
+        "Torch",
+        "Bow"
+      ]
     },
     "storyTitle": "Catacombs of Agniritha\r",
     "passages": [
@@ -324,17 +328,7 @@
           {
             "text": "Pick the sword and proceed further.",
             "reference": "Enter the catacombs",
-            "actions": [
-              {
-                "item": "Excalibur"
-              },
-              {
-                "points": 100
-              },
-              {
-                "gold": 100
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           }
         ],
@@ -389,17 +383,7 @@
           {
             "text": "Strike the skeleton",
             "reference": "Strike the skeleton",
-            "actions": [
-              {
-                "health": -20
-              },
-              {
-                "item": "Torch"
-              },
-              {
-                "item": "Bow"
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           },
           {
@@ -571,14 +555,7 @@
           {
             "text": "Rest even more...",
             "reference": "Dread",
-            "actions": [
-              {
-                "points": 100
-              },
-              {
-                "gold": 100
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           }
         ],
@@ -653,17 +630,7 @@
           {
             "text": "Rest more.",
             "reference": "RestMore",
-            "actions": [
-              {
-                "health": 60
-              },
-              {
-                "points": 100
-              },
-              {
-                "gold": 100
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           }
         ],
@@ -678,14 +645,7 @@
           {
             "text": "Take a rest and heal.",
             "reference": "Rest",
-            "actions": [
-              {
-                "health": 10
-              },
-              {
-                "gold": 100
-              }
-            ],
+            "actions": [],
             "itemRequired": ""
           },
           {
@@ -741,29 +701,23 @@
       }
     ],
     "openingPassage": {
-      "title": "Beginnings",
-      "content": "You gaze upon the entrance of the catacombs, a dark and foreboding place. It is lit by rows of torches revealing the bones of the damned that dared entered these wretched caves.As an eerie draft whispers through the air, a chilling silence settles upon the suffocating gloom, hinting at the secrets lurking within. In the darkness of the catacombs, a sword lies on the ground, you pick it up.",
+      "title": "Dread",
+      "content": "The darkness swallows you whole, and you feel the dread of the catacombs.In the distance you see a faint light. It looks like a creature. \"Death awaits you, mortal.\"",
       "links": [
         {
-          "text": "Pick the sword and proceed further.",
-          "reference": "Enter the catacombs",
+          "text": "R    U      N",
+          "reference": "Falls",
           "actions": [
             {
-              "item": "Excalibur"
-            },
-            {
-              "points": 100
-            },
-            {
-              "gold": 100
+              "health": -1000
             }
           ],
           "itemRequired": ""
         }
       ],
-      "fileName": "CaveIntro",
-      "url": "/images/background/passages/CaveIntro.png",
-      "gameState": "EXPLORE"
+      "fileName": "Death",
+      "url": "/images/background/passages/Death.png",
+      "gameState": "CAVE"
     }
   }
 ]

@@ -4,6 +4,8 @@ import edu.ntnu.idatt2001.paths.model.Achievement;
 import edu.ntnu.idatt2001.paths.model.goals.GoldGoal;
 import edu.ntnu.idatt2001.paths.model.goals.HealthGoal;
 import edu.ntnu.idatt2001.paths.model.goals.InventoryGoal;
+import edu.ntnu.idatt2001.paths.model.goals.ScoreGoal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class AchievementManager {
             "You have gained 150 health"));
 
     achievementManager.addAchievement(new Achievement(new GoldGoal(2000),
-            "The chase for the greatest riches.",
+            "BIG MONEY!",
             "You have 2000 gold"));
 
     ArrayList<String> inventory = new ArrayList<>();
@@ -96,7 +98,36 @@ public class AchievementManager {
     achievementManager.addAchievement(new Achievement(new InventoryGoal(inventory),
             "The Greatest Sword of All Time",
             "You attained Excalibur"));
+
+    achievementManager.addAchievement(new Achievement(new GoldGoal(5000),
+            "The chase for the greatest riches.",
+            "You have 5000 gold"));
+
+    achievementManager.addAchievement(new Achievement(new GoldGoal(10000),
+            "Whole world on your shoulders.",
+            "You have 10000 gold"));
+
+    achievementManager.addAchievement(new Achievement(new ScoreGoal(200),
+            "Chasing the high score.",
+            "You have 200 score"));
+
+    achievementManager.addAchievement(new Achievement(new ScoreGoal(700),
+            "POINTS FOR DAYS!",
+            "You have 700 score"));
+
+    achievementManager.addAchievement(new Achievement(new ScoreGoal(200),
+            "The chase for the greatest riches.",
+            "You have 200 score"));
+
+    achievementManager.addAchievement(new Achievement(new InventoryGoal(List.of("Zephyr")),
+            "A bow of the finest quality",
+            "You attained Zephyr"));
+
+    achievementManager.addAchievement(new Achievement(new HealthGoal(300),
+            "UNDYING!",
+            "You have gained 300 health"));
+
+    }
+
   }
 
-
-}
